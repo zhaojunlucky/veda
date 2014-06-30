@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{cce01f12-823c-4fc2-8190-f0b9816bb6f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Model">
+      <UniqueIdentifier>{66d528ae-f108-4b75-8e06-2afdc40c36ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\View">
+      <UniqueIdentifier>{44054e28-050f-437e-8fb4-9ef2da0861c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PlayerControl">
+      <UniqueIdentifier>{ecd472a0-f808-4f22-b0c9-8a2835f6d592}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DataProvider">
+      <UniqueIdentifier>{c332d1a0-31b9-49bb-adfa-9054dd1b8346}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Controler">
+      <UniqueIdentifier>{25680ab2-a4eb-49c8-a811-88110fbd58c7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ZPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicListModel.cpp">
+      <Filter>Header Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="MainForm.cpp">
+      <Filter>Header Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerControl.cpp">
+      <Filter>Header Files\PlayerControl</Filter>
+    </ClCompile>
+    <ClCompile Include="DataProvider.cpp">
+      <Filter>Header Files\DataProvider</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>Header Files\Controler</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicDataController.cpp">
+      <Filter>Header Files\Controler</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigController.cpp">
+      <Filter>Header Files\Controler</Filter>
+    </ClCompile>
+    <ClCompile Include="ThemeController.cpp">
+      <Filter>Header Files\Controler</Filter>
+    </ClCompile>
+    <ClCompile Include="ThemeModel.cpp">
+      <Filter>Header Files\Model</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ZPlayer.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="ZPlayer.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigModel.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayListModel.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaModel.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ThemeModel.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicListModel.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="MainForm.h">
+      <Filter>Header Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerControl.h">
+      <Filter>Header Files\PlayerControl</Filter>
+    </ClInclude>
+    <ClInclude Include="DataProvider.h">
+      <Filter>Header Files\DataProvider</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>Header Files\Controler</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicDataController.h">
+      <Filter>Header Files\Controler</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigController.h">
+      <Filter>Header Files\Controler</Filter>
+    </ClInclude>
+    <ClInclude Include="ThemeController.h">
+      <Filter>Header Files\Controler</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

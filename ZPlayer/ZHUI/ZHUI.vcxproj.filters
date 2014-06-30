@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="behaviors">
+      <UniqueIdentifier>{0a7b0d6e-ba51-4e36-9ef9-c8c5c7860b0f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EventArgs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UIToolKits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZFormException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZFormPara.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZHtmlForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZHUICtrl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZHSelectCtrl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ZHUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UIToolKits.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ZFormException.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ZHtmlForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ZHUICtrl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ZHSelectCtrl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_accesskeys.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_actions.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_chart.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_clock.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_clock_graphin.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_collapsible_by_icon.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_command.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_editable_select.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_expandable_list.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_font_size.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_form.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_grid.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_gripper.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_hover.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_hyperlink.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_lb_dialog.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_path.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_popup.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_rtc_current_objects.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_scroller.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_select_buddy.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_select_checkmark.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_shellicon.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_sizer.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_splitter.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_tabs.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\behavior_virtual_grid.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\include\htmlayout\behaviors\data_source_behavior.cpp">
+      <Filter>behaviors</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

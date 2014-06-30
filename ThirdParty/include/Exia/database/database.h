@@ -1,0 +1,8 @@
+#include "Column.hpp"
+#include "BaseColumn.hpp"
+#include "HANAColumnTypeFactory.hpp"
+#include "HANAConnection.hpp"
+#include "HANAException.hpp"
+#include "HANAResultSet.hpp"
+#include "HANAStatement.hpp"
+#include "HANAColumnFactory.hpp"

@@ -1,0 +1,16 @@
+# for windows
+*.dll
+*.pdb
+*.lib
+*.exp
+*.exe
+*.ilk
+*.obj
+*.log
+*.a
+*.o
+debug/
+release/
+x64/
+*.sdf
+*.ipch
