@@ -16,3 +16,6 @@ x64/
 *.ipch
 *.opensdf
 *.vcxproj.user
+*.suo
+*.v*.suo
+ipch/
