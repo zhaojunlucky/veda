@@ -89,6 +89,7 @@
     <ClInclude Include="FileReader.hpp" />
     <ClInclude Include="FileUtil.hpp" />
     <ClInclude Include="FileWriter.hpp" />
+    <ClInclude Include="Path.hpp" />
     <ClInclude Include="SimpleQueue.hpp" />
     <ClInclude Include="StreamFileReader.hpp" />
     <ClInclude Include="StringConvertInternal.hpp" />

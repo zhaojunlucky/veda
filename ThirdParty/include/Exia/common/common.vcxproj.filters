@@ -56,5 +56,8 @@
     <ClInclude Include="FileBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Path.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

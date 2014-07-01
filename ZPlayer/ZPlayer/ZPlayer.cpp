@@ -5,6 +5,8 @@
 #include "ZPlayer.h"
 #include <ZHtmlForm.h>
 #include "MainForm.h"
+#include <exia\common\file.h>
+#include <iostream>
 
 using namespace zhui;
 using namespace zpl;
@@ -54,7 +56,10 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	::AllocConsole();    // 打开控件台资源
 	freopen("CONOUT$", "w+t", stdout);    // 申请写
 #endif
-	MainForm form(hInstance, L"E:\\Documents\\Projects\\Visual Studio\\Projects\\ZPlayer\\x64\\Debug\\ui\\main.html", para, L"ZPlayer");
+	wstring path;
+	eio::Path::getModulePath(0,path);
+	path = path + L"\\ui\\main.html";
+	MainForm form(hInstance, path.c_str(), para, L"ZPlayer");
 	//MainForm form(hInstance, L"C:\\Users\\Jun\\Downloads\\HTMLayoutSDK\\html_samples\\animations\\sliding-bar.htm", para, L"ZPlayer");
 	form.Show();
 	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_ZPLAYER));

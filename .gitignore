@@ -14,3 +14,5 @@ release/
 x64/
 *.sdf
 *.ipch
+*.opensdf
+*.vcxproj.user
