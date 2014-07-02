@@ -59,5 +59,11 @@
     <ClInclude Include="Path.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Iterator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectoryHelper.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

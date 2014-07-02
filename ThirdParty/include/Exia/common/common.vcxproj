@@ -82,6 +82,7 @@
     <ClCompile Include="common.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DirectoryHelper.hpp" />
     <ClInclude Include="InternalBuffer.hpp" />
     <ClInclude Include="BufferedFileReader.hpp" />
     <ClInclude Include="File.h" />
@@ -89,6 +90,7 @@
     <ClInclude Include="FileReader.hpp" />
     <ClInclude Include="FileUtil.hpp" />
     <ClInclude Include="FileWriter.hpp" />
+    <ClInclude Include="Iterator.hpp" />
     <ClInclude Include="Path.hpp" />
     <ClInclude Include="SimpleQueue.hpp" />
     <ClInclude Include="StreamFileReader.hpp" />
