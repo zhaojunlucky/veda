@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ID3v2">
+      <UniqueIdentifier>{adec46fd-d258-42ef-80b2-1f5f7f867246}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -51,6 +54,12 @@
     <ClInclude Include="DecoderFactory.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ID3v2Header.h">
+      <Filter>ID3v2</Filter>
+    </ClInclude>
+    <ClInclude Include="ID3v2Exception.h">
+      <Filter>ID3v2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -82,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="WavDecoder.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ID3v2Header.cpp">
+      <Filter>ID3v2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
