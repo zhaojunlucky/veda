@@ -60,6 +60,12 @@
     <ClInclude Include="ID3v2Exception.h">
       <Filter>ID3v2</Filter>
     </ClInclude>
+    <ClInclude Include="ID3v2ExtendedHeader.h">
+      <Filter>ID3v2</Filter>
+    </ClInclude>
+    <ClInclude Include="ID3v2Base.h">
+      <Filter>ID3v2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -93,6 +99,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ID3v2Header.cpp">
+      <Filter>ID3v2</Filter>
+    </ClCompile>
+    <ClCompile Include="ID3v2ExtendedHeader.cpp">
       <Filter>ID3v2</Filter>
     </ClCompile>
   </ItemGroup>

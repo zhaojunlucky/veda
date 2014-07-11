@@ -2,14 +2,11 @@
 #include <string>
 using namespace std;
 #include "ID3v2Exception.h"
-
+#include "ID3v2Base.h"
 namespace audio
 {
 	namespace id3v2
 	{
-#define GetBit(value, pos) ( (value >> pos) & 0x01)
-
-		static const char* ID3 = "ID3";
 		class ID3v2Header
 		{
 		public:

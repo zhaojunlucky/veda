@@ -89,7 +89,9 @@
     <ClInclude Include="Decoder.h" />
     <ClInclude Include="DecoderFactory.hpp" />
     <ClInclude Include="FlacDecoder.h" />
+    <ClInclude Include="ID3v2Base.h" />
     <ClInclude Include="ID3v2Exception.h" />
+    <ClInclude Include="ID3v2ExtendedHeader.h" />
     <ClInclude Include="ID3v2Header.h" />
     <ClInclude Include="MP3Decoder.h" />
     <ClInclude Include="resource.h" />
@@ -111,6 +113,7 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="FlacDecoder.cpp" />
+    <ClCompile Include="ID3v2ExtendedHeader.cpp" />
     <ClCompile Include="ID3v2Header.cpp" />
     <ClCompile Include="MP3Decoder.cpp" />
     <ClCompile Include="stdafx.cpp">
