@@ -5,8 +5,8 @@
 
 namespace eio
 {
-	// not thread safe
-	class StringConvertInternal
+	// thread safe
+	__declspec(thread) class StringConvertInternal
 	{
 	public:
 		StringConvertInternal()
