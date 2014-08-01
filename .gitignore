@@ -1,21 +1,37 @@
-# for windows
-*.dll
-*.pdb
-*.lib
-*.exp
-*.exe
-*.ilk
-*.obj
-*.log
-*.a
-*.o
-debug/
-release/
-x64/
-*.sdf
-*.ipch
-*.opensdf
-*.vcxproj.user
+# VC files
 *.suo
-*.v*.suo
+*.ncb
+*.user
+*.aps
+*.pdb
+_UpgradeReport_Files/
+
+# VC 2010/2012 files
+*.sdf
+*.opensdf
 ipch/
+
+# VC build output directories
+Debug/
+Release/
+Release-*/
+*.lib
+*.trc
+
+# MS Office
+~*.*
+
+# Code Blocks files
+*.layout
+*.depend
+*.cbTemp
+out/
+bin/
+
+# Misc.
+*.bak
+Log/
+
+# ignore Eclipse generated project properties
+.settings/
+classes/
