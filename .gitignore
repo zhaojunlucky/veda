@@ -4,6 +4,7 @@
 *.user
 *.aps
 *.pdb
+*.v12.suo
 _UpgradeReport_Files/
 
 # VC 2010/2012 files
