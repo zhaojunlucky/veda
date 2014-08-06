@@ -1,5 +1,4 @@
 #include "UF.h"
-#include <vector>
 
 UF::UF(int n)
 {
@@ -19,8 +18,16 @@ void UF::un(int p, int q)
 {
 	if (!connected(p, q))
 	{
-		
+		int qCom = (*id)[q];
+		int pCom = (*id)[p];
 
+		for (auto&com : *id)
+		{
+			if (com == pCom)
+			{
+				com = qCom;
+			}
+		}
 	}
 }
 

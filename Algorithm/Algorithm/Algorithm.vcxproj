@@ -79,10 +79,12 @@
     <ClInclude Include="Array.h" />
     <ClInclude Include="BinarySearch.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="QF.h" />
     <ClInclude Include="UF.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BinarySearch.cpp" />
+    <ClCompile Include="QF.cpp" />
     <ClCompile Include="UF.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

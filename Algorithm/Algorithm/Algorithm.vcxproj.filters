@@ -30,12 +30,18 @@
     <ClInclude Include="UF.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="QF.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BinarySearch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QF.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

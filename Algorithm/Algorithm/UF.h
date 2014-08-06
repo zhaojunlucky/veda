@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <algorithm>
 using namespace std;
 
 #include "Array.h"
