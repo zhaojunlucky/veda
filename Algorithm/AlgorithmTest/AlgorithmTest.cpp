@@ -19,6 +19,16 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << *it << endl; 
 	}
 
+	for (Array<int>::iterator it = arr.begin(); it != arr.end(); ++it)
+	{
+		*it = 9 - *it;
+	}
+
+	for (Array<int>::const_iterator it = arr.cbegin(); it != arr.cend(); ++it)
+	{
+		cout << *it << endl;
+	}
+
 
 	system("PAUSE");
 	return 0;
