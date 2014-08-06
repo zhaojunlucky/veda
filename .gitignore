@@ -4,6 +4,9 @@
 *.user
 *.aps
 *.pdb
+*.dll
+*.log
+*.obj
 *.v12.suo
 _UpgradeReport_Files/
 
