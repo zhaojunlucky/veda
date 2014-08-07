@@ -6,13 +6,15 @@
 #include <iostream>
 using namespace std;
 using namespace veda;
+#include <WeightQF.h>
 #include <UF.h>
+#include <CompressQF.h>
 #include <stdlib.h>
 void testArrayClass();
 int _tmain(int argc, _TCHAR* argv[])
 {
 
-	UF uf(10);
+	CompressQF uf(10);
 	cout << uf.connected(0, 1) << endl;
 	uf.un(0, 1);
 	cout << uf.connected(0, 1) << endl;

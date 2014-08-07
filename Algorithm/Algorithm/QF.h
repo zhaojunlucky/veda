@@ -8,11 +8,11 @@ public:
 	QF(int n);
 	~QF();
 
-	bool connected(int p, int q);
-	void un(int p, int q);
-private:
-	int root(int p);
-private:
+	virtual bool connected(int p, int q);
+	virtual void un(int p, int q);
+protected:
+	virtual int root(int p);
+protected:
 	std::unique_ptr<veda::Array<int>> id;
 };
 

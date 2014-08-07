@@ -33,6 +33,12 @@
     <ClInclude Include="QF.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WeightQF.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CompressQF.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BinarySearch.cpp">
@@ -42,6 +48,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="QF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WeightQF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CompressQF.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -334,7 +334,17 @@ namespace veda
 			return data[index];
 		}
 
+		reference at(size_type index)
+		{
+			return data[index];
+		}
+
 		const_reference operator[](size_type index) const
+		{
+			return data[index];
+		}
+
+		const_reference at(size_type index) const
 		{
 			return data[index];
 		}
