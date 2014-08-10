@@ -10,7 +10,9 @@ using namespace veda;
 #include <UF.h>
 #include <CompressQF.h>
 #include <stdlib.h>
+#include <BinarySearch.h>
 void testArrayClass();
+void testBinarySearch();
 int _tmain(int argc, _TCHAR* argv[])
 {
 
@@ -20,7 +22,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout << uf.connected(0, 1) << endl;
 	uf.un(9, 1);
 	cout << uf.connected(1, 9) << endl;
-
+	testBinarySearch();
 	system("PAUSE");
 	return 0;
 }
@@ -52,4 +54,20 @@ void testArrayClass()
 	{
 		cout << v << endl;
 	}
+}
+
+void testBinarySearch()
+{
+	Array<int> arr(10);
+	for (int i = 0; i < arr.length(); i++)
+	{
+		arr[i] = i;
+		cout << i << " ";
+	}
+	cout << endl;
+	int index = binarySearch(arr, 5);
+	cout << 5 << ":" << index << endl;
+
+	index = binarySearch(arr, 9);
+	cout << 9 << ":" << index << endl;
 }

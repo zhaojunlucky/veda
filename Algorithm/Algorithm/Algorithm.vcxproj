@@ -85,7 +85,6 @@
     <ClInclude Include="UF.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BinarySearch.cpp" />
     <ClCompile Include="CompressQF.cpp" />
     <ClCompile Include="QF.cpp" />
     <ClCompile Include="WeightQF.cpp" />
