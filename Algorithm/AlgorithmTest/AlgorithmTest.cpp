@@ -12,12 +12,13 @@ using namespace veda;
 #include <stdlib.h>
 #include <BinarySearch.h>
 #include <Vector.h>
+#include <vector>
 void testArrayClass();
 void testBinarySearch();
 int _tmain(int argc, _TCHAR* argv[])
 {
 	Vector<int> test;
-	int a = test[0];
+//	int a = test[0];
 	CompressQF uf(10);
 	cout << uf.connected(0, 1) << endl;
 	uf.un(0, 1);
