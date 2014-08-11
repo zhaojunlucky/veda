@@ -308,10 +308,11 @@ namespace veda
 		}
 		Array(const Array& arr)
 		{
+			alloc(size);
 			size = arr.size;
 			copy(arr.data);
 		}
-		~Array()
+		virtual ~Array()
 		{
 			deleteArray<T>(data);
 		}
@@ -368,7 +369,7 @@ namespace veda
 		{
 			return iterator(size, this);
 		}
-	private:
+	protected:
 		void alloc(size_type size)
 		{
 			data = new T[size];
@@ -380,7 +381,7 @@ namespace veda
 				data[i] = src[i];
 			}
 		}
-	private:
+	protected:
 		size_type size;
 		T* data;
 	};
