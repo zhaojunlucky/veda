@@ -80,6 +80,7 @@
     <ClInclude Include="BinarySearch.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="CompressQF.h" />
+    <ClInclude Include="Prime.h" />
     <ClInclude Include="QF.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="WeightQF.h" />
@@ -87,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CompressQF.cpp" />
+    <ClCompile Include="Prime.cpp" />
     <ClCompile Include="QF.cpp" />
     <ClCompile Include="WeightQF.cpp" />
     <ClCompile Include="UF.cpp" />

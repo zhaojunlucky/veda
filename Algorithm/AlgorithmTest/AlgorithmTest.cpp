@@ -4,8 +4,7 @@
 #include "stdafx.h"
 #include <Array.h>
 #include <iostream>
-using namespace std;
-using namespace veda;
+
 #include <WeightQF.h>
 #include <UF.h>
 #include <CompressQF.h>
@@ -13,12 +12,43 @@ using namespace veda;
 #include <BinarySearch.h>
 #include <Vector.h>
 #include <vector>
+#include <Prime.h>
+#include <functional>
+
+
+using namespace std;
+using namespace veda;
+
 void testArrayClass();
 void testBinarySearch();
 int _tmain(int argc, _TCHAR* argv[])
 {
+	
 	Vector<int> test;
-//	int a = test[0];
+	test.add(1);
+	test.add(2);
+	test.add(3);
+	test.add(4);
+	test.add(5);
+	
+	for (Vector<int>::const_iterator it = test.cbegin(); it != test.cend(); ++it)
+	{
+		cout << *it << " " ;
+	}
+
+	cout << endl;
+
+	for (Vector<int>::iterator it = test.begin(); it != test.end(); ++it)
+	{
+		++(*it);
+	}
+
+	for (auto& v : test)
+	{
+		cout << v << " ";
+	}
+	cout << endl;
+
 	CompressQF uf(10);
 	cout << uf.connected(0, 1) << endl;
 	uf.un(0, 1);
@@ -26,6 +56,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	uf.un(9, 1);
 	cout << uf.connected(1, 9) << endl;
 	testBinarySearch();
+
+	cout << "29 is prime " << veda::isPrime(29) << endl;
+
 	system("PAUSE");
 	return 0;
 }
