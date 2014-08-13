@@ -14,7 +14,8 @@
 #include <vector>
 #include <Prime.h>
 #include <functional>
-
+#include <Queue.h>
+#include <queue>
 
 using namespace std;
 using namespace veda;
@@ -23,7 +24,12 @@ void testArrayClass();
 void testBinarySearch();
 int _tmain(int argc, _TCHAR* argv[])
 {
-	
+	ArrayQueue < int> q(10);
+	q.enqueue(1);
+	q.enqueue(2);
+	q.enqueue(3);
+	cout << "queue:"<< q.dequeue() << endl;
+
 	Vector<int> test;
 	test.add(1);
 	test.add(2);
