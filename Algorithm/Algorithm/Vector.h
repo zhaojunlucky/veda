@@ -467,7 +467,7 @@ namespace veda
 		void elementRemoved()
 		{
 			size_type len = capacity / 4;
-			if (len >= size)
+			if (len >= size && capacity > 256)
 			{
 				capacity = len;
 				reallocAndCopy(capacity);

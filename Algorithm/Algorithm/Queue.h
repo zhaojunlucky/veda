@@ -146,7 +146,7 @@ namespace veda
 			head = (head + 1) % getCapacity();
 			--size;
 
-			if (size <= getCapacity() / 4)
+			if (size <= getCapacity() / 4 && getCapacity() > 256)
 			{
 				adjust(getCapacity() / 2);
 			}
