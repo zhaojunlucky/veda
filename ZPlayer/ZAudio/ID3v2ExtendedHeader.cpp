@@ -5,8 +5,8 @@ namespace audio
 {
 	namespace id3v2
 	{
-		ID3v2ExtendedHeader::ID3v2ExtendedHeader()
-			:mSize(0)
+		ID3v2ExtendedHeader::ID3v2ExtendedHeader(ID3v2Header* header)
+			:mSize(0), mHeader(header)
 		{
 		}
 
@@ -35,12 +35,14 @@ namespace audio
 			const char* p = mExtHeaderData.c_str();
 
 			// invalid tag size
-			if (p[0] >= 0x80 || p[0] >= 0x80 || p[0] >= 0x80 || p[0] >= 0x80)
+			if (p[0] >= 0x80 || p[1] >= 0x80 || p[2] >= 0x80 || p[3] >= 0x80)
 			{
 				throw ID3v2Exception("Invalid tag size.");
 			}
 
 			mSize = BigEndian2UInt(p);
+			
+
 		}
 
 	}
