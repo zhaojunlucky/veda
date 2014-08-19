@@ -29,7 +29,7 @@ void testSelection()
 	randomData(arr);
 	cout << "selection:" << endl;
 	output(arr);
-	selection(arr, (size_t)0, arr.length());
+	selection(arr, 0, arr.length());
 	cout << "check sort:" << (check(arr, 0, arr.length()) ? "true" : "false") << endl;
 	output(arr);
 }
@@ -40,7 +40,31 @@ void testInsertion()
 	randomData(arr);
 	cout << "insertion:" << endl;
 	output(arr);
-	insertion(arr, (size_t)0, arr.length());
+	insertion(arr, 0, arr.length());
 	cout << "check sort:" << (check(arr, 0, arr.length()) ? "true" : "false") << endl;
+	output(arr);
+}
+
+void testShell()
+{
+	Array<int> arr(10);
+	randomData(arr);
+	cout << "shell:" << endl;
+	output(arr);
+	shell(arr, 0, arr.length());
+	cout << "check sort:" << (check(arr, 0, arr.length()) ? "true" : "false") << endl;
+	output(arr);
+}
+
+void testShuffle()
+{
+	Array<int> arr(10);
+	for (size_t i = 0; i < arr.length();i++)
+	{
+		arr[i] = i;
+	}
+	cout << "shuffle:" << endl;
+	output(arr);
+	shuffle(arr,arr.length());
 	output(arr);
 }

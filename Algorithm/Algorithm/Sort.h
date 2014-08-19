@@ -2,6 +2,7 @@
 #include "Array.h"
 #include "Vector.h"
 #include <algorithm>
+#include "Random.h"
 
 namespace veda
 {
@@ -57,6 +58,46 @@ namespace veda
 	{
 		insertion(arr, s, length, std::less<>());
 	}
+
+	template <class T, class _Pred>
+	void shell(T& arr,size_t s, size_t length, _Pred _pred)
+	{
+		size_t h = 1;
+		while (3 * h < length)
+		{
+			h = 3 * h + 1;
+		}
+
+		while (h >= 1)
+		{
+			for (size_t i = h; i < length + s; i++)
+			{
+				for (size_t j = i; j >= h && _pred(arr[j], arr[j - h]); j -= h)
+				{
+					std::swap(arr[j], arr[j - h]);
+				}
+			}
+			h /= 3;
+		}
+	}
+	template <class T>
+	void shell(T& arr, size_t s, size_t length)
+	{
+		shell(arr, s, length, std::less<>());
+	}
+
+	template <class T>
+	void shuffle(T& arr, size_t length)
+	{
+		Random random;
+		size_t r;
+		for (auto i = 0; i < length; i++)
+		{
+			r = random.randomInt(0, i + 1);
+			std::swap(arr[i],arr[r]);
+		}
+	}
+
 
 	template <class T, class _Pred>
 	bool check(const T&arr, size_t s, size_t length, _Pred _pred)

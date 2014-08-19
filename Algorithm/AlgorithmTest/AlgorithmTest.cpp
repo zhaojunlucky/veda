@@ -13,6 +13,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	testSelection();
 	testInsertion();
+	testShell();
+	testShuffle();
 	system("PAUSE");
 	return 0;
 }
