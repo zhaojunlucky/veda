@@ -58,4 +58,24 @@ namespace veda
 		insertion(arr, s, length, std::less<>());
 	}
 
+	template <class T, class _Pred>
+	bool check(const T&arr, size_t s, size_t length, _Pred _pred)
+	{
+		bool ret = true;
+		for (size_t i = s; i < s + length - 1; i++)
+		{
+			if (!_pred(arr[i], arr[i + 1]))
+			{
+				ret = false;
+				break;
+			}
+		}
+		return ret;
+	}
+
+	template<class T>
+	bool check(const T&arr, size_t s, size_t length)
+	{
+		return check(arr,s,length,std::less<>());
+	}
 }

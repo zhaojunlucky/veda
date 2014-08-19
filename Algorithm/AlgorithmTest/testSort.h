@@ -9,7 +9,7 @@ using namespace std;
 
 void randomData(Array<int>& arr)
 {
-	Random r; 
+	Random r;
 	for (auto& v : arr)
 	{
 		v = r.randomInt();
@@ -30,6 +30,7 @@ void testSelection()
 	cout << "selection:" << endl;
 	output(arr);
 	selection(arr, (size_t)0, arr.length());
+	cout << "check sort:" << (check(arr, 0, arr.length()) ? "true" : "false") << endl;
 	output(arr);
 }
 
@@ -40,5 +41,6 @@ void testInsertion()
 	cout << "insertion:" << endl;
 	output(arr);
 	insertion(arr, (size_t)0, arr.length());
+	cout << "check sort:" << (check(arr, 0, arr.length()) ? "true" : "false") << endl;
 	output(arr);
 }
