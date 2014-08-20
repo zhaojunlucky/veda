@@ -22,6 +22,9 @@ namespace veda
 		// get the min Y point
 		auto minPoint = points[minIndex];
 		Vector<std::pair<size_t, double>> seq;
+		for (size_t i = 0; i < points.getLength() && i != minIndex; i++)
+		{
 
+		}
 	}
 }
