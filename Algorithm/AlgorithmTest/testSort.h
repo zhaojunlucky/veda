@@ -3,6 +3,7 @@
 #include <Array.h>
 #include <Sort.h>
 #include <Random.h>
+#include <MergeSort.h>
 using namespace veda;
 #include <iostream>
 using namespace std;
@@ -67,4 +68,12 @@ void testShuffle()
 	output(arr);
 	shuffle(arr,arr.length());
 	output(arr);
+}
+
+void testMergeSort()
+{
+	Array<int> arr(10);
+	mergeSort(arr,0,arr.length());
+	int a[10];
+	mergeSort(a, 0, 10);
 }

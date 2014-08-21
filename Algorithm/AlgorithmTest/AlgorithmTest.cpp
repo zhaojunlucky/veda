@@ -15,6 +15,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	testInsertion();
 	testShell();
 	testShuffle();
+	testMergeSort();
 	system("PAUSE");
 	return 0;
 }
