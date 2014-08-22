@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{473049CE-1AB1-4E55-A57F-546E2FF63395}</ProjectGuid>
+    <ProjectGuid>{D3AAE2C0-DCE3-4FCF-A927-5A3A138EFD3B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ZPlayer</RootNamespace>
   </PropertyGroup>
@@ -47,79 +47,40 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\;..\..\ThirdParty\include;..\..\;..\..\ThirdParty\include\htmlayout;..\ZPEngine;..\ZAudio;$(DXSDK_DIR)Include;..\..\ThirdParty\include\flac_h;..\ZHUI;..\Sqlite3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\ThirdParty\include\DuiLib</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\ThirdParty\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>htmlayout.lib;Dwmapi.lib;Comctl32.lib;..\x64\debug\ZAudio.lib;..\x64\debug\ZPEngine.lib;..\x64\debug\ZHUI.lib;..\x64\debug\Sqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\x64\debug</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\;..\..\ThirdParty\include;..\..\;..\..\ThirdParty\include\htmlayout;..\ZPEngine;..\ZAudio;$(DXSDK_DIR)Include;..\..\ThirdParty\include\flac_h;..\ZHUI;..\Sqlite3;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\ThirdParty\include\DuiLib</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>..\..\ThirdParty\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>htmlayout.lib;Dwmapi.lib;Comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\x64\release</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="ConfigController.cpp" />
-    <ClCompile Include="DataProvider.cpp" />
-    <ClCompile Include="MainForm.cpp" />
-    <ClCompile Include="MusicDataController.cpp" />
-    <ClCompile Include="MusicListModel.cpp" />
-    <ClCompile Include="PlayerControl.cpp" />
-    <ClCompile Include="PlayerController.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="ThemeController.cpp" />
-    <ClCompile Include="ThemeModel.cpp" />
-    <ClCompile Include="ZPlayer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="ZPlayer.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="small.ico" />
-    <Image Include="ZPlayer.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ConfigController.h" />
-    <ClInclude Include="ConfigModel.h" />
-    <ClInclude Include="DataProvider.h" />
-    <ClInclude Include="MainForm.h" />
-    <ClInclude Include="MediaModel.h" />
-    <ClInclude Include="MusicDataController.h" />
-    <ClInclude Include="MusicListModel.h" />
-    <ClInclude Include="PlayerControl.h" />
-    <ClInclude Include="PlayerController.h" />
-    <ClInclude Include="PlayListModel.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="ThemeController.h" />
-    <ClInclude Include="ThemeModel.h" />
-    <ClInclude Include="ZPlayer.h" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
