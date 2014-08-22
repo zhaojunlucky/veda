@@ -3,11 +3,12 @@
 #include "Vector.h"
 #include <algorithm>
 #include "Random.h"
+#include "MergeSort.h"
 
 namespace veda
 {
-	template<class T,class _Pred>
-	void selection(T& arr, size_t start,size_t length,_Pred _pred)
+	template<class T, class _Pred>
+	void selection(T& arr, size_t start, size_t length, _Pred _pred)
 	{
 		size_t endIndex = start + length;
 		size_t guard;
@@ -47,7 +48,7 @@ namespace veda
 			{
 				if (_pred(arr[j], arr[j - 1]))
 				{
-					std::swap(arr[j],arr[j-1]);
+					std::swap(arr[j], arr[j - 1]);
 				}
 			}
 		}
@@ -60,7 +61,7 @@ namespace veda
 	}
 
 	template <class T, class _Pred>
-	void shell(T& arr,size_t s, size_t length, _Pred _pred)
+	void shell(T& arr, size_t s, size_t length, _Pred _pred)
 	{
 		size_t h = 1;
 		while (3 * h < length)
@@ -86,6 +87,20 @@ namespace veda
 		shell(arr, s, length, std::less<>());
 	}
 
+	template < class T, class _Pred>
+	void mergeSort(T& arr, size_t s, size_t length, _Pred _pred)
+	{
+		auto a = arr[s];
+		Array<decltype(a)> tmp(length);
+		mergeSort(arr, tmp, s, s, length + s - 1, _pred);
+	}
+
+	template < class T>
+	void mergeSort(T& arr, size_t s, size_t length)
+	{
+		mergeSort(arr, s, length, std::less<>());
+	}
+
 	template <class T>
 	void shuffle(T& arr, size_t length)
 	{
@@ -94,7 +109,7 @@ namespace veda
 		for (auto i = 0; i < length; i++)
 		{
 			r = random.randomInt(0, i + 1);
-			std::swap(arr[i],arr[r]);
+			std::swap(arr[i], arr[r]);
 		}
 	}
 
@@ -117,6 +132,6 @@ namespace veda
 	template<class T>
 	bool check(const T&arr, size_t s, size_t length)
 	{
-		return check(arr,s,length,std::less<>());
+		return check(arr, s, length, std::less<>());
 	}
 }

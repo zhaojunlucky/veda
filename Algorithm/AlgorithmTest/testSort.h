@@ -73,7 +73,10 @@ void testShuffle()
 void testMergeSort()
 {
 	Array<int> arr(10);
-	mergeSort(arr,0,arr.length());
-	int a[10];
-	mergeSort(a, 0, 10);
+	randomData(arr);
+	cout << "merge:" << endl;
+	output(arr);
+	mergeSort(arr, 0, arr.length());
+	cout << "check sort:" << (check(arr, 0, arr.length()) ? "true" : "false") << endl;
+	output(arr);
 }
