@@ -81,6 +81,7 @@ namespace veda
 			h /= 3;
 		}
 	}
+	
 	template <class T>
 	void shell(T& arr, size_t s, size_t length)
 	{
