@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<Window size="800,600" sizebox="4,4,4,4" caption="0,0,0,30" mininfo="640,480" roundcorner="6,6">
+    <VerticalLayout bkimage="ui\images\main\bg.jpg">
+        <HorizontalLayout height="32">
+            <VerticalLayout />
+            <VerticalLayout width="77">
+                <Button name="minbtn" tooltip="最小化" float="true" pos="0,5,0,0" width="23" height="19" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage=" file=&apos;ui\images\SysBtn\btn_mini_normal.png&apos; " hotimage=" file=&apos;ui\images\SysBtn\btn_mini_highlight.png&apos; " pushedimage=" file=&apos;ui/images/SysBtn\btn_mini_down.png&apos; " />
+                <Button name="maxbtn" tooltip="最大化" float="true" pos="22,5,0,0" width="23" height="19" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage=" file=&apos;ui\images\SysBtn\btn_max_normal.png&apos; " hotimage=" file=&apos;ui\images\SysBtn\btn_max_highlight.png&apos; " pushedimage=" file=&apos;ui\images\SysBtn\btn_max_down.png&apos; " />
+                <Button name="restorebtn" tooltip="还原" visible="false" float="true" pos="22,5,0,0" width="23" height="19" align="center" normalimage=" file=&apos;ui\images\SysBtn\btn_restore_normal.png&apos; " hotimage=" file=&apos;ui\images\SysBtn\btn_restore_highlight.png&apos; " pushedimage=" file=&apos;ui\images\SysBtn\btn_restore_down.png&apos; " />
+                <Button name="closebtn" tooltip="关闭" float="true" pos="44,5,0,0" width="28" height="19" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage=" file=&apos;ui\images\SysBtn\btn_close_normal.png&apos; " hotimage=" file=&apos;ui\images\SysBtn\btn_close_highlight.png&apos; " pushedimage=" file=&apos;ui\images\SysBtn\btn_close_down&apos; " />
+            </VerticalLayout>
+        </HorizontalLayout>
+        <HorizontalLayout bkcolor="#FFFFFFFF">
+            <VerticalLayout width="225" bkcolor="#FFFFFF00" />
+            <VerticalLayout />
+        </HorizontalLayout>
+    </VerticalLayout>
+</Window>

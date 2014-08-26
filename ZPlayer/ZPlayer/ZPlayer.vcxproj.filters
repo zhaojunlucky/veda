@@ -13,10 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="View">
+      <UniqueIdentifier>{809b29f7-22f4-43f2-abb3-4e414e049fdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{48d29dfe-0afe-4cf5-b55c-a06ef6697c60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerMainUI.cpp">
+      <Filter>View</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PlayerMainUI.h">
+      <Filter>View</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
