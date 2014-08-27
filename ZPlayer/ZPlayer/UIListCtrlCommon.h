@@ -1,6 +1,10 @@
 #pragma once
 #include <UIlib.h>
 using namespace DuiLib;
+#include <memory>
+using namespace std;
+#include <Vector.h>
+using namespace veda;
 
 struct NodeData
 {
@@ -28,4 +32,14 @@ public:
 	const Node* getParent() const;
 	bool isFolder() const;
 	bool hasChild() const;
+	void addChild(Node* child);
+	void removeChild(Node* child);
+	void clearChild();
+	const Node* getLastChild() const;
+private:
+	void setParent(Node* parent);
+private:
+	Node* parent;
+	NodeData nodeData;
+	Vector<shared_ptr<Node>> childs;
 };
