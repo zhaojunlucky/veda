@@ -19,6 +19,9 @@
     <Filter Include="Model">
       <UniqueIdentifier>{48d29dfe-0afe-4cf5-b55c-a06ef6697c60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Control">
+      <UniqueIdentifier>{e73da9ec-e239-4dc2-b981-c3ec556d31d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -27,10 +30,22 @@
     <ClCompile Include="PlayerMainUI.cpp">
       <Filter>View</Filter>
     </ClCompile>
+    <ClCompile Include="MusicListCtrl.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="UIListCtrlCommon.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerMainUI.h">
       <Filter>View</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicListCtrl.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="UIListCtrlCommon.h">
+      <Filter>Control</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

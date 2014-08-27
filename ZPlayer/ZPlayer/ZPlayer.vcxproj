@@ -81,10 +81,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MusicListCtrl.cpp" />
     <ClCompile Include="PlayerMainUI.cpp" />
+    <ClCompile Include="UIListCtrlCommon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MusicListCtrl.h" />
     <ClInclude Include="PlayerMainUI.h" />
+    <ClInclude Include="UIListCtrlCommon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
