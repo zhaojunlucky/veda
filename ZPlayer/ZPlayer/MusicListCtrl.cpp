@@ -164,11 +164,12 @@ Node* CMusicListCtrl::GetRoot()
 	return mRootNode;
 }
 
-const TCHAR* const kLogoButtonControlName = _T("logo");
-const TCHAR* const kLogoContainerControlName = _T("logo_container");
-const TCHAR* const kNickNameControlName = _T("nickname");
-const TCHAR* const kDescriptionControlName = _T("description");
-const TCHAR* const kOperatorPannelControlName = _T("operation");
+const TCHAR* const TITLE_CTRL = _T("");
+const TCHAR* const ARTIST_CTRL = _T("");
+const TCHAR* const ALBUM_CTRL = _T("");
+const TCHAR* const DURATION_CTRL = _T("");
+const int ITEM_NORMAL_HEIGHT = 32;
+const int ITEM_SELCTED_HEIGHT = 50;
 
 static bool OnLogoButtonEvent(void* event) {
 	if (((TEventUI*)event)->Type == UIEVENT_BUTTONDOWN) {
@@ -211,9 +212,9 @@ Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
 	node->getData().childVisible = (node->getData().level == 0);
 	node->getData().childVisible = false;
 
-	node->getData().text_ = item.nick_name;
+	node->getData().text = item.title;
 	node->getData().value = item.id;
-	node->getData().list_elment_ = pListElement;
+	node->getData().listElement = pListElement;
 
 	if (!parent->getData().childVisible)
 		pListElement->SetVisible(false);
@@ -224,101 +225,109 @@ Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
 	CDuiRect rcPadding = mTextPadding;
 	for (int i = 0; i < node->getData().level; ++i)
 	{
-		rcPadding.left += level_text_start_pos_;
+		rcPadding.left += mLevelTextStartPos;
 	}
 	pListElement->SetPadding(rcPadding);
 
-	CButtonUI* log_button = static_cast<CButtonUI*>(mPaintManager.FindSubControlByName(pListElement, kLogoButtonControlName));
-	if (log_button != NULL)
-	{
-		if (!item.folder && !item.logo.IsEmpty())
-		{
-#if defined(UNDER_WINCE)
-			_stprintf(szBuf, _T("%s"), item.logo);
-#else
-			_stprintf_s(szBuf, MAX_PATH - 1, _T("%s"), item.logo);
-#endif
-			log_button->SetNormalImage(szBuf);
-		}
-		else
-		{
-			CContainerUI* logo_container = static_cast<CContainerUI*>(mPaintManager.FindSubControlByName(pListElement, kLogoContainerControlName));
-			if (logo_container != NULL)
-				logo_container->SetVisible(false);
-		}
-		log_button->SetTag((UINT_PTR)pListElement);
-		log_button->OnEvent += MakeDelegate(&OnLogoButtonEvent);
-	}
-
 	CDuiString html_text;
-	if (node->data().has_child_)
+	if (node->getData().hasChild)
 	{
-		if (node->data().child_visible_)
-			html_text += level_expand_image_;
+		if (node->getData().childVisible)
+			html_text += mLevelExpandImage;
 		else
-			html_text += level_collapse_image_;
+			html_text += mLevelCollapseImage;
 
 #if defined(UNDER_WINCE)
-		_stprintf(szBuf, _T("<x %d>"), level_text_start_pos_);
+		_stprintf(szBuf, _T("<x %d>"), mLevelTextStartPos);
 #else
-		_stprintf_s(szBuf, MAX_PATH - 1, _T("<x %d>"), level_text_start_pos_);
+		_stprintf_s(szBuf, MAX_PATH - 1, _T("<x %d>"), mLevelTextStartPos);
 #endif
 		html_text += szBuf;
 	}
 
-	if (item.folder)
+	if (item.isFolder)
 	{
-		html_text += node->data().text_;
+		html_text += node->getData().text;
 	}
 	else
 	{
 #if defined(UNDER_WINCE)
-		_stprintf(szBuf, _T("%s"), item.nick_name);
+		_stprintf(szBuf, _T("%s"), item.title);
 #else
-		_stprintf_s(szBuf, MAX_PATH - 1, _T("%s"), item.nick_name);
+		_stprintf_s(szBuf, MAX_PATH - 1, _T("%s"), item.title);
 #endif
 		html_text += szBuf;
 	}
 
-	CLabelUI* nick_name = static_cast<CLabelUI*>(mPaintManager.FindSubControlByName(pListElement, kNickNameControlName));
-	if (nick_name != NULL)
+	CLabelUI* title = static_cast<CLabelUI*>(mPaintManager.FindSubControlByName(pListElement, TITLE_CTRL));
+	if (title != NULL)
 	{
-		if (item.folder)
-			nick_name->SetFixedWidth(0);
+		if (item.isFolder)
+			title->SetFixedWidth(0);
 
-		nick_name->SetShowHtml(true);
-		nick_name->SetText(html_text);
+		title->SetShowHtml(true);
+		title->SetText(html_text);
 	}
 
-	if (!item.folder && !item.description.IsEmpty())
+	if (!item.isFolder && !item.artist.IsEmpty())
 	{
-		CLabelUI* description = static_cast<CLabelUI*>(mPaintManager.FindSubControlByName(pListElement, kDescriptionControlName));
-		if (description != NULL)
+		CLabelUI* artist = static_cast<CLabelUI*>(mPaintManager.FindSubControlByName(pListElement, ARTIST_CTRL));
+		if (artist != NULL)
 		{
 #if defined(UNDER_WINCE)
-			_stprintf(szBuf, _T("<x 20><c #808080>%s</c>"), item.description);
+			_stprintf(szBuf, _T("<x 20><c #808080>%s</c>"), item.artist);
 #else
-			_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 20><c #808080>%s</c>"), item.description);
+			_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 20><c #808080>%s</c>"), item.artist);
 #endif
-			description->SetShowHtml(true);
-			description->SetText(szBuf);
+			artist->SetShowHtml(true);
+			artist->SetText(szBuf);
 		}
 	}
 
-	pListElement->SetFixedHeight(kFriendListItemNormalHeight);
+	if (!item.isFolder && !item.album.IsEmpty())
+	{
+		CLabelUI* album = static_cast<CLabelUI*>(mPaintManager.FindSubControlByName(pListElement, ALBUM_CTRL));
+		if (album != NULL)
+		{
+#if defined(UNDER_WINCE)
+			_stprintf(szBuf, _T("<x 20><c #808080>%s</c>"), item.album);
+#else
+			_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 20><c #808080>%s</c>"), item.album);
+#endif
+			album->SetShowHtml(true);
+			album->SetText(szBuf);
+		}
+	}
+
+	if (!item.isFolder && !item.duration.IsEmpty())
+	{
+		CLabelUI* duration = static_cast<CLabelUI*>(mPaintManager.FindSubControlByName(pListElement, DURATION_CTRL));
+		if (duration != NULL)
+		{
+#if defined(UNDER_WINCE)
+			_stprintf(szBuf, _T("<x 20><c #808080>%s</c>"), item.duration);
+#else
+			_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 20><c #808080>%s</c>"), item.duration);
+#endif
+			duration->SetShowHtml(true);
+			duration->SetText(szBuf);
+		}
+	}
+
+	pListElement->SetFixedHeight(ITEM_NORMAL_HEIGHT);
 	pListElement->SetTag((UINT_PTR)node);
 	int index = 0;
-	if (parent->has_children())
+	if (parent->hasChild())
 	{
-		Node* prev = parent->get_last_child();
-		index = prev->data().list_elment_->GetIndex() + 1;
+		Node* prev = parent->getLastChild();
+		index = prev->getData().listElement->GetIndex() + 1;
 	}
 	else
 	{
-		if (parent == root_node_)
+		if (parent == mRootNode)
 			index = 0;
 		else
-			index = parent->data().list_elment_->GetIndex() + 1;
+			index = parent->getData().listElement->GetIndex() + 1;
 	}
 	if (!CListUI::AddAt(pListElement, index))
 	{
@@ -376,11 +385,11 @@ void CMusicListCtrl::SetChildVisible(Node* node, bool visible)
 
 		html_text += node->getData().text;
 
-		CLabelUI* nick_name = static_cast<CLabelUI*>(mPaintManager.FindSubControlByName(node->getData().listElement, kNickNameControlName));
-		if (nick_name != NULL)
+		CLabelUI* title = static_cast<CLabelUI*>(mPaintManager.FindSubControlByName(node->getData().listElement, TITLE_CTRL));
+		if (title != NULL)
 		{
-			nick_name->SetShowHtml(true);
-			nick_name->SetText(html_text);
+			title->SetShowHtml(true);
+			title->SetText(html_text);
 		}
 	}
 
@@ -436,12 +445,7 @@ bool CMusicListCtrl::SelectItem(int iIndex, bool bTakeFocus)
 				Node* node = (Node*)pControl->GetTag();
 				if ((pFriendListItem != NULL) && (node != NULL) && !node->isFolder())
 				{
-					pFriendListItem->SetFixedHeight(kFriendListItemNormalHeight);
-					CContainerUI* pOperatorPannel = static_cast<CContainerUI*>(mPaintManager.FindSubControlByName(pFriendListItem, kOperatorPannelControlName));
-					if (pOperatorPannel != NULL)
-					{
-						pOperatorPannel->SetVisible(false);
-					}
+					pFriendListItem->SetFixedHeight(ITEM_NORMAL_HEIGHT);
 				}
 				pListItem->Select(false);
 			}
@@ -463,12 +467,7 @@ bool CMusicListCtrl::SelectItem(int iIndex, bool bTakeFocus)
 		Node* node = (Node*)pControl->GetTag();
 		if ((pFriendListItem != NULL) && (node != NULL) && !node->isFolder())
 		{
-			pFriendListItem->SetFixedHeight(kFriendListItemSelectedHeight);
-			CContainerUI* pOperatorPannel = static_cast<CContainerUI*>(mPaintManager.FindSubControlByName(pFriendListItem, kOperatorPannelControlName));
-			if (pOperatorPannel != NULL)
-			{
-				pOperatorPannel->SetVisible(true);
-			}
+			pFriendListItem->SetFixedHeight(ITEM_SELCTED_HEIGHT);
 		}
 	}
 	return true;
