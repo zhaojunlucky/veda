@@ -25,10 +25,14 @@ Node::Node(NodeData t, Node* parent)
 
 Node::~Node()
 {
+	for (int i = 0; i < childs.getLength(); ++i)
+	{
+		delete childs[i];
+	}
 	childs.clear();
 }
 
-const NodeData& Node::getData() const
+NodeData& Node::getData()
 {
 	return nodeData;
 }
@@ -38,12 +42,12 @@ size_t Node::getChildCount() const
 	return childs.getLength();
 }
 
-const Node* Node::getChild(size_t index) const
+Node* Node::getChild(size_t index)
 {
-	return childs[index].get();
+	return childs[index];
 }
 
-const Node* Node::getParent() const
+Node* Node::getParent()
 {
 	return parent;
 }
@@ -61,14 +65,14 @@ bool Node::hasChild() const
 void Node::addChild(Node* child)
 {
 	child->setParent(this);
-	childs.add(shared_ptr<Node>(child));
+	childs.add(child);
 }
 
 void Node::removeChild(Node* child)
 {
 	for (auto& it = childs.begin(); it != childs.end(); ++it)
 	{
-		if ((*it).get() == child)
+		if ((*it) == child)
 		{
 			childs.removeAt(it);
 			break;
@@ -81,9 +85,9 @@ void Node::clearChild()
 	childs.clear();
 }
 
-const Node* Node::getLastChild() const
+Node* Node::getLastChild()
 {
-	return childs.getLength() == 0 ? this : childs[childs.getLength() - 1].get();
+	return childs.getLength() == 0 ? this : childs[childs.getLength() - 1];
 }
 
 void Node::setParent(Node* parent)
