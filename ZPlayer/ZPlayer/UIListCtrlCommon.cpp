@@ -1,6 +1,6 @@
 #include "UIListCtrlCommon.h"
 
-double CalculateDelay(double state)
+double calculateDelay(double state)
 {
 	return pow(state, 2);
 }

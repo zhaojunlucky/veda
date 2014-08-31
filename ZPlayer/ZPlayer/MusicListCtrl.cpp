@@ -3,8 +3,8 @@
 
 CMusicListCtrl::CMusicListCtrl(CPaintManagerUI& paint_manager)
 	:mRootNode(0), mDelayDeltaY(0), mDelayNumber(0), mDelayLeft(0),
-	mLevelExpandImage(_T("<i list_icon_b.png>")),
-	mLevelCollapseImage(_T("<i list_icon_a.png>")),
+	mLevelExpandImage(_T("<i ui/list_icon_b.png>")),
+	mLevelCollapseImage(_T("<i ui/list_icon_a.png>")),
 	mLevelTextStartPos(10),
 	mTextPadding(10,0,0,0),
 	mPaintManager(paint_manager)
@@ -164,10 +164,10 @@ Node* CMusicListCtrl::GetRoot()
 	return mRootNode;
 }
 
-const TCHAR* const TITLE_CTRL = _T("");
-const TCHAR* const ARTIST_CTRL = _T("");
-const TCHAR* const ALBUM_CTRL = _T("");
-const TCHAR* const DURATION_CTRL = _T("");
+const TCHAR* const TITLE_CTRL = _T("title");
+const TCHAR* const ARTIST_CTRL = _T("artist");
+const TCHAR* const ALBUM_CTRL = _T("album");
+const TCHAR* const DURATION_CTRL = _T("duration");
 const int ITEM_NORMAL_HEIGHT = 32;
 const int ITEM_SELCTED_HEIGHT = 50;
 
@@ -191,7 +191,7 @@ Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
 
 	CListContainerElementUI* pListElement = NULL;
 	if (!mDlgBuilder.GetMarkup()->IsValid()) {
-		pListElement = static_cast<CListContainerElementUI*>(mDlgBuilder.Create(_T("friend_list_item.xml"), (UINT)0, NULL, &mPaintManager));
+		pListElement = static_cast<CListContainerElementUI*>(mDlgBuilder.Create(_T("ui/music_list_item.xml"), (UINT)0, NULL, &mPaintManager));
 	}
 	else {
 		pListElement = static_cast<CListContainerElementUI*>(mDlgBuilder.Create((UINT)0, &mPaintManager));

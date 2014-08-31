@@ -12,6 +12,9 @@
         </HorizontalLayout>
         <HorizontalLayout bkcolor="#FFFFFFFF">
             <VerticalLayout width="225" bkcolor="#FFFFFF00" />
+             <HorizontalLayout>
+              <MusicListCtrl name="musicList" header="hidden" itemshowhtml="true" vscrollbar="true"  />
+             </HorizontalLayout>
             <VerticalLayout />
         </HorizontalLayout>
     </VerticalLayout>
