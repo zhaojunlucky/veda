@@ -6,7 +6,7 @@ namespace DuiLib {
 //
 //
 
-CListUI::CListUI() : m_pCallback(NULL), m_bScrollSelect(false), m_iCurSel(-1), m_iExpandedItem(-1)
+CListUI::CListUI() : m_pCallback(NULL), m_bScrollSelect(false), m_iCurSel(-1), m_iExpandedItem(-1),m_iCurSelActivate(-1)
 {
     m_pList = new CListBodyUI(this);
     m_pHeader = new CListHeaderUI;
@@ -184,11 +184,17 @@ bool CListUI::Remove(CControlUI* pControl)
     }
 
     if( iIndex == m_iCurSel && m_iCurSel >= 0 ) {
-        int iSel = m_iCurSel;
+        int iSel = m_iCurSel, iSelActivate = m_iCurSelActivate;
         m_iCurSel = -1;
+        m_iCurSelActivate = -1;
         SelectItem(FindSelectable(iSel, false));
+        SelectItemActivate(FindSelectable(iSelActivate, false));       
     }
-    else if( iIndex < m_iCurSel ) m_iCurSel -= 1;
+    else if( iIndex < m_iCurSel )
+    {
+        m_iCurSel -= 1;
+        m_iCurSelActivate = -1;
+    }
     return true;
 }
 
@@ -203,17 +209,25 @@ bool CListUI::RemoveAt(int iIndex)
     }
 
     if( iIndex == m_iCurSel && m_iCurSel >= 0 ) {
-        int iSel = m_iCurSel;
+        int iSel = m_iCurSel, iSelActivate = m_iCurSelActivate;
         m_iCurSel = -1;
+        m_iCurSelActivate = -1;
         SelectItem(FindSelectable(iSel, false));
+        SelectItemActivate(FindSelectable(iSelActivate, false));       
     }
-    else if( iIndex < m_iCurSel ) m_iCurSel -= 1;
+    else if( iIndex < m_iCurSel )
+    {
+        m_iCurSel -= 1;
+        m_iCurSelActivate = -1;
+    }
+
     return true;
 }
 
 void CListUI::RemoveAll()
 {
     m_iCurSel = -1;
+    m_iCurSelActivate = -1;
     m_iExpandedItem = -1;
     m_pList->RemoveAll();
 }
@@ -342,6 +356,11 @@ int CListUI::GetCurSel() const
     return m_iCurSel;
 }
 
+int CListUI::GetCurSelActivate() const
+{
+    return m_iCurSelActivate;
+}
+
 bool CListUI::SelectItem(int iIndex, bool bTakeFocus)
 {
     if( iIndex == m_iCurSel ) return true;
@@ -361,8 +380,8 @@ bool CListUI::SelectItem(int iIndex, bool bTakeFocus)
 
     CControlUI* pControl = GetItemAt(iIndex);
     if( pControl == NULL ) return false;
-    if( !pControl->IsVisible() ) return false;
-    if( !pControl->IsEnabled() ) return false;
+    //if( !pControl->IsVisible() ) return false;
+    //if( !pControl->IsEnabled() ) return false;
 
     IListItemUI* pListItem = static_cast<IListItemUI*>(pControl->GetInterface(_T("ListItem")));
     if( pListItem == NULL ) return false;
@@ -377,6 +396,17 @@ bool CListUI::SelectItem(int iIndex, bool bTakeFocus)
         m_pManager->SendNotify(this, DUI_MSGTYPE_ITEMSELECT, m_iCurSel, iOldSel);
     }
 
+    return true;
+}
+
+bool CListUI::SelectItemActivate(int iIndex)
+{
+    if (! SelectItem(iIndex, true))
+    {
+        return false;
+    }
+   
+    m_iCurSelActivate = iIndex;
     return true;
 }
 
@@ -1650,6 +1680,7 @@ void CListElementUI::Invalidate()
 bool CListElementUI::Activate()
 {
     if( !CControlUI::Activate() ) return false;
+    if( m_pOwner != NULL ) m_pOwner->SelectItemActivate(m_iIndex);    
     if( m_pManager != NULL ) m_pManager->SendNotify(this, DUI_MSGTYPE_ITEMACTIVATE);
     return true;
 }
@@ -2202,6 +2233,7 @@ void CListContainerElementUI::Invalidate()
 bool CListContainerElementUI::Activate()
 {
     if( !CContainerUI::Activate() ) return false;
+    if( m_pOwner != NULL ) m_pOwner->SelectItemActivate(m_iIndex);    
     if( m_pManager != NULL ) m_pManager->SendNotify(this, DUI_MSGTYPE_ITEMACTIVATE);
     return true;
 }

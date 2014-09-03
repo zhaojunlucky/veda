@@ -56,6 +56,7 @@ public:
     virtual TListInfoUI* GetListInfo() = 0;
     virtual int GetCurSel() const = 0;
     virtual bool SelectItem(int iIndex, bool bTakeFocus = false) = 0;
+    virtual bool SelectItemActivate(int iIndex) = 0;
     virtual void DoEvent(TEventUI& event) = 0;
 };
 
@@ -103,7 +104,9 @@ public:
     bool GetScrollSelect();
     void SetScrollSelect(bool bScrollSelect);
     int GetCurSel() const;
+    int GetCurSelActivate() const;
     bool SelectItem(int iIndex, bool bTakeFocus = false);
+    bool SelectItemActivate(int iIndex);    // 双击选中
 
     CListHeaderUI* GetHeader() const;  
     CContainerUI* GetList() const;
@@ -192,7 +195,8 @@ public:
     BOOL SortItems(PULVCompareFunc pfnCompare, UINT_PTR dwData);
 protected:
     bool m_bScrollSelect;
-    int m_iCurSel;
+    int m_iCurSel;          // 单击的列
+    int m_iCurSelActivate;  // 双击的列
     int m_iExpandedItem;
     IListCallbackUI* m_pCallback;
     CListBodyUI* m_pList;

@@ -706,6 +706,12 @@ void CControlUI::DoEvent(TEventUI& event)
             return;
         }
     }
+    if( event.Type == UIEVENT_DBLCLICK )
+    {
+        m_pManager->SendNotify(this, DUI_MSGTYPE_DBCLICK, event.wParam, event.lParam);
+        //return;
+    }
+    
     if( m_pParent != NULL ) m_pParent->DoEvent(event);
 }
 

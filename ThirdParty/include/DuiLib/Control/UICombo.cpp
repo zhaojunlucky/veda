@@ -279,6 +279,11 @@ bool CComboUI::SelectItem(int iIndex, bool bTakeFocus)
     return true;
 }
 
+bool CComboUI::SelectItemActivate(int iIndex)
+{
+    return true;
+}
+
 bool CComboUI::SetItemIndex(CControlUI* pControl, int iIndex)
 {
     int iOrginIndex = GetItemIndex(pControl);
