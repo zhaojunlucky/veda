@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Window>
+  <ListContainerElement>
+    <VerticalLayout>
+      <VerticalLayout height="32">
+        <HorizontalLayout>
+          <VerticalLayout >
+            <HorizontalLayout>
+              <Label name="title" bordersize="0" width="120" textcolor="#FF000000" disabledtextcolor="#FF808080" />
+            </HorizontalLayout>
+          </VerticalLayout>
+        </HorizontalLayout>
+      </VerticalLayout>
+      <VerticalLayout name="details" height="18" visible="false">
+        <HorizontalLayout>
+         <Label name="artist" bordersize="0" width="120" textcolor="#FF000000" disabledtextcolor="#FF808080" />
+         <Label name="album" bordersize="0" width="120" textcolor="#FF000000" disabledtextcolor="#FF808080" />
+        </HorizontalLayout>
+      </VerticalLayout >
+    </VerticalLayout>
+  </ListContainerElement>
+</Window>
