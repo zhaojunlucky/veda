@@ -168,6 +168,7 @@ const TCHAR* const TITLE_CTRL = _T("title");
 const TCHAR* const ARTIST_CTRL = _T("artist");
 const TCHAR* const ALBUM_CTRL = _T("album");
 const TCHAR* const DURATION_CTRL = _T("duration");
+const TCHAR* const DETAILS_CTRL = _T("details");
 const int ITEM_NORMAL_HEIGHT = 32;
 const int ITEM_SELCTED_HEIGHT = 50;
 
@@ -252,9 +253,9 @@ Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
 	else
 	{
 #if defined(UNDER_WINCE)
-		_stprintf(szBuf, _T("%s"), item.title);
+		_stprintf(szBuf, _T("%s"), item.title.GetData());
 #else
-		_stprintf_s(szBuf, MAX_PATH - 1, _T("%s"), item.title);
+		_stprintf_s(szBuf, MAX_PATH - 1, _T("%s"), item.title.GetData());
 #endif
 		html_text += szBuf;
 	}
@@ -275,9 +276,9 @@ Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
 		if (artist != NULL)
 		{
 #if defined(UNDER_WINCE)
-			_stprintf(szBuf, _T("<x 20><c #808080>%s</c>"), item.artist);
+			_stprintf(szBuf, _T("<x 20><c #808080>%s</c>"), item.artist.GetData());
 #else
-			_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 20><c #808080>%s</c>"), item.artist);
+			_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 0><c #808080>%s</c>"), item.artist.GetData());
 #endif
 			artist->SetShowHtml(true);
 			artist->SetText(szBuf);
@@ -290,9 +291,9 @@ Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
 		if (album != NULL)
 		{
 #if defined(UNDER_WINCE)
-			_stprintf(szBuf, _T("<x 20><c #808080>%s</c>"), item.album);
+			_stprintf(szBuf, _T("<x 20><c #808080>%s</c>"), item.album.GetData());
 #else
-			_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 20><c #808080>%s</c>"), item.album);
+			_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 0><c #808080>%s</c>"), item.album.GetData());
 #endif
 			album->SetShowHtml(true);
 			album->SetText(szBuf);
@@ -305,9 +306,9 @@ Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
 		if (duration != NULL)
 		{
 #if defined(UNDER_WINCE)
-			_stprintf(szBuf, _T("<x 20><c #808080>%s</c>"), item.duration);
+			_stprintf(szBuf, _T("<x 20><c #808080>%s</c>"), item.duration.GetData());
 #else
-			_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 20><c #808080>%s</c>"), item.duration);
+			_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 0><c #808080>%s</c>"), item.duration.GetData());
 #endif
 			duration->SetShowHtml(true);
 			duration->SetText(szBuf);
@@ -441,11 +442,16 @@ bool CMusicListCtrl::SelectItem(int iIndex, bool bTakeFocus)
 			IListItemUI* pListItem = static_cast<IListItemUI*>(pControl->GetInterface(_T("ListItem")));
 			if (pListItem != NULL)
 			{
-				CListContainerElementUI* pFriendListItem = static_cast<CListContainerElementUI*>(pControl);
+				CListContainerElementUI* pMusicListItem = static_cast<CListContainerElementUI*>(pControl);
 				Node* node = (Node*)pControl->GetTag();
-				if ((pFriendListItem != NULL) && (node != NULL) && !node->isFolder())
+				if ((pMusicListItem != NULL) && (node != NULL) && !node->isFolder())
 				{
-					pFriendListItem->SetFixedHeight(ITEM_NORMAL_HEIGHT);
+					pMusicListItem->SetFixedHeight(ITEM_NORMAL_HEIGHT);
+					CContainerUI* pDetailsPanel = static_cast<CContainerUI*>(mPaintManager.FindSubControlByName(pMusicListItem, DETAILS_CTRL));
+					if (pDetailsPanel != NULL)
+					{
+						pDetailsPanel->SetVisible(false);
+					}
 				}
 				pListItem->Select(false);
 			}
@@ -463,11 +469,16 @@ bool CMusicListCtrl::SelectItem(int iIndex, bool bTakeFocus)
 
 	CControlUI* pControl = GetItemAt(m_iCurSel);
 	if (pControl != NULL) {
-		CListContainerElementUI* pFriendListItem = static_cast<CListContainerElementUI*>(pControl);
+		CListContainerElementUI* pMusicListItem = static_cast<CListContainerElementUI*>(pControl);
 		Node* node = (Node*)pControl->GetTag();
-		if ((pFriendListItem != NULL) && (node != NULL) && !node->isFolder())
+		if ((pMusicListItem != NULL) && (node != NULL) && !node->isFolder())
 		{
-			pFriendListItem->SetFixedHeight(ITEM_SELCTED_HEIGHT);
+			pMusicListItem->SetFixedHeight(ITEM_SELCTED_HEIGHT);
+			CContainerUI* pDetailsPanel = static_cast<CContainerUI*>(mPaintManager.FindSubControlByName(pMusicListItem, DETAILS_CTRL));
+			if (pDetailsPanel != NULL)
+			{
+				pDetailsPanel->SetVisible(true);
+			}
 		}
 	}
 	return true;

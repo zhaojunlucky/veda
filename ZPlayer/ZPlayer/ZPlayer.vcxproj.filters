@@ -36,6 +36,9 @@
     <ClCompile Include="UIListCtrlCommon.cpp">
       <Filter>Control</Filter>
     </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerMainUI.h">
@@ -46,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="UIListCtrlCommon.h">
       <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

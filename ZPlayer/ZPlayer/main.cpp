@@ -7,7 +7,8 @@ using namespace DuiLib;
 #pragma comment(lib, "DuiLib.lib")
 
 #include "PlayerMainUI.h"
-
+#include "Logger.h"
+Logger logger;
 
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
@@ -25,12 +26,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 
 	MusicListItemInfo item2;
 	item2.id = _T("");
-	item2.title = _T("³Ì¾²¾²");
+	item2.title = _T("xx");
 	item2.album = _T("±£ÏÕ");
 	item2.artist = _T("JJ");
-	/*item2.isFolder = true;
+	item2.isFolder = true;
 	item2.isEmpty = false;
-	mainUI.mMusicListCtrl->AddNode(item2);*/
+	mainUI.mMusicListCtrl->AddNode(item2);
 	item2.isFolder = false;
 	item2.isEmpty = true;
 	mainUI.mMusicListCtrl->AddNode((item2), root);
