@@ -8,6 +8,7 @@
 void traceA(const char *format, ...);
 void traceW(const char *format, ...);
 #define LOG_INFO(logger) logger.log(__FILE__, __LINE__)
+
 class Logger
 {
 public:
