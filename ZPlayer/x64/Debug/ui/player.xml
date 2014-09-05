@@ -12,11 +12,13 @@
         </HorizontalLayout>
         <HorizontalLayout bkcolor="#FFFFFFFF">
             <VerticalLayout width="225">
-                <List vscrollbar="true" hscrollbar="true" height="200">
-                    <ListContainerElement height="33">
-                       <Label name="dd" text="<x 12>test" showhtml="true" bordersize="0" width="120" textcolor="#FF000000" disabledtextcolor="#FF808080" />
+                <List name="playlist" vscrollbar="true" hscrollbar="true" height="200">
+                    <ListContainerElement height="33" name="playlistItem">
+                       <Label name="dd" text="<x 12>test1" showhtml="true" bordersize="0" width="120" textcolor="#FF000000" disabledtextcolor="#FF808080" />
                     </ListContainerElement>
-                     <ListContainerElement height="33"></ListContainerElement>
+                     <ListContainerElement height="33" name="playlistItem">
+                     	<Label name="dd" text="<x 12>test2" showhtml="true" bordersize="0" width="120" textcolor="#FF000000" disabledtextcolor="#FF808080" />
+                     </ListContainerElement>
                 </List>
             </VerticalLayout>
              <HorizontalLayout>

@@ -22,7 +22,7 @@ CControlUI* CPlayerMainUI::CreateControl(LPCTSTR pstrClass)
 
 void CPlayerMainUI::Notify(TNotifyUI& msg)
 {
-	LOG_INFO(logger) << "main ui:" << msg.sType.GetData() << endl;
+	//LOG_INFO(logger) << "main ui:" << msg.sType.GetData()<< " "<<msg.pSender->GetName() << endl;
 	if (msg.sType == _T("itemclick"))
 	{
 		CMusicListCtrl* musicList = static_cast<CMusicListCtrl*>(m_PaintManager.FindControl(KMUSIC_LIST_CTRL_NAME));
@@ -39,9 +39,27 @@ void CPlayerMainUI::Notify(TNotifyUI& msg)
 			}
 		}
 	}
+	else if (msg.sType == _T("itemactivate"))
+	{
+		CListUI* playlist = static_cast<CMusicListCtrl*>(m_PaintManager.FindControl(L"playlist"));
+		if ((playlist != NULL) && playlist->GetItemIndex(msg.pSender) != -1)
+		{
+			if (_tcsicmp(msg.pSender->GetClass(), _T("ListContainerElementUI")) == 0)
+			{
+				CListContainerElementUI *playlistItem = (CListContainerElementUI*)playlist->GetItemAt(playlist->GetCurSelActivate());
+				if (playlistItem != NULL)
+				{
+					CLabelUI* playlistName = (CLabelUI*)playlistItem->FindSubControl(L"dd");
+					if (playlistName != NULL)
+					{
+						LOG_INFO(logger) << playlistName->GetText() << endl;
+					}
+				}
+			}
+		}
+	}
 	else
 	{
-		LOG_INFO(logger) << msg.sType << endl;
 		__super::Notify(msg);
 	}
 }
