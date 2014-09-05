@@ -144,7 +144,7 @@ Stream& Logger::log(const char* file, int line, Severity severity)
 	//strftime(buf, 80, "%Y-%m-%d %H:%M:%S.%z", local);
 
 	GetLocalTime(&sys);
-	sprintf(buf,"%d-%02d-%02d %02d:%02d:%02d.%03d", sys.wYear, sys.wMonth, sys.wDay, sys.wHour, sys.wMinute, sys.wSecond, sys.wMilliseconds);
+	sprintf_s(buf,80,"%d-%02d-%02d %02d:%02d:%02d.%03d", sys.wYear, sys.wMonth, sys.wDay, sys.wHour, sys.wMinute, sys.wSecond, sys.wMilliseconds);
 	switch (severity)
 	{
 	case Severity::Debug:traceA("[%s] %s(%d) [D] ", buf, file, line); break;
