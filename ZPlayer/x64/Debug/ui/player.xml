@@ -12,7 +12,7 @@
         </HorizontalLayout>
         <HorizontalLayout bkcolor="#FFFFFFFF">
             <VerticalLayout width="225">
-                <List name="playlist" vscrollbar="true" hscrollbar="true" header="false" bkcolor="#FFF00FFF">
+                <List name="playlist" vscrollbar="true" hscrollbar="true" header="false" bkcolor="#FFF00FFF" padding="0,-15,0,0">
                     <ListContainerElement height="33" name="playlistItem">
                        <Label name="dd" text="test1" textpadding="12,0,0,0" showhtml="true" bordersize="0" width="120" textcolor="#FF000000" disabledtextcolor="#FF808080" />
                     </ListContainerElement>
