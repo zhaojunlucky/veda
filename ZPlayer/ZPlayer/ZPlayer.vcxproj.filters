@@ -22,6 +22,9 @@
     <Filter Include="Control">
       <UniqueIdentifier>{e73da9ec-e239-4dc2-b981-c3ec556d31d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controller">
+      <UniqueIdentifier>{2555f5f8-d927-4a36-ac17-4ef541420754}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,7 +42,10 @@
     <ClCompile Include="Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MusicModel.cpp">
+    <ClCompile Include="PlaylistController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaylistModel.cpp">
       <Filter>Model</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,7 +62,10 @@
     <ClInclude Include="Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MusicModel.h">
+    <ClInclude Include="PlaylistController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaylistModel.h">
       <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>

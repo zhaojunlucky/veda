@@ -2,13 +2,13 @@
 
 
 Playlist::Playlist(const wchar_t* name)
-	:mPlaylistName(name), id(-1)
+	:mPlaylistName(name), id(-1), mIsModified(false)
 {
 
 }
 
 Playlist::Playlist(const wchar_t* name, int id)
-	:mPlaylistName(name), id(-1)
+	: mPlaylistName(name), id(-1), mIsModified(false)
 {
 
 }
@@ -24,6 +24,13 @@ size_t Playlist::getPlaylistSize() const
 void Playlist::addMusicInfo(shared_ptr<MusicInfo> musicInfo)
 {
 	mPlaylist.add(musicInfo);
+	mIsModified = true;
+}
+
+void Playlist::addWithoutModify(shared_ptr<MusicInfo> musicInfo)
+{
+	mPlaylist.add(musicInfo);
+	mIsModified = true;
 }
 const MusicInfo& Playlist::getMusicInfo(size_t index) const
 {
@@ -32,6 +39,7 @@ const MusicInfo& Playlist::getMusicInfo(size_t index) const
 void Playlist::remove(size_t index)
 {
 	mPlaylist.removeAt(index);
+	mIsModified = true;
 }
 void Playlist::clear()
 {
@@ -40,10 +48,16 @@ void Playlist::clear()
 void Playlist::setName(const wchar_t* name)
 {
 	mPlaylistName = name;
+	mIsModified = true;
 }
 int Playlist::getId() const
 {
 	return id;
+}
+
+bool Playlist::isModified() const
+{
+	return mIsModified;
 }
 
 PlaylistModel::PlaylistModel()
@@ -73,6 +87,7 @@ void PlaylistModel::addPlaylist(shared_ptr<Playlist> Playlist)
 void PlaylistModel::remove(const wchar_t* PlaylistName)
 {
 	mPlaylists.removeAt(findIndexByName(PlaylistName));
+	mRemovedPlaylist.add(std::move(wstring(PlaylistName)));
 }
 size_t PlaylistModel::findIndexByName(const wchar_t* PlaylistName) const
 {

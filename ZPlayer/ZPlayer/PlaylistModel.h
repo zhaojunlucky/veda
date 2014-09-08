@@ -16,15 +16,18 @@ public:
 	const wchar_t* getPlaylistName() const;
 	size_t getPlaylistSize() const;
 	void addMusicInfo(shared_ptr<MusicInfo> musicInfo);
+	void addWithoutModify(shared_ptr<MusicInfo> musicInfo);
 	const MusicInfo& getMusicInfo(size_t index) const;
 	void remove(size_t index);
 	void clear();
 	void setName(const wchar_t* name);
 	int getId() const;
+	bool isModified() const;
 private:
 	wstring mPlaylistName;
 	int id;
 	Vector<shared_ptr<MusicInfo>> mPlaylist;
+	bool mIsModified;
 };
 class PlaylistModel
 {
@@ -40,5 +43,6 @@ protected:
 	size_t findIndexByName(const wchar_t* PlaylistName) const;
 private:
 	Vector<shared_ptr<Playlist>> mPlaylists;
+	Vector<wstring> mRemovedPlaylist;
 };
 
