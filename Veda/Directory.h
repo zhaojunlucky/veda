@@ -26,11 +26,12 @@ namespace veda
 		friend class Directory;
 	public:
 		~DirectoryIterator();
-		bool hasNext() const;
+		bool hasNext();
 		const FileInfo & get();
 	private:
 		DirectoryIterator(const wchar_t* dirPath, FileSearchMode mode);
 		DirectoryIterator(const wchar_t* dirPath,const wchar_t* extension);
+		bool processFirstFile();
 		bool processNextFile();
 	private:
 		FileSearchMode mSearchMode;
@@ -39,8 +40,8 @@ namespace veda
 		PathUtil mPathUtil;
 		WIN32_FIND_DATA mWFD;
 		HANDLE mHandle;
-		bool mHasNext;
 		FileInfo mFileInfo;
+		bool mFirst;
 	};
 
 	typedef shared_ptr<DirectoryIterator> DirectoryIteratorPtr;

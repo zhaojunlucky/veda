@@ -15,14 +15,6 @@ Logger logger;
 
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
-	veda::Directory dir(L"E:\\Documents\\Projects\\GitHub\\veda");
-
-	veda::DirectoryIteratorPtr files = dir.searchFiles();
-	while (files->hasNext())
-	{
-		LOG_INFO(logger) << files->get().fullPath << endl;
-	}
-
 	CPaintManagerUI::SetInstance(hInstance);
 
 	CPlayerMainUI mainUI;

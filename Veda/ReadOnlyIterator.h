@@ -5,7 +5,7 @@ namespace veda
 	class Iterator
 	{
 	public:
-		virtual bool hasNext() const = 0;
+		virtual bool hasNext() = 0;
 		virtual const T& get() = 0;
 	};
 

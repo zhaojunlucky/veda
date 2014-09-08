@@ -19,6 +19,9 @@
     <Filter Include="Common">
       <UniqueIdentifier>{c0cb237e-5ece-4780-baab-f6f4f41a01b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Datetime">
+      <UniqueIdentifier>{fb66852b-e568-4940-afa2-bfa5fc9f2599}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -42,6 +45,9 @@
     <ClInclude Include="PathUtil.h">
       <Filter>File</Filter>
     </ClInclude>
+    <ClInclude Include="Datetime.h">
+      <Filter>Datetime</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -52,6 +58,9 @@
     </ClCompile>
     <ClCompile Include="PathUtil.cpp">
       <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="Datetime.cpp">
+      <Filter>Datetime</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

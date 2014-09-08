@@ -1,0 +1,105 @@
+#include "stdafx.h"
+#include "Datetime.h"
+
+namespace veda
+{
+	Datetime::Datetime()
+	{
+		struct timeb tp;
+
+		ftime(&tp);
+		millisecond = tp.millitm;
+		timeVal = tp.time;
+		parse(timeVal);
+	}
+
+	Datetime::Datetime(time_t t)
+		:timeVal(t)
+	{
+		millisecond = 0;
+		parse(timeVal);
+	}
+	Datetime::Datetime(const wchar_t* timeStr, const wchar_t* pattern)
+	{
+		parse(timeStr, pattern);
+	}
+	Datetime::~Datetime()
+	{
+	}
+
+	time_t Datetime::getTime() const
+	{
+		return timeVal;
+	}
+	short Datetime::getYear() const
+	{
+		return year;
+	}
+	short Datetime::getMonth() const
+	{
+		return month;
+	}
+	short Datetime::getDay() const
+	{
+		return day;
+	}
+	short Datetime::getMinute() const
+	{
+		return minute;
+	}
+	short Datetime::getSecond() const
+	{
+		return second;
+	}
+	short Datetime::getMillisecond() const
+	{
+		return millisecond;
+	}
+
+	short Datetime::getDayOfYear() const
+	{
+		return dayOfYear;
+	}
+	short Datetime::getDayOfWeek() const
+	{
+		return dayOfWeek;
+	}
+
+	wstring Datetime::format(const wchar_t* pattern)
+	{
+		wstring str;
+		str.reserve(32);
+		format(&str[0], pattern);
+		return std::move(str);
+	}
+	void Datetime::format(wchar_t* buf, const wchar_t* pattern)
+	{
+
+	}
+	Datetime Datetime::now()
+	{
+		return std::move(Datetime());
+	}
+	void Datetime::parse(time_t t)
+	{
+		struct tm tm;
+		localtime_s(&tm,&timeVal);
+		parse(&tm);
+	}
+	void Datetime::parse(struct tm* tm)
+	{
+		year = tm->tm_year + 1900;
+		month = tm->tm_mon;
+		day = tm->tm_mday;
+		hour = tm->tm_hour;
+		minute = tm->tm_min;
+		second = tm->tm_sec;
+		dayOfYear = tm->tm_yday;
+		dayOfWeek = tm->tm_wday;
+	}
+	void Datetime::parse(const wchar_t* timeStr, const wchar_t* pattern)
+	{
+		
+	}
+}
+

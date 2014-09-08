@@ -14,24 +14,32 @@ namespace veda
 		: mSearchMode(mode)
 	{
 		mDirPath = mPathUtil.trimPathRightSeparator(dirPath);
-		wstring find = mPathUtil.combinePath(mDirPath.c_str(), L"*.*");
+		wstring find = mPathUtil.combinePath(mDirPath.c_str(), L"*.*",NULL);
 		mHandle = FindFirstFile(find.c_str(), &mWFD);
-		mHasNext = processNextFile();
+		mFirst = true;
 	}
 
 	DirectoryIterator::DirectoryIterator(const wchar_t* dirPath, const wchar_t* extension)
 		: mSearchMode(FileSearchMode::Files), mExtension(extension)
 	{
 		mDirPath = mPathUtil.trimPathRightSeparator(dirPath);
-		wstring find = mPathUtil.combinePath(mDirPath.c_str(), extension);
+		wstring find = mPathUtil.combinePath(mDirPath.c_str(), extension,NULL);
 		mHandle = FindFirstFile(find.c_str(), &mWFD);
-		mHasNext = processNextFile();
+		mFirst = true;
 	}
 
 
-	bool DirectoryIterator::hasNext() const
+	bool DirectoryIterator::hasNext() 
 	{
-		return mHasNext;
+		if (mFirst)
+		{
+			mFirst = false;
+			return processFirstFile();
+		}
+		else
+		{
+			return processNextFile();
+		}
 	}
 	const FileInfo & DirectoryIterator::get()
 	{
@@ -41,7 +49,7 @@ namespace veda
 		return mFileInfo;
 	}
 
-	bool DirectoryIterator::processNextFile()
+	bool DirectoryIterator::processFirstFile()
 	{
 		bool has = false;
 		if (mHandle != INVALID_HANDLE_VALUE)
@@ -49,25 +57,34 @@ namespace veda
 			do
 			{
 				// is directory
-				if ((mWFD.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) &&
-					(mSearchMode == FileSearchMode::Files || (wcscmp(mWFD.cFileName, L".") || wcscmp(mWFD.cFileName, L".."))))
+				if (mWFD.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 				{
-					continue;
+					if (0 == wcscmp(mWFD.cFileName, L".") || 0 == wcscmp(mWFD.cFileName, L".."))
+					{
+						continue;
+					}
+
+					if ((mSearchMode == FileSearchMode::Directories || mSearchMode == FileSearchMode::All))
+					{
+						has = true;
+						break;
+					}
+					else
+					{
+						continue;
+					}
 				}
 				else
 				{
-					has = true;
-					break;
-				}
-				// if file
-				if (mSearchMode != FileSearchMode::Files)
-				{
-					continue;
-				}
-				else
-				{
-					has = true;
-					break;
+					if (mSearchMode == FileSearchMode::Directories)
+					{
+						continue;
+					}
+					else
+					{
+						has = true;
+						break;
+					}
 				}
 
 			} while (FindNextFile(mHandle, &mWFD));
@@ -75,6 +92,46 @@ namespace veda
 		return has;
 	}
 
+	bool DirectoryIterator::processNextFile()
+	{
+		bool has = false;
+		if (mHandle != INVALID_HANDLE_VALUE)
+		{
+			while (FindNextFile(mHandle, &mWFD))
+			{
+				// is directory
+				if (mWFD.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+				{
+					if (0 == wcscmp(mWFD.cFileName, L".") || 0 == wcscmp(mWFD.cFileName, L".."))
+					{
+						continue;
+					}
+					if ((mSearchMode == FileSearchMode::Directories || mSearchMode == FileSearchMode::All))
+					{
+						has = true;
+						break;
+					}
+					else
+					{
+						continue;
+					}
+				}
+				else 
+				{
+					if (mSearchMode == FileSearchMode::Directories)
+					{
+						continue;
+					}
+					else
+					{
+						has = true;
+						break;
+					}
+				}
+			}
+		}
+		return has;
+	}
 
 	Directory::Directory(const wchar_t* dirPath)
 		:mDirPath(dirPath)
