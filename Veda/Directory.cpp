@@ -36,7 +36,7 @@ namespace veda
 	const FileInfo & DirectoryIterator::get()
 	{
 		mFileInfo.fileName = mWFD.cFileName;
-		mFileInfo.fullPath = mPathUtil.combinePath(mDirPath.c_str(), (const wchar_t*)mWFD.cFileName);
+		mFileInfo.fullPath = mPathUtil.combinePath(mDirPath.c_str(), mWFD.cFileName, 0);
 		mFileInfo.isDirectory = ((mWFD.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 1);
 		return mFileInfo;
 	}
