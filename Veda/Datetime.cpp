@@ -74,7 +74,132 @@ namespace veda
 	}
 	void Datetime::format(wchar_t* buf, const wchar_t* pattern)
 	{
+		wchar_t buffer[64] = {0};
+		StringHelper sh(buffer, 64);
+		Vector<Token> ts;
+		df.parseDatePattern(ts, pattern);
+		wchar_t *ptr = &buf[wcslen(buf)];
+		for (auto& t : ts)
+		{
+			if (t.isFormatKey)
+			{
+				switch (t.key[0])
+				{
+				case L'y':
+				{
+					if (t.key.size() == 2)
+					{
+						sh = (year-(year/100)*100);
+					}
+					else
+					{
+						sh = year;
+					}
+				}break;
+				case L'M':
+				{
+					if (t.key.size() == 1)
+					{
+						sh = month;
+					}
+					else
+					{
+						sh.format(_T("%02d"), month);
+					}
+				}break;
+				case L'd':
+				{
+					if (t.key.size() == 1)
+					{
+						sh = day;
+					}
+					else
+					{
+						sh.format(_T("%02d"), day);
+					}
+				}break;
+				case L'H':
+				{
+					if (t.key.size() == 1)
+					{
+						sh = hour;
+					}
+					else
+					{
+						sh.format(_T("%02d"), hour);
+					}
+				}break;
+				case L'h':
+				{
+					int h = (hour > 12) ? hour % 12 : hour;
+					if (t.key.size() == 1)
+					{
+						sh = h;
+					}
+					else
+					{
+						sh.format(_T("%02d"), h);
+					}
+				}break;
+				case L'm':
+				{
+					if (t.key.size() == 1)
+					{
+						sh = minute;
+					}
+					else
+					{
+						sh.format(_T("%02d"), minute);
+					}
+				}break;
+				case L's':
+				{
+					if (t.key.size() == 1)
+					{
+						sh = second;
+					}
+					else
+					{
+						sh.format(_T("%02d"), second);
+					}
+				}break;
+				case L'S':
+				{
+					if (t.key.size() == 1)
+					{
+						sh = second;
+					}
+					else if (t.key.size() == 2)
+					{
+						sh.format(_T("%02d"), second);
+					}
+					else
+					{
+						sh.format(_T("%03d"), second);
+					}
+				}break;
+				case L'a':
+				{
+					sh = hour >= 12 ?_T("PM"):_T("AM");
+				}break;
+				default:
+					sh = _T("");
+					break;
+				}
+			}
+			else
+			{
+				sh = t.key.c_str();
+			}
+			
+			size_t len = wcslen(buffer);
+			*(ptr + len) = '\0';
+			for (auto i = 0; i < len; i++)
+			{
+				*ptr++ = buffer[i];
+			}
 
+		}
 	}
 	Datetime Datetime::now()
 	{
@@ -89,7 +214,7 @@ namespace veda
 	void Datetime::parse(struct tm* tm)
 	{
 		year = tm->tm_year + 1900;
-		month = tm->tm_mon;
+		month = tm->tm_mon + 1;
 		day = tm->tm_mday;
 		hour = tm->tm_hour;
 		minute = tm->tm_min;

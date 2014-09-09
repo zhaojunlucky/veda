@@ -22,6 +22,9 @@
     <Filter Include="Datetime">
       <UniqueIdentifier>{fb66852b-e568-4940-afa2-bfa5fc9f2599}</UniqueIdentifier>
     </Filter>
+    <Filter Include="String">
+      <UniqueIdentifier>{a008caba-9b48-48eb-b50d-bad2f9d724a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -48,6 +51,12 @@
     <ClInclude Include="Datetime.h">
       <Filter>Datetime</Filter>
     </ClInclude>
+    <ClInclude Include="DateFormat.h">
+      <Filter>Datetime</Filter>
+    </ClInclude>
+    <ClInclude Include="StringHelper.h">
+      <Filter>String</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -61,6 +70,12 @@
     </ClCompile>
     <ClCompile Include="Datetime.cpp">
       <Filter>Datetime</Filter>
+    </ClCompile>
+    <ClCompile Include="DateFormat.cpp">
+      <Filter>Datetime</Filter>
+    </ClCompile>
+    <ClCompile Include="StringHelper.cpp">
+      <Filter>String</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

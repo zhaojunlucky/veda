@@ -11,10 +11,14 @@ using namespace DuiLib;
 #include "PlayerMainUI.h"
 #include "Logger.h"
 Logger logger;
-#include <Directory.h>
+#include <Datetime.h>
 
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
+
+	Datetime dt;
+	LOG_INFO(logger) << dt.format().c_str() << endl;
+
 	CPaintManagerUI::SetInstance(hInstance);
 
 	CPlayerMainUI mainUI;

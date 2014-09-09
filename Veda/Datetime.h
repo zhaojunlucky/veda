@@ -3,9 +3,22 @@
 #include <string>
 using namespace std;
 #include <sys/timeb.h> 
-
+#include <Vector.h>
+#include "DateFormat.h"
+#include "StringHelper.h"
 namespace veda
 {
+	/**
+	 * y -> year
+	 * M -> month [1-12]
+	 * d -> date [1-31]
+	 * H -> hour [0-23]
+	 * h -> hour [0-12]
+	 * m -> minute [0-59]
+	 * s -> second [0-59]
+	 * S -> millisecond [0-999]
+	 * a -> AM PM 
+	 */
 	class Datetime
 	{
 	public:
@@ -40,6 +53,7 @@ namespace veda
 		short millisecond;
 		short dayOfYear;
 		short dayOfWeek;
+		DateFormat df;
 	};
 }
 
