@@ -68,7 +68,7 @@ namespace veda
 	wstring Datetime::format(const wchar_t* pattern)
 	{
 		wstring str;
-		str.reserve(32);
+		str.reserve(64);
 		format(&str[0], pattern);
 		return std::move(str);
 	}
@@ -165,13 +165,9 @@ namespace veda
 				}break;
 				case L'S':
 				{
-					if (t.key.size() == 1)
+					if (t.key.size() == 2)
 					{
 						sh = second;
-					}
-					else if (t.key.size() == 2)
-					{
-						sh.format(_T("%02d"), second);
 					}
 					else
 					{

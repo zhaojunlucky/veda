@@ -17,7 +17,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 {
 
 	Datetime dt;
-	LOG_INFO(logger) << dt.format().c_str() << endl;
+	LOG_INFO(logger) << dt.format(L"yyyy年MM月dd日HH时mm分ss秒S毫秒").c_str() << endl;
 
 	CPaintManagerUI::SetInstance(hInstance);
 
