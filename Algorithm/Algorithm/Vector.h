@@ -508,6 +508,6 @@ namespace veda
 		size_type capacity;
 		size_type size;
 		value_type* data;
-		const size_type DEFAULT_CAPACITY = 10;
+		const size_type DEFAULT_CAPACITY = 64;
 	};
 }

@@ -31,7 +31,7 @@ namespace veda
 	}
 	StringHelper& StringHelper::operator=(__int64 v)
 	{
-		format(_T("%ld"), v);
+		format(_T("%d"), v);
 		return *this;
 	}
 	StringHelper& StringHelper::operator=(float v)
@@ -56,17 +56,17 @@ namespace veda
 	}
 	StringHelper& StringHelper::operator=(unsigned int v)
 	{
-		format(_T("%ud"), v);
+		format(_T("%u"), v);
 		return *this;
 	}
 	StringHelper& StringHelper::operator=(unsigned __int64 v)
 	{
-		format(_T("%uld"), v);
+		format(_T("%u"), v);
 		return *this;
 	}
 	StringHelper& StringHelper::operator=(unsigned short v)
 	{
-		format(_T("%ud"), v);
+		format(_T("%u"), v);
 		return *this;
 	}
 	StringHelper& StringHelper::operator=(unsigned char v)
@@ -86,7 +86,7 @@ namespace veda
 	}
 	StringHelper& StringHelper::operator=(unsigned long v)
 	{
-		format(_T("%ul"), v);
+		format(_T("%u"), v);
 		return *this;
 	}
 	StringHelper& StringHelper::operator=(long double v)
@@ -108,7 +108,7 @@ namespace veda
 	}
 	StringHelper& StringHelper::operator+=(__int64 v)
 	{
-		formatTemp(_T("%ld"), v);
+		formatTemp(_T("%d"), v);
 		_tcscat_s(buf, mBuf->length(), &((*mBuf.get())[0]));
 		return *this;
 	}
@@ -138,19 +138,19 @@ namespace veda
 	}
 	StringHelper& StringHelper::operator+=(unsigned int v)
 	{
-		formatTemp(_T("%ud"), v);
+		formatTemp(_T("%u"), v);
 		_tcscat_s(buf, mBuf->length(), &((*mBuf.get())[0]));
 		return *this;
 	}
 	StringHelper& StringHelper::operator+=(unsigned __int64 v)
 	{
-		formatTemp(_T("%uld"), v);
+		formatTemp(_T("%u"), v);
 		_tcscat_s(buf, mBuf->length(), &((*mBuf.get())[0]));
 		return *this;
 	}
 	StringHelper& StringHelper::operator+=(unsigned short v)
 	{
-		formatTemp(_T("%ud"), v);
+		formatTemp(_T("%u"), v);
 		_tcscat_s(buf, mBuf->length(), &((*mBuf.get())[0]));
 		return *this;
 	}
@@ -168,13 +168,13 @@ namespace veda
 	}
 	StringHelper& StringHelper::operator+=(long v)
 	{
-		formatTemp(_T("%l"), v);
+		formatTemp(_T("%d"), v);
 		_tcscat_s(buf, mBuf->length(), &((*mBuf.get())[0]));
 		return *this;
 	}
 	StringHelper& StringHelper::operator+=(unsigned long v)
 	{
-		formatTemp(_T("%ul"), v);
+		formatTemp(_T("%u"), v);
 		_tcscat_s(buf, mBuf->length(), &((*mBuf.get())[0]));
 		return *this;
 	}

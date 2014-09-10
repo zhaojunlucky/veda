@@ -57,8 +57,11 @@
     <ClInclude Include="StringHelper.h">
       <Filter>String</Filter>
     </ClInclude>
-    <ClInclude Include="String.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="StringConvert.h">
+      <Filter>String</Filter>
+    </ClInclude>
+    <ClInclude Include="ZString.h">
+      <Filter>String</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -80,8 +83,11 @@
     <ClCompile Include="StringHelper.cpp">
       <Filter>String</Filter>
     </ClCompile>
-    <ClCompile Include="String.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="StringConvert.cpp">
+      <Filter>String</Filter>
+    </ClCompile>
+    <ClCompile Include="ZString.cpp">
+      <Filter>String</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
