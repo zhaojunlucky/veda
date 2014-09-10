@@ -5,124 +5,98 @@ namespace veda
 {
 #pragma warning(push)
 #pragma warning(disable:4996)
+
+	typedef std::shared_ptr<String> StringPtr;
 	String::String()
-		:mCapacity(DEFAULT_SIZE), mSize(0), mData(mBuf)
+		:mCapacity(DEFAULT_SIZE), mSize(0)
 	{
-		mBuf[0] = '\0';
+		mData = alloc(DEFAULT_SIZE);
 	}
 	String::String(tchar c)
-		:mCapacity(DEFAULT_SIZE), mSize(0), mData(mBuf)
+		: mCapacity(0), mSize(0), mData(0)
 	{
-		mBuf[0] = '\0';
 		append(c);
 	}
 	String::String(const tchar* str)
-		: mCapacity(DEFAULT_SIZE), mSize(0), mData(mBuf)
+		: mCapacity(0), mSize(0), mData(0)
 	{
-		mBuf[0] = '\0';
 		append(str);
 	}
 	String::String(const String& str)
-		: mCapacity(DEFAULT_SIZE), mSize(0), mData(mBuf)
+		: mCapacity(0), mSize(0), mData(0)
 	{
-		mBuf[0] = '\0';
 		append(str);
 	}
 	String::String(String&& str)
-		: mCapacity(DEFAULT_SIZE), mSize(0), mData(mBuf)
 	{
-		mBuf[0] = '\0';
-		if (str.isDefaultBuffer())
-		{
-			append(str.mBuf);
-		}
-		else
-		{
-			mBuf[0] = '\0';
-			if (!isDefaultBuffer())
-			{
-				delete mData;
-			}
-		}
-		mData = str.mData;
-		mCapacity = str.mCapacity;
-		mSize = str.mSize;
-		str.mData = str.mBuf;
+		*this = std::move(str);
 	}
 
 	String::String(int v)
-		: mCapacity(DEFAULT_SIZE), mSize(0), mData(mBuf)
+		: mCapacity(0), mSize(0), mData(0)
 	{
-		mBuf[0] = '\0';
 		append(v);
 	}
 	String::String(unsigned int v)
-		: mCapacity(DEFAULT_SIZE), mSize(0), mData(mBuf)
+		: mCapacity(0), mSize(0), mData(0)
 	{
-		mBuf[0] = '\0';
 		append(v);
 	}
 	String::String(__int64 v)
-		: mCapacity(DEFAULT_SIZE), mSize(0), mData(mBuf)
+		: mCapacity(0), mSize(0), mData(0)
 	{
-		mBuf[0] = '\0';
 		append(v);
 	}
 	String::String(unsigned __int64 v)
-		: mCapacity(DEFAULT_SIZE), mSize(0), mData(mBuf)
+		: mCapacity(0), mSize(0), mData(0)
 	{
-		mBuf[0] = '\0';
 		append(v);
 	}
 	String::String(short v)
-		: mCapacity(DEFAULT_SIZE), mSize(0), mData(mBuf)
+		: mCapacity(0), mSize(0), mData(0)
 	{
-		mBuf[0] = '\0';
 		append(v);
 	}
 	String::String(unsigned short v)
-		: mCapacity(DEFAULT_SIZE), mSize(0), mData(mBuf)
+		: mCapacity(0), mSize(0), mData(0)
 	{
-		mBuf[0] = '\0';
 		append(v);
 	}
 	String::String(long v)
-		: mCapacity(DEFAULT_SIZE), mSize(0), mData(mBuf)
+		: mCapacity(0), mSize(0), mData(0)
 	{
-		mBuf[0] = '\0';
 		append(v);
 	}
 	String::String(unsigned long v)
-		: mCapacity(DEFAULT_SIZE), mSize(0), mData(mBuf)
+		: mCapacity(0), mSize(0), mData(0)
 	{
-		mBuf[0] = '\0';
 		append(v);
 	}
 	String::String(float v)
-		: mCapacity(DEFAULT_SIZE), mSize(0), mData(mBuf)
+		: mCapacity(0), mSize(0), mData(0)
 	{
-		mBuf[0] = '\0';
 		append(v);
 	}
 	String::String(double v)
-		: mCapacity(DEFAULT_SIZE), mSize(0), mData(mBuf)
+		: mCapacity(0), mSize(0), mData(0)
 	{
-		mBuf[0] = '\0';
 		append(v);
 	}
 	String::String(long double v)
-		: mCapacity(DEFAULT_SIZE), mSize(0), mData(mBuf)
+		: mCapacity(0), mSize(0), mData(0)
 	{
-		mBuf[0] = '\0';
 		append(v);
 	}
 
 	String::~String()
 	{
-		if (!isDefaultBuffer() && mData)
+		if (mData)
 		{
 			delete mData;
+			mData = 0;
 		}
+
+		//printf("destructor:%d\n", (int)mData);
 	}
 	String& String::operator = (const String& str)
 	{
@@ -134,24 +108,12 @@ namespace veda
 	}
 	String& String::operator = (String&& str)
 	{
-		if (mBuf != str.mBuf)
+		if (this != &str)
 		{
-			if (str.isDefaultBuffer())
-			{
-				copy(mBuf, str.mBuf);
-			}
-			else
-			{
-				mBuf[0] = '\0';
-				if (!isDefaultBuffer())
-				{
-					delete mData;
-				}
-			}
-			mData = str.mData;
 			mCapacity = str.mCapacity;
 			mSize = str.mSize;
-			str.mData = str.mBuf;
+			mData = str.mData;
+			str.mData = 0;
 		}
 		return *this;
 	}
@@ -165,14 +127,8 @@ namespace veda
 	}
 	String& String::operator = (const tchar tc)
 	{
-		if (!isDefaultBuffer())
-		{
-			delete mData;
-			mData = mBuf;
-		}
-
-		mData[0] = tc;
-		mData[1] = '\0';
+		tchar buf[2] = {tc};
+		assign(buf, 1);
 		return *this;
 	}
 
@@ -351,169 +307,169 @@ namespace veda
 		return *this;
 	}
 
-	String& operator +(int v, const String& str)
+	StringPtr operator +(int v, const String& str)
 	{
-		String tmp(v);
-		tmp.append(str);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(unsigned int v, const String& str)
+	StringPtr operator +(unsigned int v, const String& str)
 	{
-		String tmp(v);
-		tmp.append(str);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(__int64 v, const String& str)
+	StringPtr operator +(__int64 v, const String& str)
 	{
-		String tmp(v);
-		tmp.append(str);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(unsigned __int64 v, const String& str)
+	StringPtr operator +(unsigned __int64 v, const String& str)
 	{
-		String tmp(v);
-		tmp.append(str);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(short v, const String& str)
+	StringPtr operator +(short v, const String& str)
 	{
-		String tmp(v);
-		tmp.append(str);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(unsigned short v, const String& str)
+	StringPtr operator +(unsigned short v, const String& str)
 	{
-		String tmp(v);
-		tmp.append(str);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(long v, const String& str)
+	StringPtr operator +(long v, const String& str)
 	{
-		String tmp(v);
-		tmp.append(str);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(unsigned long v, const String& str)
+	StringPtr operator +(unsigned long v, const String& str)
 	{
-		String tmp(v);
-		tmp.append(str);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(float v, const String& str)
+	StringPtr operator +(float v, const String& str)
 	{
-		String tmp(v);
-		tmp.append(str);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(double v, const String& str)
+	StringPtr operator +(double v, const String& str)
 	{
-		String tmp(v);
-		tmp.append(str);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(long double v, const String& str)
+	StringPtr operator +(long double v, const String& str)
 	{
-		String tmp(v);
-		tmp.append(str);
-		return std::move(tmp);
-	}
-
-	String& operator +(tchar v, const String& str)
-	{
-		String tmp(v);
-		tmp.append(str);
-		return std::move(tmp);
-	}
-	String& operator +(const tchar* v, const String& str)
-	{
-		String tmp(v);
-		tmp.append(str);
-		return std::move(tmp);
-	}
-	String& operator +(const String& v, const String& str)
-	{
-		String tmp(v);
-		tmp.append(str);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
 
-	String& operator +(const String& str, int v)
+	StringPtr operator +(tchar v, const String& str)
 	{
-		String tmp = str;
-		tmp.append(v);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(const String& str, unsigned int v)
+	StringPtr operator +(const tchar* v, const String& str)
 	{
-		String tmp = str;
-		tmp.append(v);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(const String& str, __int64 v)
+	StringPtr operator +(const String& v, const String& str)
 	{
-		String tmp = str;
-		tmp.append(v);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(const String& str, unsigned __int64 v)
+
+	StringPtr operator +(const String& str, int v)
 	{
-		String tmp = str;
-		tmp.append(v);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(const String& str, short v)
+	StringPtr operator +(const String& str, unsigned int v)
 	{
-		String tmp = str;
-		tmp.append(v);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(const String& str, unsigned short v)
+	StringPtr operator +(const String& str, __int64 v)
 	{
-		String tmp = str;
-		tmp.append(v);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(const String& str, long v)
+	StringPtr operator +(const String& str, unsigned __int64 v)
 	{
-		String tmp = str;
-		tmp.append(v);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(const String& str, unsigned long v)
+	StringPtr operator +(const String& str, short v)
 	{
-		String tmp = str;
-		tmp.append(v);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(const String& str, float v)
+	StringPtr operator +(const String& str, unsigned short v)
 	{
-		String tmp = str;
-		tmp.append(v);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(const String& str, double v)
+	StringPtr operator +(const String& str, long v)
 	{
-		String tmp = str;
-		tmp.append(v);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(const String& str, long double v)
+	StringPtr operator +(const String& str, unsigned long v)
 	{
-		String tmp = str;
-		tmp.append(v);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(const String& str, tchar v)
+	StringPtr operator +(const String& str, float v)
 	{
-		String tmp = str;
-		tmp.append(v);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
-	String& operator +(const String& str, const tchar* v)
+	StringPtr operator +(const String& str, double v)
 	{
-		String tmp = str;
-		tmp.append(v);
-		return std::move(tmp);
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
+	}
+	StringPtr operator +(const String& str, long double v)
+	{
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
+	}
+	StringPtr operator +(const String& str, tchar v)
+	{
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
+	}
+	StringPtr operator +(const String& str, const tchar* v)
+	{
+		StringPtr tmp = std::make_shared<String>(v);
+		tmp->append(str);
+		return tmp;
 	}
 
 	String& String::append(tchar c)
@@ -531,45 +487,25 @@ namespace veda
 	{
 		if (size + mSize >= mCapacity)
 		{
-			
+
 			mCapacity = size + DEFAULT_SIZE;
-			tchar* data = new tchar[mCapacity];
-			copy(data, mData);
-			cat(data, str);
-			mSize += size;
-			if (isDefaultBuffer())
+			tchar* data = alloc(mCapacity);
+			if (mData)
 			{
-				mBuf[0] = '\0';
+				copy(data, mData);
 			}
-			else
+			
+			
+			if (mData)
 			{
 				delete mData;
 			}
 			mData = data;
 		}
-		else if (!isDefaultBuffer() && size + mSize <= mCapacity / 4)
-		{
-			mCapacity = mCapacity / 2;
-			if (mCapacity <= DEFAULT_SIZE)
-			{
-				mCapacity = DEFAULT_SIZE;
-				copy(mBuf, mData);
-				delete mData;
-				mData = mBuf;
-			}
-			else
-			{
-				tchar* data = new tchar[mCapacity];
-				copy(data, mData);
-				cat(data, str);
-				delete mData;
-				mData = data;
-			}
-		}
-		else
-		{
-			cat(mData, str);
-		}
+		ncat(mData, str, size);
+		
+		mSize += size;
+		mData[mSize] = '\0';
 		return *this;
 	}
 	String& String::append(const String& str)
@@ -728,9 +664,92 @@ namespace veda
 	{
 		return mData;
 	}
+	const tchar* String::getData() const
+	{
+		return mData;
+	}
 	tchar& String::operator [](size_t index) const
 	{
 		return mData[index];
+	}
+
+	size_t String::find(tchar c, size_t start) const
+	{
+		for (size_t i = start; i < mSize; i++)
+		{
+			if (c == mData[i])
+			{
+				return i;
+			}
+		}
+		return npos;
+	}
+	StringPtr String::trim()
+	{
+		StringPtr tmp = std::make_shared<String>();
+
+		if (mSize == 0)
+		{
+			return tmp;
+		}
+		size_t i = 0;
+		while (i < mSize && isSpace(mData[i]))
+		{
+			i++;
+		}
+
+		size_t end = mSize - 1;
+
+		while (end >= 1 && isSpace(mData[end]))
+		{
+			end--;
+		}
+		if (!isSpace(mData[end]))
+		{
+			tmp->assign(&mData[i], end - i + 1);
+		}
+
+		return tmp;
+	}
+
+	StringPtr String::trimLeft()
+	{
+		StringPtr tmp = std::make_shared<String>();
+		if (mSize == 0)
+		{
+			return tmp;
+		}
+		size_t i = 0;
+		while (i < mSize && isSpace(mData[i]))
+		{
+			i++;
+		}
+		
+		if (i < mSize)
+		{
+			tmp->assign(&mData[i], mSize - i + 1);
+		}
+		return (tmp);
+	}
+	StringPtr String::trimRight()
+	{
+		StringPtr tmp = std::make_shared<String>();
+		if (mSize == 0)
+		{
+			return tmp;
+		}
+		size_t end = mSize - 1;
+
+		while (end >= 1 && isSpace(mData[end]))
+		{
+			end--;
+		}
+		
+		if (!isSpace(mData[end]))
+		{
+			tmp->assign(&mData[0], end + 1);
+		}
+		return tmp;
 	}
 
 #ifdef _UNICODE
@@ -749,41 +768,41 @@ namespace veda
 
 	void String::assign(const tchar* buf, size_t size)
 	{
-		if (size >= mCapacity)
+		if(size >= mCapacity)
 		{
 			mCapacity = size + DEFAULT_SIZE;
-			if (isDefaultBuffer())
-			{
-				mBuf[0] = '\0';
-			}
-			else
+			if (mData)
 			{
 				delete mData;
 			}
-			mData = new tchar[mCapacity];
+			
+			mData = alloc(mCapacity);
 		}
-		else if (!isDefaultBuffer() && size <= mCapacity / 4)
+		else if (size <= mCapacity / 4)
 		{
-			mCapacity = mCapacity / 2;
-			if (mCapacity <= DEFAULT_SIZE)
+			mCapacity = size / 2;
+			if (mCapacity < DEFAULT_SIZE)
 			{
 				mCapacity = DEFAULT_SIZE;
-				delete mData;
-				mData = mBuf;
 			}
-			else
+			if (mData)
 			{
 				delete mData;
-				mData = new tchar[mCapacity];
 			}
+
+			mData = alloc(mCapacity);
 		}
-		copy(mData, buf);
+
+		ncopy(mData, buf, size);
+		mData[size] = '\0';
 		mSize = size;
 	}
 
-	bool String::isDefaultBuffer() const
+	tchar* String::alloc(size_t size)
 	{
-		return (mData == mBuf);
+		tchar* ptr = new tchar[size];
+		ptr[0] = '\0';
+		return ptr;
 	}
 
 #pragma warning(pop)

@@ -11,10 +11,16 @@ using namespace std;
 
 void testStringConstructor();
 void testOperator();
+void testOthers();
+
+ 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	String str;
+	wstring ws;
 	testStringConstructor();
 	testOperator();
+	testOthers();
 	system("PAUSE");
 	return 0;
 }
@@ -141,4 +147,22 @@ void testOperator()
 	wcout << L"operator += (tchar,tchar*, float, double,long double):" << s << endl;
 
 
+}
+
+void testOthers()
+{
+	String tmp = L"  spacespace    ";
+	wcout << L"trim:[" << tmp.trim()->getData()<<L"]" << endl;
+	wcout << L"trimLeft:[" << tmp.trimLeft()->getData() << L"]" << endl;
+	wcout << L"trimRight:[" << tmp.trimRight()->getData() << L"]" << endl;
+
+	wcout << L"find:" << tmp.find((wchar_t)'c') << endl;
+	wcout << L"find:" << tmp.find((wchar_t)'c', 7) << endl;
+	size_t pos = tmp.find((wchar_t)'z');
+	wcout << L"find:" << pos << endl;
+
+	String str1 = L"dd";
+	String str2 = L"Dd";
+	wcout << str1.equals(str2) << endl;
+	wcout << str1.equalsIgnoreCase(str2) << endl;
 }

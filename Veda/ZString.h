@@ -5,6 +5,7 @@
 #include <Array.h>
 #include <utility>
 #include <iostream>
+#include <memory>
 #include "StringConvert.h"
 
 namespace veda
@@ -23,9 +24,12 @@ namespace veda
 #define cmpstr wcscmp
 #define cmpicase wcsicmp
 #define copy wcscpy
+#define ncopy wcsncpy
 #define len wcslen
 #define cat wcscat
+#define ncat wcsncat
 #define _vsntprintf     _vsnwprintf
+#define isSpace iswspace
 #else
 
 #ifndef tchar
@@ -39,9 +43,12 @@ namespace veda
 #define cmp strcmp
 #define cmpicase stricmp
 #define copy strcpy
+#define ncopy strncpy
 #define len strlen
 #define cat strcat
+#define ncat strncat
 #define _vsntprintf     _vsnprintf
+#define isSpace isspace
 
 #endif
 
@@ -49,6 +56,7 @@ namespace veda
 	class String
 	{
 	public:
+		typedef std::shared_ptr<String> StringPtr;
 		String();
 		String(tchar c);
 		String(const tchar* str);
@@ -108,34 +116,34 @@ namespace veda
 		String& operator +=(long double v);
 		String& operator +=(const tchar* v);
 
-		friend String& operator +(int v, const String& str);
-		friend String& operator +(unsigned int v, const String& str);
-		friend String& operator +(__int64 v, const String& str);
-		friend String& operator +(unsigned __int64 v, const String& str);
-		friend String& operator +(short v, const String& str);
-		friend String& operator +(unsigned short v, const String& str);
-		friend String& operator +(long v, const String& str);
-		friend String& operator +(unsigned long v, const String& str);
-		friend String& operator +(float v, const String& str);
-		friend String& operator +(double v, const String& str);
-		friend String& operator +(long double v, const String& str);
-		friend String& operator +(tchar v, const String& str);
-		friend String& operator +(const tchar* v, const String& str);
-		friend String& operator +(const String& v, const String& str);
+		friend StringPtr operator +(int v, const String& str);
+		friend StringPtr operator +(unsigned int v, const String& str);
+		friend StringPtr operator +(__int64 v, const String& str);
+		friend StringPtr operator +(unsigned __int64 v, const String& str);
+		friend StringPtr operator +(short v, const String& str);
+		friend StringPtr operator +(unsigned short v, const String& str);
+		friend StringPtr operator +(long v, const String& str);
+		friend StringPtr operator +(unsigned long v, const String& str);
+		friend StringPtr operator +(float v, const String& str);
+		friend StringPtr operator +(double v, const String& str);
+		friend StringPtr operator +(long double v, const String& str);
+		friend StringPtr operator +(tchar v, const String& str);
+		friend StringPtr operator +(const tchar* v, const String& str);
+		friend StringPtr operator +(const String& v, const String& str);
 
-		friend String& operator +(const String& str, int v);
-		friend String& operator +(const String& str, unsigned int v);
-		friend String& operator +(const String& str, __int64 v);
-		friend String& operator +(const String& str, unsigned __int64 v);
-		friend String& operator +(const String& str, short v);
-		friend String& operator +(const String& str, unsigned short v);
-		friend String& operator +(const String& str, long v);
-		friend String& operator +(const String& str, unsigned long v);
-		friend String& operator +(const String& str, float v);
-		friend String& operator +(const String& str, double v);
-		friend String& operator +(const String& str, long double v);
-		friend String& operator +(const String& str, tchar v);
-		friend String& operator +(const String& str, const tchar* v);
+		friend StringPtr operator +(const String& str, int v);
+		friend StringPtr operator +(const String& str, unsigned int v);
+		friend StringPtr operator +(const String& str, __int64 v);
+		friend StringPtr operator +(const String& str, unsigned __int64 v);
+		friend StringPtr operator +(const String& str, short v);
+		friend StringPtr operator +(const String& str, unsigned short v);
+		friend StringPtr operator +(const String& str, long v);
+		friend StringPtr operator +(const String& str, unsigned long v);
+		friend StringPtr operator +(const String& str, float v);
+		friend StringPtr operator +(const String& str, double v);
+		friend StringPtr operator +(const String& str, long double v);
+		friend StringPtr operator +(const String& str, tchar v);
+		friend StringPtr operator +(const String& str, const tchar* v);
 
 
 
@@ -173,7 +181,15 @@ namespace veda
 		size_t getCapacity() const;
 		size_t getSize() const;
 		operator const tchar*() const;
+		const tchar* getData() const;
 		tchar& operator [](size_t index) const;
+
+		static const size_t npos = -1;
+
+		size_t find(tchar c, size_t start = 0) const;
+		StringPtr trim();
+		StringPtr trimLeft();
+		StringPtr trimRight();
 
 #ifdef _UNICODE
 		friend std::wostream& operator<<(std::wostream& os, const String& dt); 
@@ -182,16 +198,13 @@ namespace veda
 #endif
 
 	private:
-		bool isDefaultBuffer() const;
 		void assign(const tchar* buf, size_t size);
+		tchar* alloc(size_t size);
 	private:
 		size_t mCapacity;
 		size_t mSize;
-		tchar mBuf[DEFAULT_SIZE];
 		tchar* mData;
 	};
-
-
 }
 
 
