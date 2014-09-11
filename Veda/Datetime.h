@@ -5,7 +5,7 @@ using namespace std;
 #include <sys/timeb.h> 
 #include <Vector.h>
 #include "DateFormat.h"
-#include "StringHelper.h"
+#include "ZString.h"
 namespace veda
 {
 	/**

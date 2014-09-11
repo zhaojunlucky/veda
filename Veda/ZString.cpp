@@ -121,7 +121,7 @@ namespace veda
 	{
 		if (mData != str)
 		{
-			assign(str, len(str));
+			assign(str, _len(str));
 		}
 		return *this;
 	}
@@ -204,7 +204,7 @@ namespace veda
 	{
 		StringConvert sc;
 		const wchar_t *pStr = sc.char2wchar(str);
-		assign(pStr, len(pStr));
+		assign(pStr, _len(pStr));
 		return *this;
 	}
 	String& String::operator += (const char* str)
@@ -480,7 +480,7 @@ namespace veda
 	}
 	String& String::append(const tchar* str)
 	{
-		append(str, len(str));
+		append(str, _len(str));
 		return *this;
 	}
 	String& String::append(const tchar* str, size_t size)
@@ -492,7 +492,7 @@ namespace veda
 			tchar* data = alloc(mCapacity);
 			if (mData)
 			{
-				copy(data, mData);
+				_copy(data, mData);
 			}
 			
 			
@@ -502,7 +502,7 @@ namespace veda
 			}
 			mData = data;
 		}
-		ncat(mData, str, size);
+		_ncat(mData, str, size);
 		
 		mSize += size;
 		mData[mSize] = '\0';
@@ -610,7 +610,7 @@ namespace veda
 
 	int String::compare(const tchar* str) const
 	{
-		return cmpstr(mData, str);
+		return _cmpstr(mData, str);
 	}
 	int String::compare(const String& str) const
 	{
@@ -618,7 +618,7 @@ namespace veda
 	}
 	int String::compareIgnoreCase(const tchar* str) const
 	{
-		return cmpicase(mData, str);
+		return _cmpicase(mData, str);
 	}
 	int String::compareIgnoreCase(const String& str) const
 	{
@@ -684,6 +684,28 @@ namespace veda
 		}
 		return npos;
 	}
+	size_t String::rfind(tchar c, size_t start) const
+	{
+		for (size_t i = start; i >= 1; i--)
+		{
+			if (c == mData[i])
+			{
+				return i;
+			}
+		}
+		if (c == mData[0])
+		{
+			return 0;
+		}
+		else
+		{
+			return npos;
+		}
+	}
+	size_t String::rfind(tchar c) const
+	{
+		return rfind(c, mSize - 1);
+	}
 	StringPtr String::trim()
 	{
 		StringPtr tmp = std::make_shared<String>();
@@ -693,18 +715,18 @@ namespace veda
 			return tmp;
 		}
 		size_t i = 0;
-		while (i < mSize && isSpace(mData[i]))
+		while (i < mSize && _isSpace(mData[i]))
 		{
 			i++;
 		}
 
 		size_t end = mSize - 1;
 
-		while (end >= 1 && isSpace(mData[end]))
+		while (end >= 1 && _isSpace(mData[end]))
 		{
 			end--;
 		}
-		if (!isSpace(mData[end]))
+		if (!_isSpace(mData[end]))
 		{
 			tmp->assign(&mData[i], end - i + 1);
 		}
@@ -720,7 +742,7 @@ namespace veda
 			return tmp;
 		}
 		size_t i = 0;
-		while (i < mSize && isSpace(mData[i]))
+		while (i < mSize && _isSpace(mData[i]))
 		{
 			i++;
 		}
@@ -740,12 +762,12 @@ namespace veda
 		}
 		size_t end = mSize - 1;
 
-		while (end >= 1 && isSpace(mData[end]))
+		while (end >= 1 && _isSpace(mData[end]))
 		{
 			end--;
 		}
 		
-		if (!isSpace(mData[end]))
+		if (!_isSpace(mData[end]))
 		{
 			tmp->assign(&mData[0], end + 1);
 		}
@@ -793,7 +815,7 @@ namespace veda
 			mData = alloc(mCapacity);
 		}
 
-		ncopy(mData, buf, size);
+		_ncopy(mData, buf, size);
 		mData[size] = '\0';
 		mSize = size;
 	}

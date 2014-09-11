@@ -21,15 +21,15 @@ namespace veda
 #define _T(x) L ## x
 #endif
 
-#define cmpstr wcscmp
-#define cmpicase wcsicmp
-#define copy wcscpy
-#define ncopy wcsncpy
-#define len wcslen
-#define cat wcscat
-#define ncat wcsncat
+#define _cmpstr wcscmp
+#define _cmpicase wcsicmp
+#define _copy wcscpy
+#define _ncopy wcsncpy
+#define _len wcslen
+#define _cat wcscat
+#define _ncat wcsncat
 #define _vsntprintf     _vsnwprintf
-#define isSpace iswspace
+#define _isSpace iswspace
 #else
 
 #ifndef tchar
@@ -40,20 +40,22 @@ namespace veda
 #define _T(x) x
 #endif
 
-#define cmp strcmp
-#define cmpicase stricmp
-#define copy strcpy
-#define ncopy strncpy
-#define len strlen
-#define cat strcat
-#define ncat strncat
+#define _cmp strcmp
+#define _cmpicase stricmp
+#define _copy strcpy
+#define _ncopy strncpy
+#define _len strlen
+#define _cat strcat
+#define _ncat strncat
 #define _vsntprintf     _vsnprintf
-#define isSpace isspace
+#define _isSpace isspace
 
 #endif
 
 #define DEFAULT_SIZE 64
-	class String
+#define makeStringPtr std::make_shared<String>
+
+	class String final
 	{
 	public:
 		typedef std::shared_ptr<String> StringPtr;
@@ -187,6 +189,8 @@ namespace veda
 		static const size_t npos = -1;
 
 		size_t find(tchar c, size_t start = 0) const;
+		size_t rfind(tchar c, size_t start) const;
+		size_t rfind(tchar c) const;
 		StringPtr trim();
 		StringPtr trimLeft();
 		StringPtr trimRight();

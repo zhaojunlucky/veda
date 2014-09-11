@@ -74,8 +74,7 @@ namespace veda
 	}
 	void Datetime::format(wchar_t* buf, const wchar_t* pattern)
 	{
-		wchar_t buffer[64] = {0};
-		StringHelper sh(buffer, 64);
+		String sh;
 		Vector<Token> ts;
 		df.parseDatePattern(ts, pattern);
 		wchar_t *ptr = &buf[wcslen(buf)];
@@ -188,11 +187,11 @@ namespace veda
 				sh = t.key.c_str();
 			}
 			
-			size_t len = wcslen(buffer);
+			size_t len = sh.getSize();
 			*(ptr + len) = '\0';
 			for (auto i = 0; i < len; i++)
 			{
-				*ptr++ = buffer[i];
+				*ptr++ = sh[i];
 			}
 
 		}
