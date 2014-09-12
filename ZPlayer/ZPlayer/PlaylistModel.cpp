@@ -87,7 +87,7 @@ void PlaylistModel::addPlaylist(shared_ptr<Playlist> Playlist)
 void PlaylistModel::remove(const wchar_t* PlaylistName)
 {
 	mPlaylists.removeAt(findIndexByName(PlaylistName));
-	mRemovedPlaylist.add(std::move(wstring(PlaylistName)));
+	mRemovedPlaylist.add(std::move(String(PlaylistName)));
 }
 size_t PlaylistModel::findIndexByName(const wchar_t* PlaylistName) const
 {

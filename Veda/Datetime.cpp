@@ -3,6 +3,7 @@
 
 namespace veda
 {
+
 	Datetime::Datetime()
 	{
 		struct timeb tp;

@@ -1,7 +1,7 @@
 #pragma once
+#include <ZString.h>
 #include <Vector.h>
 using namespace veda;
-#include <string>
 #include <memory>
 using namespace std;
 struct MusicInfo
@@ -24,7 +24,7 @@ public:
 	int getId() const;
 	bool isModified() const;
 private:
-	wstring mPlaylistName;
+	String mPlaylistName;
 	int id;
 	Vector<shared_ptr<MusicInfo>> mPlaylist;
 	bool mIsModified;
@@ -43,6 +43,6 @@ protected:
 	size_t findIndexByName(const wchar_t* PlaylistName) const;
 private:
 	Vector<shared_ptr<Playlist>> mPlaylists;
-	Vector<wstring> mRemovedPlaylist;
+	Vector<String> mRemovedPlaylist;
 };
 

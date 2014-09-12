@@ -76,16 +76,27 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BufferedFileReader.h" />
+    <ClInclude Include="BufferedFileReader.hpp" />
     <ClInclude Include="DateFormat.h" />
     <ClInclude Include="Datetime.h" />
     <ClInclude Include="Directory.h" />
     <ClInclude Include="File.h" />
+    <ClInclude Include="FileBase.h" />
+    <ClInclude Include="FileReader.h" />
+    <ClInclude Include="FileReader.hpp" />
+    <ClInclude Include="FileWriter.h" />
+    <ClInclude Include="FileWriter.hpp" />
     <ClInclude Include="PathUtil.h" />
     <ClInclude Include="ReadOnlyIterator.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="ZString.h" />
+    <ClInclude Include="StreamFileReader.h" />
+    <ClInclude Include="StreamFileReader.hpp" />
+    <ClInclude Include="StringTraits.h" />
+    <ClInclude Include="BasicString.h" />
     <ClInclude Include="StringConvert.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="ZString.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DateFormat.cpp" />
@@ -97,7 +108,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="StringConvert.cpp" />
-    <ClCompile Include="ZString.cpp" />
+    <ClCompile Include="StringTraits.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

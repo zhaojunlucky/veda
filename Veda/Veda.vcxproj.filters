@@ -57,6 +57,39 @@
     <ClInclude Include="StringConvert.h">
       <Filter>String</Filter>
     </ClInclude>
+    <ClInclude Include="BufferedFileReader.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="BufferedFileReader.hpp">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="FileBase.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="FileReader.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="FileReader.hpp">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="FileWriter.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="FileWriter.hpp">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="StreamFileReader.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="StreamFileReader.hpp">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="StringTraits.h">
+      <Filter>String</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicString.h">
+      <Filter>String</Filter>
+    </ClInclude>
     <ClInclude Include="ZString.h">
       <Filter>String</Filter>
     </ClInclude>
@@ -80,7 +113,7 @@
     <ClCompile Include="StringConvert.cpp">
       <Filter>String</Filter>
     </ClCompile>
-    <ClCompile Include="ZString.cpp">
+    <ClCompile Include="StringTraits.cpp">
       <Filter>String</Filter>
     </ClCompile>
   </ItemGroup>

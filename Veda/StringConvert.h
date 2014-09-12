@@ -10,7 +10,9 @@ namespace veda
 	public:
 		StringConvert();
 		~StringConvert();
+		const wchar_t* char2wchar(const char* str,size_t size);
 		const wchar_t* char2wchar(const char* str);
+		const char* wchar2char(const wchar_t* str,size_t size);
 		const char* wchar2char(const wchar_t* str);
 	private:
 		Vector<char> chars;
