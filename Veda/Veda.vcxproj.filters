@@ -54,9 +54,6 @@
     <ClInclude Include="DateFormat.h">
       <Filter>Datetime</Filter>
     </ClInclude>
-    <ClInclude Include="StringConvert.h">
-      <Filter>String</Filter>
-    </ClInclude>
     <ClInclude Include="BufferedFileReader.h">
       <Filter>File</Filter>
     </ClInclude>
@@ -109,9 +106,6 @@
     </ClCompile>
     <ClCompile Include="DateFormat.cpp">
       <Filter>Datetime</Filter>
-    </ClCompile>
-    <ClCompile Include="StringConvert.cpp">
-      <Filter>String</Filter>
     </ClCompile>
     <ClCompile Include="StringTraits.cpp">
       <Filter>String</Filter>

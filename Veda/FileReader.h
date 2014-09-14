@@ -48,7 +48,7 @@ namespace veda
 		std::ifstream mAFile;
 		std::wifstream mUFile;
 		bool mIsUFile;
-		eio::StringConvertInternal mSci;
+		StringConvert mSci;
 	};
 
 	WFileReader::WFileReader(const char* file, FileEncoding enc)

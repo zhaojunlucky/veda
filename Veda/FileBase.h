@@ -2,10 +2,8 @@
 #ifdef _WIN32
 #include <Windows.h>
 #endif
-#include <string>
 #include <stdio.h>
-#include "StringConvert.h"
-//using namespace std;
+#include "ZString.h"
 
 namespace veda
 {
@@ -62,8 +60,7 @@ namespace veda
 		FileReadBase(const wchar_t* file, FileEncoding enc)
 			:mEnc(enc)
 		{
-			StringConvert sci;
-			mFile = sci.wchar2char(file, wcslen(file));
+			mFile.from(file);
 		}
 		~FileReadBase()
 		{
@@ -74,7 +71,7 @@ namespace veda
 		const char* GetFilePath(){ return mFile.c_str(); };
 		virtual void close() = 0;
 	protected:
-		std::string mFile;
+		AString mFile;
 		FileEncoding mEnc;
 	};
 
@@ -91,8 +88,7 @@ namespace veda
 		FileWriteBase(const wchar_t* file, FileEncoding enc)
 			:mEnc(enc)
 		{
-			StringConvert sci;
-			mFile = sci.wchar2char(file, wcslen(file));
+			mFile.from(file);
 		}
 
 		virtual void close() = 0;
@@ -101,7 +97,7 @@ namespace veda
 		FileEncoding GetEncoding(){ return mEnc; };
 		const char* GetFilePath(){ return mFile.c_str(); };
 	protected:
-		std::string mFile;
+		AString mFile;
 		FileEncoding mEnc;
 	};
 }

@@ -35,7 +35,8 @@ namespace veda
 			}
 			else
 			{
-				string tmp = mSci.wchar2char(buffer, size);
+				AString tmp;
+				tmp.from(buffer, size);
 				mAFile << tmp;
 			}
 			return 0;
@@ -48,7 +49,8 @@ namespace veda
 			}
 			else
 			{
-				string tmp = mSci.wchar2char(buffer, size);
+				AString tmp;
+				tmp.from(buffer, size);
 				mAFile << tmp << "\n";
 			}
 			return 0;
@@ -100,7 +102,6 @@ namespace veda
 		ofstream mAFile;
 		wofstream mUFile;
 		bool mIsUFile;
-		StringConvert mSci;
 	};
 
 	class CFileWriter : public FileWriteBase<char>
@@ -122,8 +123,8 @@ namespace veda
 		{
 			if (mIsUFile)
 			{
-				wstring tmp = mSci.char2wchar(buffer, size);
-				mUFile << tmp;
+				WString tmp;
+				tmp.from(buffer, size);
 			}
 			else
 			{
@@ -135,7 +136,8 @@ namespace veda
 		{
 			if (mIsUFile)
 			{
-				wstring tmp = mSci.char2wchar(buffer, size);
+				WString tmp;
+				tmp.from(buffer, size);
 				mUFile << tmp << L"\n";
 			}
 			else
@@ -191,6 +193,5 @@ namespace veda
 		ofstream mAFile;
 		wofstream mUFile;
 		bool mIsUFile;
-		StringConvert mSci;
 	};
 }
