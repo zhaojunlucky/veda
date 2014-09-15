@@ -84,6 +84,7 @@
     <ClInclude Include="CompressQF.h" />
     <ClInclude Include="ConvexHull.h" />
     <ClInclude Include="DataTypes.h" />
+    <ClInclude Include="MathBasic.h" />
     <ClInclude Include="MergeSort.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Prime.h" />
@@ -91,6 +92,7 @@
     <ClInclude Include="Random.h" />
     <ClInclude Include="Sort.h" />
     <ClInclude Include="Stack.h" />
+    <ClInclude Include="StringFind.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="WeightQF.h" />
     <ClInclude Include="UF.h" />
@@ -100,6 +102,7 @@
     <ClCompile Include="Prime.cpp" />
     <ClCompile Include="QF.cpp" />
     <ClCompile Include="Random.cpp" />
+    <ClCompile Include="StringFind.cpp" />
     <ClCompile Include="WeightQF.cpp" />
     <ClCompile Include="UF.cpp" />
   </ItemGroup>

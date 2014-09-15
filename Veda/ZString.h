@@ -12,12 +12,12 @@ namespace veda
 	typedef WcharTraits::value_type tchar;
 #endif
 
-	std::ostream& operator<<(std::ostream& os, const AString& dt)
+	static std::ostream& operator<<(std::ostream& os, const AString& dt)
 	{
 		os << dt.c_str();
 		return os;
 	}
-	std::wostream& operator<<(std::wostream& os, const WString& dt)
+	static std::wostream& operator<<(std::wostream& os, const WString& dt)
 	{
 		os << dt.c_str();
 		return os;
