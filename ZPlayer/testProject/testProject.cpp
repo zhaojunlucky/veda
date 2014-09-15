@@ -165,4 +165,7 @@ void testOthers()
 	String str2 = L"Dd";
 	wcout << str1.equals(str2) << endl;
 	wcout << str1.equalsIgnoreCase(str2) << endl;
+
+	wcout << tmp << ",space," << tmp.find(L"space") << endl;
+	wcout << tmp << ",spacez," << tmp.find(L"spacez") << endl;
 }

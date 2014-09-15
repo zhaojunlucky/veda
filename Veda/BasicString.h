@@ -6,6 +6,7 @@
 #include <memory>
 #include "StringTraits.h"
 #include <tchar.h>
+#include <StringFind.h>
 
 namespace veda
 {
@@ -730,9 +731,9 @@ namespace veda
 			return mData[index];
 		}
 		
-		size_t find(value_type c, size_t start = 0) const
+		size_type find(value_type c, size_type start = 0) const
 		{
-			for (size_t i = start; i < mSize; i++)
+			for (size_type i = start; i < mSize; i++)
 			{
 				if (c == mData[i])
 				{
@@ -742,9 +743,9 @@ namespace veda
 			return npos;
 		}
 		
-		size_t rfind(value_type c, size_t start) const
+		size_type rfind(value_type c, size_type start) const
 		{
-			for (size_t i = start; i >= 1; i--)
+			for (size_type i = start; i >= 1; i--)
 			{
 				if (c == mData[i])
 				{
@@ -761,9 +762,35 @@ namespace veda
 			}
 		}
 		
-		size_t rfind(value_type c) const
+		size_type rfind(value_type c) const
 		{
 			return rfind(c, mSize - 1);
+		}
+
+		size_type find(const value_type* str, size_type size) const
+		{
+			return findSubStr<value_type>(mData, mSize, str, size);
+		}
+		size_type find(const value_type* str) const
+		{
+			return findSubStr<value_type>(mData, mSize, str, _traits::_len(str));
+		}
+		size_type find(const _String& str) const
+		{
+			return find(str.mData,str.mSize);
+		}
+		SubStringIndexesPtr findAll(const value_type* str, size_type size) const
+		{
+			return findAllSubStr<value_type>(mData, mSize, str, size);
+		}
+		SubStringIndexesPtr findAll(const value_type* str) const
+		{
+			return findAllSubStr<value_type>(mData, mSize, str, _traits::_len(str));
+		}
+
+		SubStringIndexesPtr findAll(const _String& str) const
+		{
+			return findAll(str.mData, str.mSize);
 		}
 		
 		StringPtr trim()

@@ -19,7 +19,10 @@ namespace veda
 	}
 
 	template<class value_type>
-	SubStringIndexesPtr findAllSubStr(const value_type* str, size_t strSize, const value_type* pattern, size_t patSize);
+	SubStringIndexesPtr findAllSubStr(const value_type* str, size_t strSize, const value_type* pattern, size_t patSize)
+	{
+		return findAllSubStrBM(str, strSize, pattern, patSize);
+	}
 }
 
 

@@ -107,7 +107,7 @@ namespace veda
 	}
 
 	template<class value_type>
-	SubStringIndexesPtr findAllSubStr(const value_type* str, size_t strSize, const value_type* pattern, size_t patSize)
+	SubStringIndexesPtr findAllSubStrBM(const value_type* str, size_t strSize, const value_type* pattern, size_t patSize)
 	{
 		SubStringIndexesPtr poss = std::make_shared<Vector<size_t>>();
 		if (strSize >= patSize)
