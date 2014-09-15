@@ -27,6 +27,9 @@
     <ClInclude Include="testSort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="testStringFind.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

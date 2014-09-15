@@ -80,6 +80,7 @@
   <ItemGroup>
     <ClInclude Include="Array.h" />
     <ClInclude Include="BinarySearch.h" />
+    <ClInclude Include="BoyerMoore.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="CompressQF.h" />
     <ClInclude Include="ConvexHull.h" />
@@ -102,7 +103,6 @@
     <ClCompile Include="Prime.cpp" />
     <ClCompile Include="QF.cpp" />
     <ClCompile Include="Random.cpp" />
-    <ClCompile Include="StringFind.cpp" />
     <ClCompile Include="WeightQF.cpp" />
     <ClCompile Include="UF.cpp" />
   </ItemGroup>

@@ -86,6 +86,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="testSort.h" />
+    <ClInclude Include="testStringFind.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AlgorithmTest.cpp" />

@@ -4,7 +4,7 @@ namespace veda
 {
 	Random::Random()
 	{
-		srand(time(NULL));
+		srand((unsigned int)time(NULL));
 	}
 
 

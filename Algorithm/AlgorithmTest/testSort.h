@@ -62,7 +62,7 @@ void testShuffle()
 	Array<int> arr(10);
 	for (size_t i = 0; i < arr.length();i++)
 	{
-		arr[i] = i;
+		arr[i] = (int)i;
 	}
 	cout << "shuffle:" << endl;
 	output(arr);
