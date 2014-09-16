@@ -75,6 +75,9 @@
     <ClInclude Include="BoyerMoore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ArrayVisitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UF.cpp">

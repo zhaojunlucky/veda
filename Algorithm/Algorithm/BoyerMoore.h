@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include "Vector.h"
+#include "ArrayVisitor.h"
 
 namespace veda
 {
@@ -10,7 +11,7 @@ namespace veda
 	typedef std::shared_ptr<Vector<size_t>> SubStringIndexesPtr;
 
 	template<class value_type>
-	static void buildBadCharTable(const value_type* str, size_t strSize, const value_type* pattern, size_t patSize, std::hash_map<value_type, size_t> &badCharTable)
+	static void buildBadCharTable(const IBaseArrayVisitor<value_type>& str, size_t strSize, const IBaseArrayVisitor<value_type>& pattern, size_t patSize, std::hash_map<value_type, size_t> &badCharTable)
 	{
 		size_t i = patSize - 1;
 		while (i >= 1)
@@ -22,7 +23,7 @@ namespace veda
 	}
 
 	template<class value_type>
-	static void buildGoodSuffixTable(const value_type* pattern, size_t patSize, std::hash_map<size_t, size_t> &goodSuffixTable)
+	static void buildGoodSuffixTable(const IBaseArrayVisitor<value_type>& pattern, size_t patSize, std::hash_map<size_t, size_t> &goodSuffixTable)
 	{
 		value_type c = pattern[patSize - 1];
 		for (auto i = 1; i < patSize; i++)
@@ -39,7 +40,7 @@ namespace veda
 	}
 
 	template<class value_type>
-	static size_t compare(const value_type* str, size_t start, const value_type* pattern, size_t patSize)
+	static size_t compare(const IBaseArrayVisitor<value_type>& str, size_t start, const IBaseArrayVisitor<value_type>& pattern, size_t patSize)
 	{
 		size_t i = 1;
 		while (i <= patSize && str[start + patSize - i] == pattern[patSize - i])
@@ -71,7 +72,7 @@ namespace veda
 	}
 
 	template<class value_type>
-	size_t findBM(const value_type* str, size_t strSize, const value_type* pattern, size_t patSize)
+	size_t findBM(const IBaseArrayVisitor<value_type>& str, size_t strSize, const IBaseArrayVisitor<value_type>& pattern, size_t patSize)
 	{
 		if (strSize >= patSize)
 		{
@@ -107,7 +108,7 @@ namespace veda
 	}
 
 	template<class value_type>
-	SubStringIndexesPtr findAllSubStrBM(const value_type* str, size_t strSize, const value_type* pattern, size_t patSize)
+	SubStringIndexesPtr findAllSubStrBM(const IBaseArrayVisitor<value_type>& str, size_t strSize, const IBaseArrayVisitor<value_type>& pattern, size_t patSize)
 	{
 		SubStringIndexesPtr poss = std::make_shared<Vector<size_t>>();
 		if (strSize >= patSize)

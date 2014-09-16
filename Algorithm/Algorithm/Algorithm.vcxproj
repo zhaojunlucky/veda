@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array.h" />
+    <ClInclude Include="ArrayVisitor.h" />
     <ClInclude Include="BinarySearch.h" />
     <ClInclude Include="BoyerMoore.h" />
     <ClInclude Include="common.h" />

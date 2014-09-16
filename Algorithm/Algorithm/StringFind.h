@@ -15,13 +15,33 @@ namespace veda
 	template<class value_type>
 	size_t findSubStr(const value_type* str, size_t strSize, const value_type* pattern, size_t patSize)
 	{
-		return findBM(str, strSize, pattern, patSize);
+		ArrayVisitor<value_type> src(str, strSize);
+		ArrayVisitor<value_type> pat(pattern, patSize);
+		return findBM(src, strSize, pat, patSize);
+	}
+
+	template<class value_type>
+	size_t rfindSubStr(const value_type* str, size_t strSize, const value_type* pattern, size_t patSize)
+	{
+		ReverseArrayVisitor<value_type> src(str, strSize);
+		ReverseArrayVisitor<value_type> pat(pattern, patSize);
+		return findBM(src, strSize, pat, patSize);
 	}
 
 	template<class value_type>
 	SubStringIndexesPtr findAllSubStr(const value_type* str, size_t strSize, const value_type* pattern, size_t patSize)
 	{
-		return findAllSubStrBM(str, strSize, pattern, patSize);
+		ArrayVisitor<value_type> src(str, strSize);
+		ArrayVisitor<value_type> pat(pattern, patSize);
+		return findAllSubStrBM(src, strSize, pat, patSize);
+	}
+
+	template<class value_type>
+	SubStringIndexesPtr rfindAllSubStr(const value_type* str, size_t strSize, const value_type* pattern, size_t patSize)
+	{
+		ReverseArrayVisitor<value_type> src(str, strSize);
+		ReverseArrayVisitor<value_type> pat(pattern, patSize);
+		return findAllSubStrBM(src, strSize, pat, patSize);
 	}
 }
 
