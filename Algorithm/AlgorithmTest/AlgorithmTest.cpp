@@ -19,6 +19,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	testStringFind();
 	testStringFindAll();
+	cout << "Reverse find testing" << endl;
+	testStringRFind();
+	testStringRFindAll();
 
 	system("PAUSE");
 	return 0;

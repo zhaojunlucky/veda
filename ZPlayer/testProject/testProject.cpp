@@ -168,4 +168,11 @@ void testOthers()
 
 	wcout << tmp << ",space," << tmp.find(L"space") << endl;
 	wcout << tmp << ",spacez," << tmp.find(L"spacez") << endl;
+	cout << "reverse find" << endl;
+	wcout << tmp << ",space," << tmp.rfind(L"space") << endl;
+	wcout << tmp << ",spacez," << tmp.rfind(L"spacez") << endl;
+
+	wcout << tmp << L" to upper[" << tmp.toUppercase()->c_str() << L"]" << endl;
+	String up = L"ABCGDKkk";
+	wcout << up << L" to lower[" << up.toLowercase()->c_str() << L"]" << endl;
 }

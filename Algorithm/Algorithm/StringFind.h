@@ -25,7 +25,12 @@ namespace veda
 	{
 		ReverseArrayVisitor<value_type> src(str, strSize);
 		ReverseArrayVisitor<value_type> pat(pattern, patSize);
-		return findBM(src, strSize, pat, patSize);
+		size_t index = findBM(src, strSize, pat, patSize);
+		if (index != NPOS)
+		{
+			index = strSize - index - patSize;
+		}
+		return index;
 	}
 
 	template<class value_type>
@@ -41,7 +46,12 @@ namespace veda
 	{
 		ReverseArrayVisitor<value_type> src(str, strSize);
 		ReverseArrayVisitor<value_type> pat(pattern, patSize);
-		return findAllSubStrBM(src, strSize, pat, patSize);
+		SubStringIndexesPtr ptr = findAllSubStrBM(src, strSize, pat, patSize);
+		for (auto& index : *ptr.get())
+		{
+			index = strSize - index - patSize;
+		}
+		return ptr;
 	}
 }
 

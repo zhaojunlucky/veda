@@ -55,6 +55,15 @@ namespace veda
 		{
 			return  _vsnprintf(buf, len, fmat, argList);
 		}
+
+		static value_type toLowercase(value_type v)
+		{
+			return tolower(v);
+		}
+		static value_type toUppercase(value_type v)
+		{
+			return toupper(v);
+		}
 	};
 
 	struct WcharTraits
@@ -110,7 +119,14 @@ namespace veda
 		{
 			return   _vsnwprintf(buf, len, fmat, argList);
 		}
-	
+		static value_type toLowercase(value_type v)
+		{
+			return towlower(v);
+		}
+		static value_type toUppercase(value_type v)
+		{
+			return towupper(v);
+		}
 	};
 
 

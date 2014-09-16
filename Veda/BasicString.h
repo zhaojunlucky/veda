@@ -793,7 +793,33 @@ namespace veda
 			return findAll(str.mData, str.mSize);
 		}
 		
-		StringPtr trim()
+		size_type rfind(const value_type* str, size_type size) const
+		{
+			return rfindSubStr<value_type>(mData, mSize, str, size);
+		}
+		size_type rfind(const value_type* str) const
+		{
+			return rfindSubStr<value_type>(mData, mSize, str, _traits::_len(str));
+		}
+		size_type rfind(const _String& str) const
+		{
+			return rfind(str.mData, str.mSize);
+		}
+		SubStringIndexesPtr rfindAll(const value_type* str, size_type size) const
+		{
+			return rfindAllSubStr<value_type>(mData, mSize, str, size);
+		}
+		SubStringIndexesPtr rfindAll(const value_type* str) const
+		{
+			return rfindAllSubStr<value_type>(mData, mSize, str, _traits::_len(str));
+		}
+
+		SubStringIndexesPtr rfindAll(const _String& str) const
+		{
+			return rfindAll(str.mData, str.mSize);
+		}
+
+		StringPtr trim() const
 		{
 			StringPtr tmp = std::make_shared<BasicString>();
 
@@ -821,7 +847,7 @@ namespace veda
 			return tmp;
 		}
 		
-		StringPtr trimLeft()
+		StringPtr trimLeft() const
 		{
 			StringPtr tmp = std::make_shared<BasicString>();
 			if (mSize == 0)
@@ -841,7 +867,7 @@ namespace veda
 			return (tmp);
 		}
 		
-		StringPtr trimRight()
+		StringPtr trimRight() const
 		{
 			StringPtr tmp = std::make_shared<BasicString>();
 			if (mSize == 0)
@@ -861,7 +887,29 @@ namespace veda
 			}
 			return tmp;
 		}
-		
+
+		StringPtr toLowercase() const
+		{
+			_String* tmp = new _String(*this);
+
+			for (size_type i = 0; i < tmp->mSize; i++)
+			{
+				tmp->mData[i] = _traits::toLowercase(tmp->mData[i]);
+			}
+			return std::shared_ptr<_String>(tmp);
+		}
+
+		StringPtr toUppercase() const
+		{
+			_String* tmp = new _String(*this);
+
+			for (size_type i = 0; i < tmp->mSize; i++)
+			{
+				tmp->mData[i] = _traits::toUppercase(tmp->mData[i]);
+			}
+			return std::shared_ptr<_String>(tmp);
+		}
+private:
 		void assign(const value_type* buf, size_type size)
 		{
 			if (size >= mCapacity)
