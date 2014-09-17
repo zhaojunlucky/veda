@@ -3,4 +3,5 @@
 
 #include "stdafx.h"
 
+#pragma comment(lib, "Veda.lib")
 

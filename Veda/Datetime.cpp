@@ -66,12 +66,11 @@ namespace veda
 		return dayOfWeek;
 	}
 
-	wstring Datetime::format(const wchar_t* pattern)
+	StringPtr Datetime::format(const wchar_t* pattern)
 	{
-		wstring str;
-		str.reserve(64);
-		format(&str[0], pattern);
-		return std::move(str);
+		wchar_t buf[64];
+		format(buf, pattern);
+		return makeStringPtr(buf);
 	}
 	void Datetime::format(wchar_t* buf, const wchar_t* pattern)
 	{
@@ -87,7 +86,7 @@ namespace veda
 				{
 				case L'y':
 				{
-					if (t.key.size() == 2)
+					if (t.key.getSize() == 2)
 					{
 						sh = (year-(year/100)*100);
 					}
@@ -98,7 +97,7 @@ namespace veda
 				}break;
 				case L'M':
 				{
-					if (t.key.size() == 1)
+					if (t.key.getSize() == 1)
 					{
 						sh = month;
 					}
@@ -109,7 +108,7 @@ namespace veda
 				}break;
 				case L'd':
 				{
-					if (t.key.size() == 1)
+					if (t.key.getSize() == 1)
 					{
 						sh = day;
 					}
@@ -120,7 +119,7 @@ namespace veda
 				}break;
 				case L'H':
 				{
-					if (t.key.size() == 1)
+					if (t.key.getSize() == 1)
 					{
 						sh = hour;
 					}
@@ -132,7 +131,7 @@ namespace veda
 				case L'h':
 				{
 					int h = (hour > 12) ? hour % 12 : hour;
-					if (t.key.size() == 1)
+					if (t.key.getSize() == 1)
 					{
 						sh = h;
 					}
@@ -143,7 +142,7 @@ namespace veda
 				}break;
 				case L'm':
 				{
-					if (t.key.size() == 1)
+					if (t.key.getSize() == 1)
 					{
 						sh = minute;
 					}
@@ -154,7 +153,7 @@ namespace veda
 				}break;
 				case L's':
 				{
-					if (t.key.size() == 1)
+					if (t.key.getSize() == 1)
 					{
 						sh = second;
 					}
@@ -165,7 +164,7 @@ namespace veda
 				}break;
 				case L'S':
 				{
-					if (t.key.size() == 2)
+					if (t.key.getSize() == 2)
 					{
 						sh = second;
 					}

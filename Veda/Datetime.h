@@ -35,7 +35,7 @@ namespace veda
 		short getMillisecond() const;
 		short getDayOfYear() const;
 		short getDayOfWeek() const;
-		wstring format(const wchar_t* pattern = L"yyyy-MM-dd HH:mm:ss");
+		StringPtr format(const wchar_t* pattern = L"yyyy-MM-dd HH:mm:ss");
 		void format(wchar_t* buf, const wchar_t* pattern = L"yyyy-MM-dd HH:mm:ss");
 		static Datetime now();
 	private:

@@ -66,6 +66,9 @@
     <ClInclude Include="ID3v2Base.h">
       <Filter>ID3v2</Filter>
     </ClInclude>
+    <ClInclude Include="ID3v2Footer.h">
+      <Filter>ID3v2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -102,6 +105,9 @@
       <Filter>ID3v2</Filter>
     </ClCompile>
     <ClCompile Include="ID3v2ExtendedHeader.cpp">
+      <Filter>ID3v2</Filter>
+    </ClCompile>
+    <ClCompile Include="ID3v2Footer.cpp">
       <Filter>ID3v2</Filter>
     </ClCompile>
   </ItemGroup>

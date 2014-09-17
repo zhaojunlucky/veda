@@ -9,7 +9,7 @@ namespace veda
 		wchar_t c;
 		Token t;
 		t.s = 0;
-		t.key.push_back(pattern[0]);
+		t.key.append(pattern[0]);
 		for (auto i = 1; i < len; i++)
 		{
 			c = pattern[i];
@@ -33,18 +33,18 @@ namespace veda
 					t.s = i;
 					t.isFormatKey = false;
 				}
-				t.key.push_back(c);
+				t.key.append(c);
 			}break;
 			default:
 			{
-				if (isFormartKey(t.key[t.key.size()-1]))
+				if (isFormartKey(t.key[t.key.getSize()-1]))
 				{
 					pushToken(tokens, t, i - 1);
 					t.key.clear();
 					t.s = i;				
 					t.isFormatKey = false;
 				}
-				t.key.push_back(c);
+				t.key.append(c);
 			}
 				break;
 			}
@@ -59,14 +59,15 @@ namespace veda
 
 	bool DateFormat::checkToken(Token& t, wchar_t c)
 	{
-		return !(c == t.key[t.key.size() - 1]);
+		return !(c == t.key[t.key.getSize() - 1]);
 	}
 
 	void DateFormat::pushToken(Vector<Token>& tokens, Token& t, size_t e)
 	{
 		t.e = e;
-		for (auto c : t.key)
+		for (size_t i = 0; i < t.key.getSize(); i++)
 		{
+			wchar_t c = t.key[i];
 			if (isFormartKey(c))
 			{
 				t.isFormatKey = true;

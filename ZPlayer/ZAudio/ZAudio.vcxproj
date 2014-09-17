@@ -51,12 +51,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;FLAC__NO_DLL;_DEBUG;_WINDOWS;_USRDLL;ZAUDIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\;..\..\ThirdParty\include;..\..\ThirdParty\include\flac_h;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\;..\..\ThirdParty\include;..\..\ThirdParty\include\flac_h;..\..\Algorithm\Algorithm;..\..\Veda;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\ThirdParty\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\ThirdParty\lib;..\x64\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>winmm.lib;libmpg123.lib;win_utf8_io.lib;libFLAC_static.lib;libogg_static.lib;MACLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -68,14 +68,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;FLAC__NO_DLL;NDEBUG;_WINDOWS;_USRDLL;ZAUDIO_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\;..\..\ThirdParty\include;..\..\ThirdParty\include\flac_h;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\;..\..\ThirdParty\include;..\..\ThirdParty\include\flac_h;..\..\Algorithm\Algorithm;..\..\Veda;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>..\..\ThirdParty\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\ThirdParty\lib;..\x64\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>winmm.lib;libmpg123.lib;win_utf8_io.lib;libFLAC_static.lib;libogg_static.lib;MACLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -92,6 +92,7 @@
     <ClInclude Include="ID3v2Base.h" />
     <ClInclude Include="ID3v2Exception.h" />
     <ClInclude Include="ID3v2ExtendedHeader.h" />
+    <ClInclude Include="ID3v2Footer.h" />
     <ClInclude Include="ID3v2Header.h" />
     <ClInclude Include="MP3Decoder.h" />
     <ClInclude Include="resource.h" />
@@ -114,6 +115,7 @@
     </ClCompile>
     <ClCompile Include="FlacDecoder.cpp" />
     <ClCompile Include="ID3v2ExtendedHeader.cpp" />
+    <ClCompile Include="ID3v2Footer.cpp" />
     <ClCompile Include="ID3v2Header.cpp" />
     <ClCompile Include="MP3Decoder.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -5,79 +5,58 @@ namespace audio
 {
 	namespace id3v2
 	{
-		ID3v2Header::ID3v2Header()
+		void ID3v2Header3::parse(const char buf[10])
 		{
-		}
-
-
-		ID3v2Header::~ID3v2Header()
-		{
-		}
-
-		void ID3v2Header::parse(const char buf[10])
-		{
-			mHeaderStr.reserve(10);
-			for (size_t i = 0; i < 10; i++)
-			{
-				mHeaderStr.push_back(buf[i]);
-			}
+			mHeaderStr.append(buf,10);
 			parse();
 		}
-		unsigned int ID3v2Header::getMajorVersion() const
+		unsigned int ID3v2Header3::getMajorVersion() const
 		{
 			return mMajorVer;
 		}
-		unsigned int ID3v2Header::getRevisionVersion() const
+		unsigned int ID3v2Header3::getRevisionVersion() const
 		{
 			return mRevisionVer;
 		}
-		void ID3v2Header::setMajorVersion(unsigned int m)
+		void ID3v2Header3::setMajorVersion(unsigned int m)
 		{
 			mMajorVer = m;
 		}
-		void ID3v2Header::setRevisionVersion(unsigned int r)
+		void ID3v2Header3::setRevisionVersion(unsigned int r)
 		{
 			mRevisionVer = r;
 		}
-		bool ID3v2Header::isUnsynchronisation() const
+		bool ID3v2Header3::isUnsynchronisation() const
 		{
 			return mIsUnsynchronisation;
 		}
-		void ID3v2Header::setUnsynchronisation(bool v)
+		void ID3v2Header3::setUnsynchronisation(bool v)
 		{
 			mIsUnsynchronisation = v;
 		}
-		bool ID3v2Header::isExtendedHeader() const
+		bool ID3v2Header3::isExtendedHeader() const
 		{
 			return mIsExtendedHeader;
 		}
-		void ID3v2Header::setExtendedHeader(bool v)
+		void ID3v2Header3::setExtendedHeader(bool v)
 		{
 			mIsExtendedHeader = v;
 		}
-		bool ID3v2Header::isExperimentalIndicator() const
+		bool ID3v2Header3::isExperimentalIndicator() const
 		{
 			return mIsExperimentalIndicator;
 		}
-		void ID3v2Header::setExperimentalIndicator(bool v)
+		void ID3v2Header3::setExperimentalIndicator(bool v)
 		{
 			mIsExperimentalIndicator = v;
 		}
-		bool ID3v2Header::isFooterPresent() const
-		{
-			return mIsFooterPresent;
-		}
-		void ID3v2Header::setFooterPresent(bool v)
-		{
-			mIsFooterPresent = v;
-		}
 
-		unsigned int ID3v2Header::getTagSize() const
+		unsigned int ID3v2Header3::getTagSize() const
 		{
 			return mTotalSize - 10 - mIsFooterPresent?10:0;
 		}
 
-		void ID3v2Header::parse()
+		void ID3v2Header3::parse()
 		{
 			const char* p = mHeaderStr.c_str();
 			
@@ -105,10 +84,27 @@ namespace audio
 			mIsUnsynchronisation = GetBit(flag, 7);
 			mIsExtendedHeader = GetBit(flag,6);
 			mIsExperimentalIndicator = GetBit(flag,5);
-			mIsFooterPresent = GetBit(flag,4);
+			
 
 			const char* sizePtr = &p[6];
 			mTotalSize = (((sizePtr[0] & 0x7F) << 21) | ((sizePtr[1] & 0x7F) << 14) | ((sizePtr[2] & 0x7F) << 7) | (sizePtr[3] & 0x7F));
+		}
+
+		// version 2.4
+		bool ID3v2Header4::isFooterPresent() const
+		{
+			return mIsFooterPresent;
+		}
+		void ID3v2Header4::setFooterPresent(bool v)
+		{
+			mIsFooterPresent = v;
+		}
+
+		void ID3v2Header4::parse()
+		{
+			ID3v2Header3::parse();
+			char flag = mHeaderStr[5];
+			mIsFooterPresent = (mMajorVer >= 4 ? GetBit(flag, 4) : false);
 		}
 	}
 }

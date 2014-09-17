@@ -1,7 +1,7 @@
 #pragma once
-#include <string>
-using namespace std;
 #include <Vector.h>
+#include "ZString.h"
+
 namespace veda
 {
 	struct Token
@@ -16,7 +16,7 @@ namespace veda
 		}
 		size_t s;
 		size_t e;
-		wstring key;
+		WString key;
 		bool isFormatKey;
 	};
 
@@ -30,7 +30,7 @@ namespace veda
 		bool checkToken(Token& t, wchar_t c);
 		void pushToken(Vector<Token>& tokens,Token& t, size_t e);
 	private:
-		const wstring keys = L"yMdHhmsSa";
+		const WString keys = L"yMdHhmsSa";
 	};
 }
 

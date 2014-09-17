@@ -20,9 +20,9 @@ namespace veda
 		typedef typename _traits::value_type value_type;
 		typedef typename _traits::size_type size_type;
 		typedef BasicString<_traits, _ochar> _String;
-		static const size_type npos = -1;
 	public:
-		typedef std::shared_ptr<BasicString> StringPtr;
+		static const size_type npos = -1;
+		typedef std::shared_ptr<BasicString<_traits, _ochar>> StringPtr;
 		
 		BasicString()
 			:mCapacity(DEFAULT_SIZE), mSize(0)
@@ -731,6 +731,12 @@ namespace veda
 			return mData[index];
 		}
 		
+		void clear()
+		{
+			mSize = 0;
+			mData[0] = '\0';
+		}
+
 		size_type find(value_type c, size_type start = 0) const
 		{
 			for (size_type i = start; i < mSize; i++)

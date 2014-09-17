@@ -1,17 +1,16 @@
 #pragma once
-#include <string>
-using namespace std;
+#include "ZString.h"
 #include "ID3v2Exception.h"
 #include "ID3v2Base.h"
+
+using namespace veda;
 namespace audio
 {
 	namespace id3v2
 	{
-		class ID3v2Header
+		class ID3v2Header3
 		{
 		public:
-			ID3v2Header();
-			virtual ~ID3v2Header();
 			// throws ID3v2Exception
 			void parse(const char buf[10]);
 			unsigned int getMajorVersion() const;
@@ -24,21 +23,30 @@ namespace audio
 			void setExtendedHeader(bool v);
 			bool isExperimentalIndicator() const;
 			void setExperimentalIndicator(bool v);
-			bool isFooterPresent() const;
-			void setFooterPresent(bool v);
 			unsigned int getTagSize() const;
 
 		protected:
-			void parse();
-		private:
+			virtual void parse();
+		protected:
 			unsigned int mMajorVer;
 			unsigned int mRevisionVer;
-			string mHeaderStr;
+			AString mHeaderStr;
 			bool mIsUnsynchronisation;
 			bool mIsExtendedHeader;
 			bool mIsExperimentalIndicator;
 			bool mIsFooterPresent;
 			unsigned int mTotalSize;
+		};
+
+		class ID3v2Header4 : public ID3v2Header3
+		{
+		public:
+			bool isFooterPresent() const;
+			void setFooterPresent(bool v);
+		protected:
+			virtual void parse();
+		protected:
+			bool mIsFooterPresent;
 		};
 	}
 }
