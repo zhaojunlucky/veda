@@ -105,6 +105,9 @@
     <ClInclude Include="Socket.h">
       <Filter>Network</Filter>
     </ClInclude>
+    <ClInclude Include="IPAddress.h">
+      <Filter>Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -129,6 +132,9 @@
       <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="Socket.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="IPAddress.cpp">
       <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>

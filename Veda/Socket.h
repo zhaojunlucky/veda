@@ -12,6 +12,9 @@ namespace veda
 		~Socket();
 		operator SOCKET();
 		SOCKET getSocket() const;
+		AddressFamily getAddressFamily() const;
+		SocketType getSocketType() const;
+		SocketProtocol getSocketProtocol() const;
 		Socket &operator=(const Socket& s);
 		bool isValid() const;
 		void close();

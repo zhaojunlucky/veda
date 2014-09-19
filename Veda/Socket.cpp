@@ -31,6 +31,18 @@ namespace veda
 	{
 		return mSocket;
 	}
+	AddressFamily Socket::getAddressFamily() const
+	{
+		return mAF;
+	}
+	SocketType Socket::getSocketType() const
+	{
+		return mST;
+	}
+	SocketProtocol Socket::getSocketProtocol() const
+	{
+		return mSP;
+	}
 	Socket &Socket::operator=(const Socket& s)
 	{
 		if (this != &s)
