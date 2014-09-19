@@ -25,6 +25,9 @@
     <Filter Include="String">
       <UniqueIdentifier>{a008caba-9b48-48eb-b50d-bad2f9d724a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{3c7a427e-7877-4a58-8190-07453b5f82fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -90,6 +93,18 @@
     <ClInclude Include="ZString.h">
       <Filter>String</Filter>
     </ClInclude>
+    <ClInclude Include="WinSocket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="NetException.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseException.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Socket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -109,6 +124,12 @@
     </ClCompile>
     <ClCompile Include="StringTraits.cpp">
       <Filter>String</Filter>
+    </ClCompile>
+    <ClCompile Include="WinSocket.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Socket.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
