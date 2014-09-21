@@ -12,7 +12,6 @@ namespace veda
 		UnSpecified = AF_UNSPEC,
 		IPv4 = AF_INET,
 		IPv6 = AF_INET6,
-		Blueteeth = AF_BTH
 	};
 
 	enum SocketType
@@ -38,6 +37,26 @@ namespace veda
 	private:
 		void init();
 	};
+
+	static void getSocketErrorMessage(int errCode, String& mes)
+	{
+		mes.clear();
+		LPWSTR lpBuffer;
+		FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER |
+			FORMAT_MESSAGE_IGNORE_INSERTS |
+			FORMAT_MESSAGE_FROM_SYSTEM,
+			NULL,
+			errCode, // 此乃错误代码，通常在程序中可由 GetLastError()得之
+			LANG_NEUTRAL,
+			(LPWSTR)& lpBuffer,
+			0,
+			NULL);
+		if (lpBuffer != NULL)
+		{
+			mes = lpBuffer;
+			LocalFree(lpBuffer);
+		}
+	}
 }
 
 

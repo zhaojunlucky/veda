@@ -108,6 +108,9 @@
     <ClInclude Include="IPAddress.h">
       <Filter>Network</Filter>
     </ClInclude>
+    <ClInclude Include="IPEndPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -136,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="IPAddress.cpp">
       <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="IPEndPoint.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

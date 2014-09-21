@@ -89,6 +89,7 @@
     <ClInclude Include="FileWriter.h" />
     <ClInclude Include="FileWriter.hpp" />
     <ClInclude Include="IPAddress.h" />
+    <ClInclude Include="IPEndPoint.h" />
     <ClInclude Include="NetException.h" />
     <ClInclude Include="PathUtil.h" />
     <ClInclude Include="ReadOnlyIterator.h" />
@@ -107,6 +108,7 @@
     <ClCompile Include="Datetime.cpp" />
     <ClCompile Include="Directory.cpp" />
     <ClCompile Include="IPAddress.cpp" />
+    <ClCompile Include="IPEndPoint.cpp" />
     <ClCompile Include="PathUtil.cpp" />
     <ClCompile Include="Socket.cpp" />
     <ClCompile Include="stdafx.cpp">

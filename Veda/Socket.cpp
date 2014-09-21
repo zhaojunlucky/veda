@@ -3,12 +3,6 @@
 
 namespace veda
 {
-	Socket::Socket()
-		:mAF(AddressFamily::UnSpecified), mSocket(INVALID_SOCKET)
-	{
-
-	}
-
 	Socket::Socket(AddressFamily af, SocketType st, SocketProtocol sp)
 		:mAF(af), mST(st), mSP(sp)
 	{

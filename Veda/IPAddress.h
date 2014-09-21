@@ -7,10 +7,20 @@ namespace veda
 	{
 	public:
 		IPAddress();
-		IPAddress(const String& ip, short port);
+		IPAddress(const String& ip);
+		IPAddress(const IPAddress& ipadd);
 		~IPAddress();
+
+		void parse(const String& ip);
+
+		const void* getAddressInfo() const;
+		operator const void*()const;
+		AddressFamily getAddressFamily() const;
+		IPAddress& operator=(const IPAddress& ipadd);
 	private:
-		ADDRINFOT mAddInfo;
+		in6_addr mAddInfo6; 
+		in_addr mAddInfo4;
+		AddressFamily mAf;
 	};
 }
 

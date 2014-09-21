@@ -6,7 +6,6 @@ namespace veda
 	class Socket
 	{
 	public:
-		Socket();
 		Socket(AddressFamily af, SocketType st, SocketProtocol sp);
 		Socket(const Socket& socket);
 		~Socket();
@@ -18,6 +17,8 @@ namespace veda
 		Socket &operator=(const Socket& s);
 		bool isValid() const;
 		void close();
+
+
 	private:
 		void makeSocket();
 	private:
