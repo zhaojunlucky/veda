@@ -109,7 +109,7 @@
       <Filter>Network</Filter>
     </ClInclude>
     <ClInclude Include="IPEndPoint.h">
-      <Filter>Header Files</Filter>
+      <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -141,7 +141,7 @@
       <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="IPEndPoint.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
