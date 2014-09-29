@@ -14,12 +14,13 @@ namespace veda
 		void parse(const String& ip);
 
 		const void* getAddressInfo() const;
+		int getLength() const;
 		operator const void*()const;
 		AddressFamily getAddressFamily() const;
 		IPAddress& operator=(const IPAddress& ipadd);
 	private:
-		in6_addr mAddInfo6; 
-		in_addr mAddInfo4;
+		sockaddr_in6 mAddInfo6;
+		sockaddr_in mAddInfo4;
 		AddressFamily mAf;
 	};
 }

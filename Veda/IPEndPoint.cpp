@@ -5,30 +5,40 @@ namespace veda
 {
 	IPEndPoint::IPEndPoint(const String&ip, int port)
 	{
-		mAdd.parse(ip);
+		mAdd = new IPAddress;
+		mAdd->parse(ip);
 		mPort = port;
 	}
 	IPEndPoint::IPEndPoint(const IPAddress&ip, int port)
-		:mAdd(ip), mPort(port)
+		:mPort(port)
 	{
-
+		mAdd = new IPAddress;
+		*mAdd = ip;
 	}
 	IPEndPoint::IPEndPoint(const IPEndPoint& ip)
 	{
+		*this = std::move(ip);
+	}
+	IPEndPoint::IPEndPoint(IPEndPoint&& ip)
+	{
+		mAdd = new IPAddress;
 		*this = ip;
 	}
 	IPEndPoint::~IPEndPoint()
 	{
-
+		if (mAdd != 0)
+		{
+			delete mAdd;
+		}
 	}
 
 	AddressFamily IPEndPoint::getAddressFamily() const
 	{
-		return mAdd.getAddressFamily();
+		return mAdd->getAddressFamily();
 	}
 	const IPAddress& IPEndPoint::getIPAddress() const
 	{
-		return mAdd;
+		return *mAdd;
 	}
 	int IPEndPoint::getPort() const
 	{
@@ -36,20 +46,31 @@ namespace veda
 	}
 	void IPEndPoint::set(const IPAddress&ip, int port)
 	{
-		mAdd = ip;
+		*mAdd = ip;
 		mPort = port;
 	}
 	void IPEndPoint::set(const String&ip, int port)
 	{
-		mAdd.parse(ip);
+		mAdd->parse(ip);
 		mPort = port;
 	}
 	IPEndPoint& IPEndPoint::operator = (const IPEndPoint& ip)
 	{
 		if (this != &ip)
 		{
+			*mAdd = *ip.mAdd;
+			mPort = ip.mPort;
+		}
+		return *this;
+	}
+
+	IPEndPoint& IPEndPoint::operator = (IPEndPoint&& ip)
+	{
+		if (this != &ip)
+		{
 			mAdd = ip.mAdd;
 			mPort = ip.mPort;
+			ip.mAdd = 0;
 		}
 		return *this;
 	}

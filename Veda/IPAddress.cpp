@@ -19,7 +19,7 @@ namespace veda
 	}
 	IPAddress::~IPAddress()
 	{
-
+		
 	}
 
 	void IPAddress::parse(const String& ip)
@@ -61,6 +61,18 @@ namespace veda
 		else
 		{
 			return 0;
+		}
+	}
+
+	int IPAddress::getLength() const
+	{
+		if (mAf == AddressFamily::IPv6)
+		{
+			return sizeof(mAddInfo6);
+		}
+		else
+		{
+			return sizeof(mAddInfo4);
 		}
 	}
 	IPAddress::operator const void*()const

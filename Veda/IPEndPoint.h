@@ -9,6 +9,7 @@ namespace veda
 		IPEndPoint(const String&ip, int port);
 		IPEndPoint(const IPAddress&ip, int port);
 		IPEndPoint(const IPEndPoint& ip);
+		IPEndPoint(IPEndPoint&& ip);
 		~IPEndPoint();
 
 		AddressFamily getAddressFamily() const;
@@ -17,8 +18,9 @@ namespace veda
 		void set(const IPAddress&ip, int port);
 		void set(const String&ip, int port);
 		IPEndPoint& operator=(const IPEndPoint& ip);
+		IPEndPoint& operator=(IPEndPoint&& ip);
 	private:
-		IPAddress mAdd;
+		IPAddress *mAdd;
 		int mPort;
 	};
 }
