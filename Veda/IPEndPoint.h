@@ -1,8 +1,12 @@
 #pragma once
+#include <memory>
 #include "WinSocket.h"
 #include "IPAddress.h"
+
 namespace veda
 {
+	class IPEndPoint;
+	typedef std::shared_ptr<IPEndPoint> IPEndPointPtr;
 	class IPEndPoint
 	{
 	public:

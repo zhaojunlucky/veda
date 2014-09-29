@@ -19,6 +19,9 @@ namespace veda
 		AddressFamily getAddressFamily() const;
 		IPAddress& operator=(const IPAddress& ipadd);
 	private:
+		friend class IPEndPoint;
+		void setPort(int port);
+	private:
 		sockaddr_in6 mAddInfo6;
 		sockaddr_in mAddInfo4;
 		AddressFamily mAf;

@@ -113,7 +113,12 @@ namespace veda
 	void Socket::bind()
 	{
 		int ret = ::bind(mSocket, (const struct sockaddr*)mEP->getIPAddress().getAddressInfo(), mEP->getIPAddress().getLength());
-
+		if (0 != ret)
+		{
+			String mes;
+			getSocketErrorMessage(WSAGetLastError(), mes);
+			throw NetException(mes);
+		}
 	}
 	void Socket::listen()
 	{
@@ -130,8 +135,16 @@ namespace veda
 		mSocket = INVALID_SOCKET;
 	}
 
-	const IPEndPoint* Socket::getLocalEndPoint() const
+	IPEndPointPtr Socket::getLocalEndPoint() const
 	{
-		return mEP;
+		IPEndPointPtr ptr;
+		return ptr;
 	}
+	IPEndPointPtr Socket::getRemoteEndPoint() const
+	{
+		IPEndPointPtr ptr;
+		
+		return ptr;
+	}
+
 }

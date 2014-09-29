@@ -100,4 +100,16 @@ namespace veda
 		}
 		return *this;
 	}
+
+	void IPAddress::setPort(int port)
+	{
+		if (mAf == AddressFamily::IPv4)
+		{
+			mAddInfo4.sin_port = htons(port);
+		}
+		else if (mAf == AddressFamily::IPv6)
+		{
+			mAddInfo6.sin6_port = htons(port);
+		}
+	}
 }

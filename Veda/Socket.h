@@ -22,7 +22,8 @@ namespace veda
 		Socket &operator=(const Socket& s);
 		bool isValid() const;
 		void close();
-		const IPEndPoint* getLocalEndPoint() const;
+		IPEndPointPtr getLocalEndPoint() const;
+		IPEndPointPtr getRemoteEndPoint() const;
 
 		void bind(const IPEndPoint& ep);
 		void bind(IPAddress& ip, int port);

@@ -8,12 +8,14 @@ namespace veda
 		mAdd = new IPAddress;
 		mAdd->parse(ip);
 		mPort = port;
+		mAdd->setPort(port);
 	}
 	IPEndPoint::IPEndPoint(const IPAddress&ip, int port)
 		:mPort(port)
 	{
 		mAdd = new IPAddress;
 		*mAdd = ip;
+		mAdd->setPort(port);
 	}
 	IPEndPoint::IPEndPoint(const IPEndPoint& ip)
 	{
@@ -48,11 +50,13 @@ namespace veda
 	{
 		*mAdd = ip;
 		mPort = port;
+		mAdd->setPort(port);
 	}
 	void IPEndPoint::set(const String&ip, int port)
 	{
 		mAdd->parse(ip);
 		mPort = port;
+		mAdd->setPort(port);
 	}
 	IPEndPoint& IPEndPoint::operator = (const IPEndPoint& ip)
 	{
