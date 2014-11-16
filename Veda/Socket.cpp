@@ -120,6 +120,40 @@ namespace veda
 			throw NetException(mes);
 		}
 	}
+
+	void Socket::connect(const IPEndPoint& ep)
+	{
+
+	}
+	void Socket::connect(IPAddress& ip, int port)
+	{
+
+	}
+	void Socket::connect(const String& ip, int port)
+	{
+
+	}
+
+	void Socket::recieve(char* buf, int pos, int bytes, SocketFlags socketFlags)
+	{
+		
+	}
+
+	void Socket::recieveFrom(char* buf, int pos, int bytes, SocketFlags socketFlags, IPEndPoint* from)
+	{
+
+	}
+
+	void Socket::send(const char* buf, int pos, int bytes, SocketFlags socketFlags)
+	{
+
+	}
+
+	void Socket::sendTo(const char* buf, int pos, int bytes, SocketFlags socketFlags, const IPEndPoint& from)
+	{
+
+	}
+
 	void Socket::listen()
 	{
 
@@ -129,6 +163,10 @@ namespace veda
 
 	}
 
+	void Socket::shutdown()
+	{
+
+	}
 	void Socket::close()
 	{
 		closesocket(mSocket);

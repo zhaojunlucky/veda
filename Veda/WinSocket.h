@@ -37,7 +37,20 @@ namespace veda
 	private:
 		void init();
 	};
+	enum SocketFlags
+	{
+		None = 0,
+		OutOfBand = MSG_OOB,
+		Peek = MSG_PEEK,
+		DontRoute = MSG_DONTROUTE,
+		MaxIOVectorLength = MSG_MAXIOVLEN,
+		Truncated = SO_OOBINLINE,
 
+		ControlDataTruncated = 0x0200,
+		Broadcast = 0x0400,
+		Multicast = 0x0800,
+		Partial = MSG_PARTIAL
+	};
 	static void getSocketErrorMessage(int errCode, String& mes)
 	{
 		mes.clear();

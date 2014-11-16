@@ -21,7 +21,6 @@ namespace veda
 		SocketProtocol getSocketProtocol() const;
 		Socket &operator=(const Socket& s);
 		bool isValid() const;
-		void close();
 		IPEndPointPtr getLocalEndPoint() const;
 		IPEndPointPtr getRemoteEndPoint() const;
 
@@ -29,9 +28,22 @@ namespace veda
 		void bind(IPAddress& ip, int port);
 		void bind(const String& ip, int port);
 		
+		void connect(const IPEndPoint& ep);
+		void connect(IPAddress& ip, int port);
+		void connect(const String& ip, int port);
+
+		void recieve(char* buf, int pos, int bytes, SocketFlags socketFlags);
+
+		void recieveFrom(char* buf, int pos, int bytes, SocketFlags socketFlags, IPEndPoint* from);
+		
+		void send(const char* buf, int pos, int bytes, SocketFlags socketFlags);
+
+		void sendTo(const char* buf, int pos, int bytes, SocketFlags socketFlags, const IPEndPoint& from);
 		void listen();
 		SocketPtr accept();
 		
+		void shutdown();
+		void close();
 	private:
 		void makeSocket();
 		void bind();
