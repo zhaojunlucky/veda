@@ -48,6 +48,9 @@
     <ClCompile Include="PlaylistModel.cpp">
       <Filter>Model</Filter>
     </ClCompile>
+    <ClCompile Include="MusicManager.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerMainUI.h">
@@ -67,6 +70,12 @@
     </ClInclude>
     <ClInclude Include="PlaylistModel.h">
       <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicManager.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayControl.h">
+      <Filter>Control</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

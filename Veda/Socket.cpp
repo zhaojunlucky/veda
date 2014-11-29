@@ -160,7 +160,8 @@ namespace veda
 	}
 	SocketPtr Socket::accept()
 	{
-
+		SocketPtr tmp;
+		return tmp;
 	}
 
 	void Socket::shutdown()

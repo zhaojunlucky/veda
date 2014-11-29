@@ -68,7 +68,7 @@ namespace veda
 
 	StringPtr Datetime::format(const wchar_t* pattern)
 	{
-		wchar_t buf[64];
+		wchar_t buf[64] = {'\0'};
 		format(buf, pattern);
 		return makeStringPtr(buf);
 	}

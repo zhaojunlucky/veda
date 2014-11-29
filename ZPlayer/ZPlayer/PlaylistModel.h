@@ -6,7 +6,7 @@ using namespace veda;
 using namespace std;
 struct MusicInfo
 {
-
+	long musicId;
 };
 class Playlist
 {

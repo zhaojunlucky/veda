@@ -17,6 +17,10 @@ CControlUI* CPlayerMainUI::CreateControl(LPCTSTR pstrClass)
 		mMusicListCtrl = new CMusicListCtrl(m_PaintManager);
 		return mMusicListCtrl;
 	}
+	if (_tcscmp(pstrClass, _T("PlayControl")) == 0)
+	{
+		return new PlayControlUI;
+	}
 	return NULL;
 }
 

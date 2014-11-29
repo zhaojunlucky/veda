@@ -2,6 +2,7 @@
 #include <UIlib.h>
 using namespace DuiLib;
 #include "MusicListCtrl.h"
+#include "PlayControl.h"
 #include "Logger.h"
 extern Logger logger;
 class CPlayerMainUI :

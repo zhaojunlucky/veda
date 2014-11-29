@@ -26,5 +26,8 @@
              </HorizontalLayout>
             <VerticalLayout />
         </HorizontalLayout>
+        <HorizontalLayout height="80">
+           <PlayControl />
+        </HorizontalLayout>
     </VerticalLayout>
 </Window>
