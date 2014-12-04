@@ -28,9 +28,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	MusicListItemInfo item;
 	item.isFolder = false;
 	item.id = _T("");
-	item.title = _T("Default List");
-	item.artist = _T("dddd");
-	item.album = _T("kkk");
+	item.title = _T("now playing");
+	item.artist = _T("now playing");
+	item.album = _T("now playing");
 	item.isEmpty = true;
 	mainUI.mMusicListCtrl->AddNode(item);
 	mainUI.mMusicListCtrl->AddNode(std::move(item));

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <Window size="800,600" sizebox="4,4,4,4" caption="0,0,0,30" mininfo="640,480" roundcorner="0,0">
-    <Font name="Segoe WP SemiLight" size="25" bold="false" italic="false" />
-    <VerticalLayout  bkcolor="#FF3581FF">
+    <Font name="Segoe WP SemiLight" size="16" bold="false" italic="false" />
+    <VerticalLayout  bkcolor="#FF917054">
         <HorizontalLayout height="32">
             <VerticalLayout />
             <VerticalLayout width="77">
@@ -13,19 +13,20 @@
         </HorizontalLayout>
         <HorizontalLayout >
             <VerticalLayout width="225">
-                <List name="playlist" vscrollbar="true" hscrollbar="true" header="false" padding="0,-15,0,0" itemfont="0" itemtextcolor="#FFFFFFFF">
+                <List name="playlist" vscrollbar="true" hscrollbar="true" header="false" padding="20,-15,0,0" colorhsl="true" >
                     <ListContainerElement height="33" name="playlistItem">
-                       <Label name="dd" text="now playing" textpadding="12,0,0,0" showhtml="true" bordersize="0" width="120" textcolor="#FFFFFFFF" disabledtextcolor="#FF808080" font="0" />
+                       <Label name="dd" text="now playing" textpadding="12,0,0,0" showhtml="false" bordersize="0" width="120" textcolor="#00FFFFFF" disabledtextcolor="#FF808080" font="0" />
                     </ListContainerElement>
                      <ListContainerElement height="33" name="playlistItem">
-                     	<Label name="dd" text="test2" textpadding="12,0,0,0" showhtml="true" bordersize="0" width="120" textcolor="#FFFFFFFF" disabledtextcolor="#FF808080" font="0"/>
+                     	<Label name="dd" text="test2" textpadding="12,0,0,0" showhtml="false" bordersize="0" width="120" textcolor="#00FFFFFF" disabledtextcolor="#FF808080" font="0"/>
                      </ListContainerElement>
                 </List>
             </VerticalLayout>
-             <HorizontalLayout>
-              <MusicListCtrl name="musicList" header="hidden" itemshowhtml="true" vscrollbar="true"  />
+            <VerticalLayout>
+             <HorizontalLayout padding="0,5,20,0">
+              <MusicListCtrl name="musicList" header="hidden" itemshowhtml="true" vscrollbar="true"/>
              </HorizontalLayout>
-            <VerticalLayout />
+            </VerticalLayout>
         </HorizontalLayout>
         <HorizontalLayout height="80">
            <PlayControl />

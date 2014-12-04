@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <Window>
-    <ListContainerElement>
+    <Font name="Segoe WP SemiLight" size="18" bold="true" italic="false" />
+    <ListContainerElement colorhsl="true" >
         <VerticalLayout>
             <VerticalLayout height="32">
                 <HorizontalLayout>
                     <VerticalLayout>
                         <HorizontalLayout>
-                            <Label name="title" width="120" textcolor="#00FFFFFF" disabledtextcolor="#FF808080" font="0" />
+                            <Label name="title" showhtml="false" bordersize="0" textcolor="#00000000" disabledtextcolor="#FF808080" font="0" enabledeffect="true"/>
                         </HorizontalLayout>
                     </VerticalLayout>
                 </HorizontalLayout>
             </VerticalLayout>
             <VerticalLayout name="details" height="18">
                 <HorizontalLayout>
-                    <Label name="artist" width="120" textcolor="#00FFFFFF" disabledtextcolor="#FF808080" font="0"/>
-                    <Label name="album" width="120" textcolor="#00FFFFFF" disabledtextcolor="#FF808080" font="0"/>
+                    <Label name="artist" width="120" showhtml="false" textcolor="#00FFFFFF" disabledtextcolor="#FF808080" textpadding="4,0,0,0" />
+                    <Label name="album" width="120" showhtml="false" textcolor="#00FFFFFF" disabledtextcolor="#FF808080"  />
                 </HorizontalLayout>
             </VerticalLayout>
         </VerticalLayout>

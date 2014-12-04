@@ -233,17 +233,14 @@ Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
 	CDuiString html_text;
 	if (node->getData().hasChild)
 	{
-		if (node->getData().childVisible)
-			html_text += mLevelExpandImage;
-		else
-			html_text += mLevelCollapseImage;
+		//if (node->getData().childVisible)
+		//	html_text += mLevelExpandImage;
+		//else
+		//	html_text += mLevelCollapseImage;
 
-#if defined(UNDER_WINCE)
-		_stprintf(szBuf, _T("<x %d>"), mLevelTextStartPos);
-#else
-		_stprintf_s(szBuf, MAX_PATH - 1, _T("<x %d>"), mLevelTextStartPos);
-#endif
-		html_text += szBuf;
+		//_stprintf_s(szBuf, MAX_PATH - 1, _T("<x %d>"), mLevelTextStartPos);
+
+		//html_text += szBuf;
 	}
 
 	if (item.isFolder)
@@ -252,11 +249,7 @@ Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
 	}
 	else
 	{
-#if defined(UNDER_WINCE)
-		_stprintf(szBuf, _T("%s"), item.title.GetData());
-#else
 		_stprintf_s(szBuf, MAX_PATH - 1, _T("%s"), item.title.GetData());
-#endif
 		html_text += szBuf;
 	}
 
@@ -266,7 +259,7 @@ Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
 		if (item.isFolder)
 			title->SetFixedWidth(0);
 
-		title->SetShowHtml(true);
+		//title->SetShowHtml(true);
 		title->SetText(html_text);
 	}
 
@@ -275,13 +268,9 @@ Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
 		CLabelUI* artist = static_cast<CLabelUI*>(mPaintManager.FindSubControlByName(pListElement, ARTIST_CTRL));
 		if (artist != NULL)
 		{
-#if defined(UNDER_WINCE)
-			_stprintf(szBuf, _T("<x 20><c #808080>%s</c>"), item.artist.GetData());
-#else
-			_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 0><c #808080>%s</c>"), item.artist.GetData());
-#endif
-			artist->SetShowHtml(true);
-			artist->SetText(szBuf);
+			//_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 0><c #808080>%s</c>"), item.artist.GetData());
+			//artist->SetShowHtml(true);
+			artist->SetText(item.artist.GetData());
 		}
 	}
 
@@ -290,13 +279,9 @@ Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
 		CLabelUI* album = static_cast<CLabelUI*>(mPaintManager.FindSubControlByName(pListElement, ALBUM_CTRL));
 		if (album != NULL)
 		{
-#if defined(UNDER_WINCE)
-			_stprintf(szBuf, _T("<x 20><c #808080>%s</c>"), item.album.GetData());
-#else
-			_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 0><c #808080>%s</c>"), item.album.GetData());
-#endif
-			album->SetShowHtml(true);
-			album->SetText(szBuf);
+			//_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 0><c #808080>%s</c>"), item.album.GetData());
+			//album->SetShowHtml(true);
+			album->SetText(item.album.GetData());
 		}
 	}
 
@@ -305,12 +290,8 @@ Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
 		CLabelUI* duration = static_cast<CLabelUI*>(mPaintManager.FindSubControlByName(pListElement, DURATION_CTRL));
 		if (duration != NULL)
 		{
-#if defined(UNDER_WINCE)
-			_stprintf(szBuf, _T("<x 20><c #808080>%s</c>"), item.duration.GetData());
-#else
-			_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 0><c #808080>%s</c>"), item.duration.GetData());
-#endif
-			duration->SetShowHtml(true);
+			//_stprintf_s(szBuf, MAX_PATH - 1, _T("<x 0><c #808080>%s</c>"), item.duration.GetData());
+			//duration->SetShowHtml(true);
 			duration->SetText(szBuf);
 		}
 	}
@@ -372,24 +353,21 @@ void CMusicListCtrl::SetChildVisible(Node* node, bool visible)
 	CDuiString html_text;
 	if (node->getData().hasChild)
 	{
-		if (node->getData().childVisible)
+		/*if (node->getData().childVisible)
 			html_text += mLevelExpandImage;
 		else
 			html_text += mLevelCollapseImage;
 
-#if defined(UNDER_WINCE)
-		_stprintf(szBuf, _T("<x %d>"), mLevelTextStartPos);
-#else
 		_stprintf_s(szBuf, MAX_PATH - 1, _T("<x %d>"), mLevelTextStartPos);
-#endif
-		html_text += szBuf;
+
+		html_text += szBuf;*/
 
 		html_text += node->getData().text;
 
 		CLabelUI* title = static_cast<CLabelUI*>(mPaintManager.FindSubControlByName(node->getData().listElement, TITLE_CTRL));
 		if (title != NULL)
 		{
-			title->SetShowHtml(true);
+			//title->SetShowHtml(true);
 			title->SetText(html_text);
 		}
 	}
