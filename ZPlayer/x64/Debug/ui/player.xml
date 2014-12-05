@@ -1,35 +1,38 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<Window size="800,600" sizebox="4,4,4,4" caption="0,0,0,30" mininfo="640,480" roundcorner="0,0">
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<Window size="800,600" sizebox="4,4,4,4" caption="0,0,0,30" mininfo="800,600">
     <Font name="Segoe WP SemiLight" size="16" bold="false" italic="false" />
-    <VerticalLayout  bkcolor="#FF917054">
+    <VerticalLayout bkcolor="#FF917054">
         <HorizontalLayout height="32">
-            <VerticalLayout />
+            <VerticalLayout>
+                <Label name="caption" text="JJ Forever" width="120" textpadding="20,5,0,0" textcolor="#00FFFFFF" font="0" />
+            </VerticalLayout>
             <VerticalLayout width="77">
-                <Button name="minbtn" tooltip="最小化" float="true" pos="0,20,0,0" width="10" height="10" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage=" file=&apos;ui\images\sys_btn\minimize_normal.png&apos; " hotimage=" file=&apos;ui\images\sys_btn\minimize_normal.png&apos; " pushedimage=" file=&apos;ui/images/sys_btn\minimize_down.png&apos; " />
-                <Button name="maxbtn" tooltip="最大化" float="true" pos="22,20,0,0" width="10" height="10" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage=" file=&apos;ui\images\sys_btn\maximize_normal.png&apos; " hotimage=" file=&apos;ui\images\sys_btn\maximize_normal.png&apos; " pushedimage=" file=&apos;ui\images\sys_btn\maximize_down.png&apos; " />
-                <Button name="restorebtn" tooltip="还原" visible="false" float="true" pos="22,20,0,0" width="10" height="10" align="center" normalimage=" file=&apos;ui\images\sys_btn\restore_normal.png&apos; " hotimage=" file=&apos;ui\images\sys_btn\restore_normal.png&apos; " pushedimage=" file=&apos;ui\images\sys_btn\restore_down.png&apos; " />
-                <Button name="closebtn" tooltip="关闭" float="true" pos="44,20,0,0" width="10" height="10" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage=" file=&apos;ui\images\sys_btn\close_normal.png&apos; " hotimage=" file=&apos;ui\images\sys_btn\close_normal.png&apos; " pushedimage=" file=&apos;ui\images\sys_btn\close_down.png&apos; " />
+                <Button name="minbtn" tooltip="Minimize" float="true" pos="0,20,0,0" width="10" height="10" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage=" file=&apos;ui\images\sys_btn\minimize_normal.png&apos; " hotimage=" file=&apos;ui\images\sys_btn\minimize_normal.png&apos; " pushedimage=" file=&apos;ui/images/sys_btn\minimize_down.png&apos; " />
+                <Button name="maxbtn" tooltip="Maximize" float="true" pos="22,20,0,0" width="10" height="10" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage=" file=&apos;ui\images\sys_btn\maximize_normal.png&apos; " hotimage=" file=&apos;ui\images\sys_btn\maximize_normal.png&apos; " pushedimage=" file=&apos;ui\images\sys_btn\maximize_down.png&apos; " />
+                <Button name="restorebtn" tooltip="Restore Down" visible="false" float="true" pos="22,20,0,0" width="10" height="10" align="center" normalimage=" file=&apos;ui\images\sys_btn\restore_normal.png&apos; " hotimage=" file=&apos;ui\images\sys_btn\restore_normal.png&apos; " pushedimage=" file=&apos;ui\images\sys_btn\restore_down.png&apos; " />
+                <Button name="closebtn" tooltip="Close" float="true" pos="44,20,0,0" width="10" height="10" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage=" file=&apos;ui\images\sys_btn\close_normal.png&apos; " hotimage=" file=&apos;ui\images\sys_btn\close_normal.png&apos; " pushedimage=" file=&apos;ui\images\sys_btn\close_down.png&apos; " />
             </VerticalLayout>
         </HorizontalLayout>
-        <HorizontalLayout >
+        <HorizontalLayout>
             <VerticalLayout width="225">
-                <List name="playlist" vscrollbar="true" hscrollbar="true" header="false" padding="20,-15,0,0" colorhsl="true" >
-                    <ListContainerElement height="33" name="playlistItem">
-                       <Label name="dd" text="now playing" textpadding="12,0,0,0" showhtml="false" bordersize="0" width="120" textcolor="#00FFFFFF" disabledtextcolor="#FF808080" font="0" />
+                <List name="playlist" padding="20,-15,0,0" itemtextcolor="#FF000000" itemselectedbkcolor="#FFA88D78" itemdisabledtextcolor="#FFCCCCCC" itemhotbkcolor="" itemdisabledbkcolor="#FFFFFFFF" vscrollbar="true" hscrollbar="true">
+                    <ListHeader />
+                    <ListContainerElement height="33">
+                        <Label name="dd" text="now playing" width="120" textpadding="12,0,0,0" textcolor="#00FFFFFF" disabledtextcolor="#FF808080" font="0" />
                     </ListContainerElement>
-                     <ListContainerElement height="33" name="playlistItem">
-                     	<Label name="dd" text="test2" textpadding="12,0,0,0" showhtml="false" bordersize="0" width="120" textcolor="#00FFFFFF" disabledtextcolor="#FF808080" font="0"/>
-                     </ListContainerElement>
+                    <ListContainerElement name="playlistItem" height="33">
+                        <Label name="dd" text="test2" width="120" textpadding="12,0,0,0" textcolor="#00FFFFFF" disabledtextcolor="#FF808080" font="0" />
+                    </ListContainerElement>
                 </List>
             </VerticalLayout>
             <VerticalLayout>
-             <HorizontalLayout padding="0,5,20,0">
-              <MusicListCtrl name="musicList" header="hidden" itemshowhtml="true" vscrollbar="true"/>
-             </HorizontalLayout>
+                <HorizontalLayout padding="0,5,20,0">
+                    <MusicListCtrl header="hidden" itemshowhtml="true" name="musicList" vscrollbar="true" itemhotbkcolor="" itemselectedbkcolor="#FFA88D78"/>
+                </HorizontalLayout>
             </VerticalLayout>
         </HorizontalLayout>
         <HorizontalLayout height="80">
-           <PlayControl />
+            <PlayControl name="playCtrl"/>
         </HorizontalLayout>
     </VerticalLayout>
 </Window>

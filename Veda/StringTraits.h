@@ -46,9 +46,18 @@ namespace veda
 		{
 			return isspace(c)!=0;
 		}
+		static value_type *_copy(value_type*dest, const value_type*src)
+		{
+			return strcpy(dest, src);
+		}
 		static value_type *_ncopy(value_type*dest, const value_type*src, size_type count)
 		{
 			return strncpy(dest, src, count);
+		}
+
+		static value_type *_ncat(value_type*dest, const value_type*src, size_type count)
+		{
+			return strncat(dest, src, count);
 		}
 
 		static int format(value_type*buf, size_t len, const value_type* fmat, va_list argList)

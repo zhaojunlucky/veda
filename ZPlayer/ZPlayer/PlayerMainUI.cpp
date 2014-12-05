@@ -3,6 +3,10 @@
 const TCHAR* const KMUSIC_LIST_CTRL_NAME = _T("musicList");
 CPlayerMainUI::CPlayerMainUI()
 {
+	mShowPlay = true;
+	// load from config
+	mIsMute = false;
+	mPlayMode = PlayMode::RepeatAll;
 }
 
 
@@ -62,8 +66,161 @@ void CPlayerMainUI::Notify(TNotifyUI& msg)
 			}
 		}
 	}
+	else if (msg.sType == _T("click"))
+	{
+		if (!handleClick(msg))
+		{
+			__super::Notify(msg);
+		}
+	}
+	else if (msg.sType == _T("valuechanged"))
+	{
+		if (!handleSliderAndProgress(msg))
+		{
+			__super::Notify(msg);
+		}
+	}
 	else
 	{
 		__super::Notify(msg);
+	}
+}
+
+void CPlayerMainUI::InitWindow()
+{
+	CContainerUI* pPlayControl = (CContainerUI*)m_PaintManager.FindControl(L"playCtrl");
+	mPlayPauseBtn = (CButtonUI*)pPlayControl->FindSubControl(L"playPause");
+	mSoundBtn = (CButtonUI*)pPlayControl->FindSubControl(L"soundBtn");
+	mPlayModeBtn = (CButtonUI*)pPlayControl->FindSubControl(L"playModeBtn");
+	mVolumeSlider = (CSliderUI*)pPlayControl->FindSubControl(L"volumeSlider");
+	mSeekSlider = (CSliderUI*)pPlayControl->FindSubControl(L"seekSlider");
+	updateSoundBtn();
+	updatePlayMode();
+}
+
+bool CPlayerMainUI::handleClick(TNotifyUI& msg)
+{
+	bool handled = true;
+	if (msg.pSender->GetName() == _T("playPause"))
+	{
+		updatePlayBtn();
+	}
+	else if (msg.pSender->GetName() == _T("soundBtn"))
+	{
+		mIsMute = !mIsMute;
+		updateSoundBtn();
+	}
+	else if (msg.pSender->GetName() == _T("playModeBtn"))
+	{
+		mPlayMode = (PlayMode)((mPlayMode + 1) % (PlayMode::Shuffle+1));
+		updatePlayMode();
+	}
+	else
+	{
+		handled = false;
+	}
+	return handled;
+}
+
+bool CPlayerMainUI::handleSliderAndProgress(TNotifyUI& msg)
+{
+	bool handled = true;
+	if (msg.pSender->GetName() == _T("volumeSlider"))
+	{
+		mIsMute = false;
+		updateSoundBtn();
+	}
+	else if (msg.pSender->GetName() == _T("seekSlider"))
+	{
+
+	}
+	else
+	{
+		handled = false;
+	}
+	return handled;
+}
+void CPlayerMainUI::updatePlayBtn()
+{
+	// use click play
+	PlayerStateMessage ps;
+	if (mShowPlay)
+	{
+		// play, then set pause img
+		ps = PlayerStateMessage::Play;
+		mPlayPauseBtn->SetNormalImage(mSkinRes.PauseNormal.get()->c_str());
+		mPlayPauseBtn->SetHotImage(mSkinRes.PauseNormal.get()->c_str());
+		mPlayPauseBtn->SetPushedImage(mSkinRes.PauseDown.get()->c_str());
+		mPlayPauseBtn->SetToolTip(L"Pause");
+	}
+	else
+	{
+		// pause, then set play img
+		ps = PlayerStateMessage::Pause;
+		mPlayPauseBtn->SetNormalImage(mSkinRes.PlayNormal.get()->c_str());
+		mPlayPauseBtn->SetHotImage(mSkinRes.PlayNormal.get()->c_str());
+		mPlayPauseBtn->SetPushedImage(mSkinRes.PlayDown.get()->c_str());
+		mPlayPauseBtn->SetToolTip(L"Play");
+	}
+	mShowPlay = !mShowPlay;
+}
+void CPlayerMainUI::updateSoundBtn()
+{
+	if (mIsMute)
+	{
+		mSoundBtn->SetNormalImage(mSkinRes.SoundMuteNormal.get()->c_str());
+		mSoundBtn->SetHotImage(mSkinRes.SoundMuteNormal.get()->c_str());
+		mSoundBtn->SetPushedImage(mSkinRes.SoundMuteDown.get()->c_str());
+		mSoundBtn->SetToolTip(L"Sound");
+	}
+	else
+	{
+		mSoundBtn->SetToolTip(L"Mute");
+		int max = mVolumeSlider->GetMaxValue();
+		int v = mVolumeSlider->GetValue();
+		mVolumnStr = v;
+		mVolumeSlider->SetToolTip(mVolumnStr.c_str());
+		if (v >= 30 && v < 60)
+		{
+			mSoundBtn->SetNormalImage(mSkinRes.SoundMiddleNormal.get()->c_str());
+			mSoundBtn->SetHotImage(mSkinRes.SoundMiddleNormal.get()->c_str());
+			mSoundBtn->SetPushedImage(mSkinRes.SoundMiddleDown.get()->c_str());
+		}
+		else if (v <= 0)
+		{
+			mSoundBtn->SetNormalImage(mSkinRes.SoundMinNormal.get()->c_str());
+			mSoundBtn->SetHotImage(mSkinRes.SoundMinNormal.get()->c_str());
+			mSoundBtn->SetPushedImage(mSkinRes.SoundMinDown.get()->c_str());
+		}
+		else if (v < 30)
+		{
+			mSoundBtn->SetNormalImage(mSkinRes.SoundLowNormal.get()->c_str());
+			mSoundBtn->SetHotImage(mSkinRes.SoundLowNormal.get()->c_str());
+			mSoundBtn->SetPushedImage(mSkinRes.SoundLowDown.get()->c_str());
+		}
+		else if (v >= 60)
+		{
+			mSoundBtn->SetNormalImage(mSkinRes.SoundMaxNormal.get()->c_str());
+			mSoundBtn->SetHotImage(mSkinRes.SoundMaxNormal.get()->c_str());
+			mSoundBtn->SetPushedImage(mSkinRes.SoundMaxDown.get()->c_str());
+		}
+	}
+}
+
+void CPlayerMainUI::updatePlayMode()
+{
+	if (mPlayMode == PlayMode::RepeatAll)
+	{
+		mPlayModeBtn->SetNormalImage(mSkinRes.RepeatAllNormal.get()->c_str());
+		mPlayModeBtn->SetHotImage(mSkinRes.RepeatAllNormal.get()->c_str());
+		mPlayModeBtn->SetPushedImage(mSkinRes.RepeatAllDown.get()->c_str());
+		mPlayModeBtn->SetToolTip(L"Shuffle");
+	}
+	else if (mPlayMode == PlayMode::Shuffle)
+	{
+		mPlayModeBtn->SetNormalImage(mSkinRes.ShuffleNormal.get()->c_str());
+		mPlayModeBtn->SetHotImage(mSkinRes.ShuffleNormal.get()->c_str());
+		mPlayModeBtn->SetPushedImage(mSkinRes.ShuffleDown.get()->c_str());
+		mPlayModeBtn->SetToolTip(L"Repeat All");
 	}
 }

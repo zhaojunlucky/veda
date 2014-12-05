@@ -414,80 +414,80 @@ namespace veda
 
 		friend StringPtr operator +(const BasicString& str, int v)
 		{
-			StringPtr tmp = std::make_shared<BasicString>(v);
-			tmp->append(str);
+			StringPtr tmp = std::make_shared<BasicString>(str);
+			tmp->append(v);
 			return tmp;
 		}
 		friend StringPtr operator +(const BasicString& str, unsigned int v)
 		{
-			StringPtr tmp = std::make_shared<BasicString>(v);
-			tmp->append(str);
+			StringPtr tmp = std::make_shared<BasicString>(str);
+			tmp->append(v);
 			return tmp;
 		}
 		friend StringPtr operator +(const BasicString& str, __int64 v)
 		{
-			StringPtr tmp = std::make_shared<BasicString>(v);
-			tmp->append(str);
+			StringPtr tmp = std::make_shared<BasicString>(str);
+			tmp->append(v);
 			return tmp;
 		}
 		friend StringPtr operator +(const BasicString& str, unsigned __int64 v)
 		{
-			StringPtr tmp = std::make_shared<BasicString>(v);
-			tmp->append(str);
+			StringPtr tmp = std::make_shared<BasicString>(str);
+			tmp->append(v);
 			return tmp;
 		}
 		friend StringPtr operator +(const BasicString& str, short v)
 		{
-			StringPtr tmp = std::make_shared<BasicString>(v);
-			tmp->append(str);
+			StringPtr tmp = std::make_shared<BasicString>(str);
+			tmp->append(v);
 			return tmp;
 		}
 		friend StringPtr operator +(const BasicString& str, unsigned short v)
 		{
-			StringPtr tmp = std::make_shared<BasicString>(v);
-			tmp->append(str);
+			StringPtr tmp = std::make_shared<BasicString>(str);
+			tmp->append(v);
 			return tmp;
 		}
 		friend StringPtr operator +(const BasicString& str, long v)
 		{
-			StringPtr tmp = std::make_shared<BasicString>(v);
-			tmp->append(str);
+			StringPtr tmp = std::make_shared<BasicString>(str);
+			tmp->append(v);
 			return tmp;
 		}
 		friend StringPtr operator +(const BasicString& str, unsigned long v)
 		{
-			StringPtr tmp = std::make_shared<BasicString>(v);
-			tmp->append(str);
+			StringPtr tmp = std::make_shared<BasicString>(str);
+			tmp->append(v);
 			return tmp;
 		}
 		friend StringPtr operator +(const BasicString& str, float v)
 		{
-			StringPtr tmp = std::make_shared<BasicString>(v);
-			tmp->append(str);
+			StringPtr tmp = std::make_shared<BasicString>(str);
+			tmp->append(v);
 			return tmp;
 		}
 		friend StringPtr operator +(const BasicString& str, double v)
 		{
-			StringPtr tmp = std::make_shared<BasicString>(v);
-			tmp->append(str);
+			StringPtr tmp = std::make_shared<BasicString>(str);
+			tmp->append(v);
 			return tmp;
 		}
 		friend StringPtr operator +(const BasicString& str, long double v)
 		{
-			StringPtr tmp = std::make_shared<BasicString>(v);
-			tmp->append(str);
+			StringPtr tmp = std::make_shared<BasicString>(str);
+			tmp->append(v);
 			return tmp;
 		}
 		friend StringPtr operator +(const BasicString& str, value_type v)
 		{
-			StringPtr tmp = std::make_shared<BasicString>(v);
-			tmp->append(str);
+			StringPtr tmp = std::make_shared<BasicString>(str);
+			tmp->append(v);
 			return tmp;
 		}
 		friend StringPtr operator +(const BasicString& str, const value_type* v)
 		{
-			StringPtr tmp = std::make_shared<BasicString>(v);
-			tmp->append(str);
+			StringPtr tmp = std::make_shared<BasicString>(str);
+			tmp->append(v);
 			return tmp;
 		}
 		
