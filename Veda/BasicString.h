@@ -17,6 +17,7 @@ namespace veda
 	template<class _traits, class _ochar>
 	class BasicString
 	{
+	public:
 		typedef typename _traits::value_type value_type;
 		typedef typename _traits::size_type size_type;
 		typedef BasicString<_traits, _ochar> _String;

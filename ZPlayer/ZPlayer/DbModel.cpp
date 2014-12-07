@@ -25,14 +25,17 @@ long DbModel::addMusic(MusicDetailsInfo& music)
 {
 	Sqlite3ConnectionPtr conn = getConnection();
 	Sqlite3StatementPtr stmt = conn->prepare(MUSIC_INSERT_SQL);
-	//stmt->bindText(1, music.fileName, str.getSize(), SQLITE_STATIC);
-	//stmt->bindText(2, f.tag()->artist().toCString(), f.tag()->artist().length(), SQLITE_STATIC);
-	//stmt->bindText(3, f.tag()->album().toCString(), f.tag()->album().length(), SQLITE_STATIC);
-	//stmt->bindText(4, f.tag()->title().toCString(), f.tag()->title().length(), SQLITE_STATIC);
-	//stmt->bindInt64(5, 0);
-	//stmt->bindInt64(6, f.audioProperties()->length());
-	//stmt->bindInt64(7, fi.lastModifiedTime);
-	//stmt->bindInt64(8, fi.fileSize);
+	stmt->bindText16(1, music.fullPath.c_str(), music.fullPath.getSize(), SQLITE_STATIC);
+	stmt->bindText16(2, music.artist.c_str(), music.artist.getSize(), SQLITE_STATIC);
+	stmt->bindText16(3, music.alblum.c_str(), music.alblum.getSize(), SQLITE_STATIC);
+	stmt->bindText16(4, music.title.c_str(), music.title.getSize(), SQLITE_STATIC);
+	stmt->bindInt64(5, music.isCue?1:0);
+	stmt->bindInt64(6, music.end - music.start);
+	stmt->bindInt64(7, music.lastModifiedTime);
+	stmt->bindInt64(8, music.lastSize);
+	stmt->executeUpdate();
+	stmt->close();
+	conn->close();
 }
 void DbModel::updateMusic(MusicDetailsInfo& music)
 {

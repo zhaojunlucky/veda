@@ -34,6 +34,8 @@ namespace sqlite3
 		bool isThreadSafe() const;
 		// create an prepared statement with a sql
 		Sqlite3StatementPtr prepare(const char* sql);
+		// create an prepared statement with a sql
+		Sqlite3StatementPtr prepare(const wchar_t* sql);
 		// create a statement
 		Sqlite3StatementPtr createStatement();
 	private:

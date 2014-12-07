@@ -17,6 +17,16 @@ namespace sqlite3
 		}
 	}
 
+	Sqlite3Statement::Sqlite3Statement(const wchar_t* sql, sqlite3* db)
+		:mDb(db)
+	{
+		int ret = sqlite3_prepare16_v2(db, sql, -1, &mStmt, 0);
+		if (ret != SQLITE_OK)
+		{
+			throw Sqlite3Exception(sqlite3_errstr(ret), ret);
+		}
+	}
+
 
 	Sqlite3Statement::~Sqlite3Statement()
 	{

@@ -46,6 +46,7 @@ namespace sqlite3
 	private:
 		Sqlite3Statement(sqlite3* db);
 		Sqlite3Statement(const char* sql, sqlite3* db);
+		Sqlite3Statement(const wchar_t* sql, sqlite3* db);
 		Sqlite3Statement(Sqlite3Statement&){};
 		Sqlite3Statement& operator=(Sqlite3Statement&){ return *this; };
 	private:

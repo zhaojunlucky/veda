@@ -13,8 +13,10 @@ struct MusicDetailsInfo
 {
 	long id;
 	String fileName;
+	String fullPath;
 	String artist;
 	String alblum;
+	String title;
 	bool isCue;
 	int start;
 	int end;

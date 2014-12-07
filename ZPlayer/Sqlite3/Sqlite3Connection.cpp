@@ -99,6 +99,12 @@ namespace sqlite3
 		Sqlite3StatementPtr ptr(new Sqlite3Statement(sql,mDb));
 		return ptr;
 	}
+
+	Sqlite3StatementPtr Sqlite3Connection::prepare(const wchar_t* sql)
+	{
+		Sqlite3StatementPtr ptr(new Sqlite3Statement(sql, mDb));
+		return ptr;
+	}
 	Sqlite3StatementPtr Sqlite3Connection::createStatement()
 	{
 		Sqlite3StatementPtr ptr(new Sqlite3Statement(mDb));
