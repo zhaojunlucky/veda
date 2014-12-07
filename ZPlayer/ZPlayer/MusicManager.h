@@ -1,15 +1,9 @@
 #pragma once
-#include <ZString.h>
-using namespace veda;
-#include <hash_map>
 
-struct MusicDetailsInfo
-{
-	String fileName;
-	String artist;
-	String alblum;
-	float totalSeconds;
-};
+#include <hash_map>
+#include <time.h>
+#include "Base.h"
+
 class MusicManager
 {
 public:

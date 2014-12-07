@@ -625,12 +625,12 @@ namespace veda
 		}
 		void from(const _ochar* str)
 		{
-			std::shared_ptr<Array<_ochar>> p = _traits::from(str);
+			std::shared_ptr<Array<value_type>> p = _traits::from(str);
 			assign(&(*p.get())[0], p->length());
 		}
 		void from(const _ochar* str,size_type size)
 		{
-			std::shared_ptr<Array<_ochar>> p = _traits::from(str, size);
+			std::shared_ptr<Array<value_type>> p = _traits::from(str, size);
 			assign(&(*p.get())[0], p->length());
 		}
 		bool equals(const value_type* str) const

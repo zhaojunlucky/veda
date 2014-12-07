@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Directory.h"
+#include <time.h>
 
 namespace veda
 {
@@ -46,6 +47,10 @@ namespace veda
 		mFileInfo.fileName = mWFD.cFileName;
 		mFileInfo.fullPath = mPathUtil.combinePath(mDirPath.c_str(), mWFD.cFileName, 0);
 		mFileInfo.isDirectory = ((mWFD.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 1);
+		mFileInfo.creationTime = localFileTimeToUTC(mWFD.ftCreationTime);
+		mFileInfo.lastAccessTime = localFileTimeToUTC(mWFD.ftLastAccessTime);
+		mFileInfo.lastModifiedTime = localFileTimeToUTC(mWFD.ftLastWriteTime);
+		mFileInfo.fileSize = ((__int64)mWFD.nFileSizeHigh << 32) + mWFD.nFileSizeLow;
 		return mFileInfo;
 	}
 
@@ -131,6 +136,22 @@ namespace veda
 			}
 		}
 		return has;
+	}
+
+	time_t DirectoryIterator::localFileTimeToUTC(FILETIME& ft)
+	{
+		SYSTEMTIME  st;
+
+		if (FileTimeToSystemTime(&ft, &st) != 0)
+		{
+			struct tm gm = { st.wSecond, st.wMinute, st.wHour, st.wDay, st.wMonth - 1, st.wYear - 1900, st.wDayOfWeek, 0, 0 };
+			return mktime(&gm);
+		}
+		else
+		{
+			return 0;
+		}
+		
 	}
 
 	Directory::Directory(const wchar_t* dirPath)

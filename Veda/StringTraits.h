@@ -23,6 +23,7 @@ namespace veda
 			int cchStr = WideCharToMultiByte(::GetACP(), 0, str, (int)size, NULL, 0, NULL, NULL) + 1;
 			std::shared_ptr<Array<value_type>> p(new Array<value_type>(cchStr));
 			WideCharToMultiByte(::GetACP(), 0, str, (int)size, &(*p.get())[0], cchStr, NULL, NULL);
+			(*p.get())[cchStr-1] = '\0';
 			return p;
 		}
 		static std::shared_ptr<Array<value_type>> from(const wchar_t* str)
@@ -90,6 +91,7 @@ namespace veda
 			int cchStr = MultiByteToWideChar(::GetACP(), 0, str, (int)size, NULL, 0) + 1;
 			std::shared_ptr<Array<value_type>> p(new Array<value_type>(cchStr));
 			::MultiByteToWideChar(::GetACP(), 0, str, (int)size, &(*p.get())[0], cchStr);
+			(*p.get())[cchStr-1] = '\0';
 			return p;
 		}
 		static std::shared_ptr<Array<value_type>> from(const char* str)

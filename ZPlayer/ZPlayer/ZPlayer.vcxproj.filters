@@ -54,6 +54,9 @@
     <ClCompile Include="SkinResource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DbModel.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerMainUI.h">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="Base.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DbModel.h">
+      <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

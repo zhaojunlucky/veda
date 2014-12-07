@@ -6,6 +6,7 @@
 using namespace std;
 namespace sqlite3
 {
+	typedef shared_ptr<Sqlite3Connection> Sqlite3ConnectionPtr;
 	class SQLITE_EXPORT Sqlite3Connection
 	{
 	public:

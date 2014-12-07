@@ -12,6 +12,10 @@ namespace veda
 		bool isDirectory;
 		wstring fileName;
 		wstring fullPath;
+		time_t lastModifiedTime;
+		time_t creationTime;
+		time_t lastAccessTime;
+		__int64 fileSize;
 	};
 	
 	enum  FileSearchMode
@@ -33,6 +37,7 @@ namespace veda
 		DirectoryIterator(const wchar_t* dirPath,const wchar_t* extension);
 		bool processFirstFile();
 		bool processNextFile();
+		time_t localFileTimeToUTC(FILETIME& ft);
 	private:
 		FileSearchMode mSearchMode;
 		wstring mExtension;
