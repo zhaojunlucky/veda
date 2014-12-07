@@ -15,40 +15,40 @@ namespace sqlite3
 
 	const void* Sqlite3ResultSet::getBlob(int colIndex)
 	{
-		return sqlite3_column_blob(mStmt, colIndex);
+		return sqlite3_column_blob(mStmt, colIndex - 1);
 	}
 	int Sqlite3ResultSet::getBytes(int colIndex)
 	{
-		return sqlite3_column_bytes(mStmt, colIndex);
+		return sqlite3_column_bytes(mStmt, colIndex - 1);
 	}
 	int Sqlite3ResultSet::getBytes16(int colIndex)
 	{
-		return sqlite3_column_bytes16(mStmt, colIndex);
+		return sqlite3_column_bytes16(mStmt, colIndex - 1);
 	}
 
 	double Sqlite3ResultSet::getDouble(int colIndex)
 	{
-		return sqlite3_column_double(mStmt, colIndex);
+		return sqlite3_column_double(mStmt, colIndex - 1);
 	}
 	int Sqlite3ResultSet::getInteger(int colIndex)
 	{
-		return sqlite3_column_int(mStmt, colIndex);
+		return sqlite3_column_int(mStmt, colIndex - 1);
 	}
 	int64_t Sqlite3ResultSet::getInt64(int colIndex)
 	{
-		return sqlite3_column_int64(mStmt, colIndex);
+		return sqlite3_column_int64(mStmt, colIndex - 1);
 	}
 	const unsigned char* Sqlite3ResultSet::getText(int colIndex)
 	{
-		return sqlite3_column_text(mStmt, colIndex);
+		return sqlite3_column_text(mStmt, colIndex - 1);
 	}
 	const void* Sqlite3ResultSet::getText16(int colIndex)
 	{
-		return sqlite3_column_text16(mStmt, colIndex);
+		return sqlite3_column_text16(mStmt, colIndex - 1);
 	}
 	int Sqlite3ResultSet::getColumnType(int colIndex)
 	{
-		return sqlite3_column_type(mStmt, colIndex);
+		return sqlite3_column_type(mStmt, colIndex - 1);
 	}
 	int Sqlite3ResultSet::getColumnCount()
 	{
@@ -147,6 +147,6 @@ namespace sqlite3
 
 	const char* NonPrepareSqlite3ResultSet::get(int colIndex) const
 	{
-		return mResult[mRow*mCol + colIndex];
+		return mResult[mRow*mCol + colIndex - 1];
 	}
 }

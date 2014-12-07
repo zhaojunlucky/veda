@@ -13,23 +13,23 @@ namespace sqlite3
 	public:
 		virtual ~Sqlite3ResultSet();
 
-		// get blob
+		// get blob, index start from 1
 		virtual const void* getBlob(int colIndex);
-		// get bytes
+		// get bytes, index start from 1
 		virtual int getBytes(int colIndex);
-		// get bytes16
+		// get bytes16, index start from 1
 		virtual int getBytes16(int colIndex);
-		// get double
+		// get double, index start from 1
 		virtual double getDouble(int colIndex);
-		// get integer
+		// get integer, index start from 1
 		virtual int getInteger(int colIndex);
-		// get int64
+		// get int64, index start from 1
 		virtual int64_t getInt64(int colIndex);
-		// get unsigned char*
+		// get unsigned char*, index start from 1
 		virtual const unsigned char* getText(int colIndex);
-		// get text16
+		// get text16, index start from 1
 		virtual const void* getText16(int colIndex);
-		// not work for directly execute a query
+		// not work for directly execute a query, index start from 1
 		virtual int getColumnType(int colIndex);
 		//virtual sqlite3_value getValue(int colIndex);
 

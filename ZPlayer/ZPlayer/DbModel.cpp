@@ -24,7 +24,15 @@ DbModel* DbModel::getInstance()
 long DbModel::addMusic(MusicDetailsInfo& music)
 {
 	Sqlite3ConnectionPtr conn = getConnection();
-
+	Sqlite3StatementPtr stmt = conn->prepare(MUSIC_INSERT_SQL);
+	//stmt->bindText(1, music.fileName, str.getSize(), SQLITE_STATIC);
+	//stmt->bindText(2, f.tag()->artist().toCString(), f.tag()->artist().length(), SQLITE_STATIC);
+	//stmt->bindText(3, f.tag()->album().toCString(), f.tag()->album().length(), SQLITE_STATIC);
+	//stmt->bindText(4, f.tag()->title().toCString(), f.tag()->title().length(), SQLITE_STATIC);
+	//stmt->bindInt64(5, 0);
+	//stmt->bindInt64(6, f.audioProperties()->length());
+	//stmt->bindInt64(7, fi.lastModifiedTime);
+	//stmt->bindInt64(8, fi.fileSize);
 }
 void DbModel::updateMusic(MusicDetailsInfo& music)
 {
