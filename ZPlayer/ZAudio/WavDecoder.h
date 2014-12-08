@@ -26,7 +26,7 @@ namespace audio
 		MMCKINFO m_ckRiff;      // Use in opening a WAVE file
 		MMIOINFO m_mmioinfoOut;
 		std::shared_ptr<common::InternalBuffer<CHAR>> m_pResourceBuffer;
-
+		std::shared_ptr<common::InternalBuffer<wchar_t>> fileBuffer;
 	};
 }
 

@@ -16,11 +16,11 @@ namespace audio
 	{
 		Decoder::Open(file);
 
-
-		eio::StringConvertInternal sci;
-		std::shared_ptr<common::InternalBuffer<wchar_t>> fileBuffer(new common::InternalBuffer<wchar_t>(wcslen(file) + 1));
-		wcscpy((wchar_t*)fileBuffer.get(), file);
-		m_hmmio = mmioOpen((wchar_t*)fileBuffer.get(), NULL, MMIO_ALLOCBUF | MMIO_READ);
+		fileBuffer.reset(new common::InternalBuffer<wchar_t>(wcslen(file) + 1));
+		
+		wcscpy(fileBuffer->getData(), file);
+		
+		m_hmmio = mmioOpen(fileBuffer->getData(), NULL, MMIO_ALLOCBUF | MMIO_READ);
 
 		if (NULL == m_hmmio)
 		{

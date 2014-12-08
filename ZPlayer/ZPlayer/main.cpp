@@ -4,6 +4,8 @@
 #include <UIlib.h>
 using namespace DuiLib;
 
+#pragma comment(lib,"ZAudio.lib")
+#pragma comment(lib,"ZPEngine.lib")
 #pragma comment(lib, "DuiLib.lib")
 #pragma comment(lib, "Veda.lib")
 #pragma comment(lib,"Sqlite3.lib")

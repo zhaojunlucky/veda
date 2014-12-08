@@ -49,6 +49,11 @@ namespace common
 		{
 			return mDataSize - mIndex;
 		}
+
+		T* getData()
+		{
+			return mData;
+		}
 	private:
 		T* mData;
 		size_t mDataSize;

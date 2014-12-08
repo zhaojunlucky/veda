@@ -148,7 +148,10 @@ namespace audio
 				return 0;
 
 			mPlayerState.isMute = mute;
-			mAudio2.pSourceVoice->SetVolume(mute ? 0 : 1.0f * mPlayerState.volume / (float)MAX_VOLUME);
+			if (mPlayerState.isPlaying){
+				mAudio2.pSourceVoice->SetVolume(mute ? 0 : 1.0f * mPlayerState.volume / (float)MAX_VOLUME);
+			}
+			
 			return 0;
 		}
 		int AudioPlayer::SetCallback(ZACallbackFunction func, void* para)
@@ -205,7 +208,7 @@ namespace audio
 			// done
 			mAudio2.bInitialized = true;
 			mPlayerState.isStop = true;
-
+			mPlayerState.isPlaying = false;
 			memset(&mCallback, 0, sizeof(mCallback));
 		}
 

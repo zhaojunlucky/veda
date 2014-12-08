@@ -7,7 +7,12 @@ using namespace DuiLib;
 #include "Logger.h"
 #include "Base.h"
 #include <PlayerBase.h>
+#include <AudioPlayer.h>
 using namespace audio::player;
+#include <Decoder.h>
+#include <DecoderFactory.hpp>
+using namespace audio;
+
 
 extern Logger logger;
 class CPlayerMainUI :
@@ -29,6 +34,7 @@ protected:
 	void updatePlayBtn();
 	void updateSoundBtn();
 	void updatePlayMode();
+	static void __stdcall PlayerCallback(void* instance, PlayerStateMessage mes, void *client, WPARAM, LPARAM);
 public:
 	PlayMode mPlayMode;
 	CMusicListCtrl* mMusicListCtrl;
@@ -41,5 +47,7 @@ public:
 	CSliderUI* mVolumeSlider;
 	CSliderUI* mSeekSlider;
 	String mVolumnStr;
+	AudioPlayer *mAPlayer;
+	Decoder* mDecoder;
 };
 

@@ -96,6 +96,16 @@ void CPlayerMainUI::InitWindow()
 	mSeekSlider = (CSliderUI*)pPlayControl->FindSubControl(L"seekSlider");
 	updateSoundBtn();
 	updatePlayMode();
+	// test play music
+	String musicFile = L"E:\\Documents\\Musics\\Aldnoah Zero\\(04) [Sawanohiroyuki[nzk]] Keep On Keeping On.wav";
+	mDecoder = DecoderFactory::CreateDecoderByFile(musicFile.c_str());
+	mDecoder->Open(musicFile.c_str());
+	mAPlayer = new AudioPlayer;
+	mAPlayer->SetCallback(PlayerCallback, this);
+	mAPlayer->Open(mDecoder);
+	mAPlayer->SetVolumne(5000);
+	mAPlayer->SetMute(false);
+	mAPlayer->Play();
 }
 
 bool CPlayerMainUI::handleClick(TNotifyUI& msg)
@@ -223,4 +233,9 @@ void CPlayerMainUI::updatePlayMode()
 		mPlayModeBtn->SetPushedImage(mSkinRes.ShuffleDown.get()->c_str());
 		mPlayModeBtn->SetToolTip(L"Repeat All");
 	}
+}
+
+void CPlayerMainUI::PlayerCallback(void* instance, PlayerStateMessage mes, void *client, WPARAM, LPARAM)
+{
+	CPlayerMainUI* p = (CPlayerMainUI*)client;
 }

@@ -23,19 +23,19 @@ namespace audio
 			if (pos != std::string::npos)
 			{
 				std::wstring extension = str.substr(pos + 1);
-				if (wcsicmp(extension.c_str(), L"mp3"))
+				if (wcsicmp(extension.c_str(), L"mp3") == 0)
 				{
 					d = new MP3Decoder;
 				}
-				else if (wcsicmp(extension.c_str(), L"flac"))
+				else if (wcsicmp(extension.c_str(), L"flac") == 0)
 				{
 					d = new FlacDecoder;
 				}
-				else if (wcsicmp(extension.c_str(), L"ape"))
+				else if (wcsicmp(extension.c_str(), L"ape") == 0)
 				{
 					d = new ApeDecoder;
 				}
-				else if (wcsicmp(extension.c_str(), L"wav"))
+				else if (wcsicmp(extension.c_str(), L"wav") == 0)
 				{
 					d = new WavDecoder;
 				}

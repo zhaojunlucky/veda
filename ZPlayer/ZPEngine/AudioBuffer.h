@@ -17,12 +17,12 @@ namespace audio
 
 			T* operator[](const size_t index)
 			{
-				return (T*) mBuffers[index].get();
+				return  mBuffers[index]->getData();
 			}
 
 			T* operator[](const size_t index) const
 			{
-				return (T*)mBuffers[index].get();
+				return mBuffers[index]->getData();
 			}
 
 			size_t GetBufferCount() const

@@ -11,15 +11,15 @@ DbModel::~DbModel()
 {
 }
 
-DbModel* DbModel::getInstance()
-{
-	if (instance == 0)
-	{
-		static DbModel dbModel;
-		instance = &dbModel;
-	}
-	return instance;
-}
+//DbModel* DbModel::getInstance()
+//{
+//	if (instance == 0)
+//	{
+//		static DbModel dbModel;
+//		instance = &dbModel;
+//	}
+//	return instance;
+//}
 
 long DbModel::addMusic(MusicDetailsInfo& music)
 {
@@ -36,6 +36,7 @@ long DbModel::addMusic(MusicDetailsInfo& music)
 	stmt->executeUpdate();
 	stmt->close();
 	conn->close();
+	return 0;
 }
 void DbModel::updateMusic(MusicDetailsInfo& music)
 {
@@ -51,7 +52,7 @@ void DbModel::deleteMusic(long musicId)
 }
 long DbModel::addPlaylist(const char* name)
 {
-
+	return 0;
 }
 void DbModel::addMusicForPlaylist(long pl, long musicId)
 {

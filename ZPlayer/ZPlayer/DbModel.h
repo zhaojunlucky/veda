@@ -12,7 +12,7 @@ class DbModel
 {
 public:
 	~DbModel();
-	static DbModel* getInstance();
+	//static DbModel* getInstance();
 	long addMusic(MusicDetailsInfo& music);
 	void updateMusic(MusicDetailsInfo& music);
 	void deleteMusic(MusicDetailsInfo& music);
