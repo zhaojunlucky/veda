@@ -110,4 +110,9 @@ namespace sqlite3
 		Sqlite3StatementPtr ptr(new Sqlite3Statement(mDb));
 		return ptr;
 	}
+
+	sqlite3_int64 Sqlite3Connection::getLastInsertRowId()
+	{
+		return sqlite3_last_insert_rowid(mDb);
+	}
 }

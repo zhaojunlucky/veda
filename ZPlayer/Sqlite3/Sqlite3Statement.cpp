@@ -123,7 +123,7 @@ namespace sqlite3
 			throw Sqlite3Exception(sqlite3_errstr(ret), ret);
 		}
 	}
-	void Sqlite3Statement::bindText16(int index, const void* value, int n, void(*xDel)(void*))
+	void Sqlite3Statement::bindText16(int index, const void* value, int n, void(*xDel)(void*) = SQLITE_STATIC)
 	{
 		int ret = sqlite3_bind_text16(mStmt, index, value, n, xDel);
 		if (SQLITE_OK != ret)

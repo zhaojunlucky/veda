@@ -38,6 +38,7 @@ namespace sqlite3
 		Sqlite3StatementPtr prepare(const wchar_t* sql);
 		// create a statement
 		Sqlite3StatementPtr createStatement();
+		sqlite3_int64 getLastInsertRowId();
 	private:
 		// disable copy contructor and = operator
 		Sqlite3Connection& operator= (Sqlite3Connection&){ return *this; }
