@@ -85,24 +85,24 @@
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MusicListCtrl.cpp" />
-    <ClCompile Include="MusicManager.cpp" />
     <ClCompile Include="PlaylistModel.cpp" />
     <ClCompile Include="PlayerMainUI.cpp" />
     <ClCompile Include="PlaylistController.cpp" />
     <ClCompile Include="SkinResource.cpp" />
     <ClCompile Include="UIListCtrlCommon.cpp" />
+    <ClCompile Include="ZPLException.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MusicListCtrl.h" />
-    <ClInclude Include="MusicManager.h" />
     <ClInclude Include="PlayControl.h" />
     <ClInclude Include="PlaylistModel.h" />
     <ClInclude Include="PlayerMainUI.h" />
     <ClInclude Include="PlaylistController.h" />
     <ClInclude Include="SkinResource.h" />
     <ClInclude Include="UIListCtrlCommon.h" />
+    <ClInclude Include="ZPLException.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

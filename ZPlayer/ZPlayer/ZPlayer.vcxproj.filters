@@ -48,10 +48,10 @@
     <ClCompile Include="PlaylistModel.cpp">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="MusicManager.cpp">
-      <Filter>Model</Filter>
-    </ClCompile>
     <ClCompile Include="SkinResource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ZPLException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,9 +74,6 @@
     <ClInclude Include="PlaylistModel.h">
       <Filter>Model</Filter>
     </ClInclude>
-    <ClInclude Include="MusicManager.h">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="PlayControl.h">
       <Filter>Control</Filter>
     </ClInclude>
@@ -84,6 +81,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZPLException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
