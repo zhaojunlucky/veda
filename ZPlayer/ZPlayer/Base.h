@@ -1,5 +1,6 @@
 #pragma once
 #include <ZString.h>
+#include <Vector.h>
 using namespace veda;
 
 enum PlayMode
@@ -9,9 +10,8 @@ enum PlayMode
 	Shuffle
 };
 
-struct MusicDetailsInfo
+struct MusicInfo
 {
-	long id;
 	String fileName;
 	String fullPath;
 	String artist;
@@ -20,6 +20,4 @@ struct MusicDetailsInfo
 	bool isCue;
 	int start;
 	int end;
-	time_t lastModifiedTime;
-	long lastSize;
 };

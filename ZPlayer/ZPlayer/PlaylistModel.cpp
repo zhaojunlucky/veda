@@ -1,14 +1,8 @@
 #include "PlaylistModel.h"
 
 
-Playlist::Playlist(const wchar_t* name)
-	:mPlaylistName(name), id(-1), mIsModified(false)
-{
-
-}
-
-Playlist::Playlist(const wchar_t* name, int id)
-	: mPlaylistName(name), id(-1), mIsModified(false)
+Playlist::Playlist(const wchar_t* filePath)
+	:mFilePath(filePath), mIsModified(false)
 {
 
 }
@@ -27,11 +21,6 @@ void Playlist::addMusicInfo(shared_ptr<MusicInfo> musicInfo)
 	mIsModified = true;
 }
 
-void Playlist::addWithoutModify(shared_ptr<MusicInfo> musicInfo)
-{
-	mPlaylist.add(musicInfo);
-	mIsModified = true;
-}
 const MusicInfo& Playlist::getMusicInfo(size_t index) const
 {
 	return *mPlaylist[index].get();
@@ -50,9 +39,38 @@ void Playlist::setName(const wchar_t* name)
 	mPlaylistName = name;
 	mIsModified = true;
 }
-int Playlist::getId() const
+
+void Playlist::load()
 {
-	return id;
+	WBufferedFileReader reader(mFilePath, FileEncoding::UTF8);
+	const wchar_t* pLine = 0;
+	static wchar_t* fileHead = L"#ZPL#";
+
+	while ((pLine = reader.ReadLine()) != NULL)
+	{
+		if (wcslen(fileHead) > 0)
+		{
+			String str = pLine;
+			StringPtr data = str.trim();
+			if (data->getSize() > 0 && data->find(fileHead) != 0)
+			{
+				throw ZPLException(L"invalid ZPL list file.");
+			}
+			else
+			{
+				// parse name
+				mPlaylistName.clear();
+				
+				break;
+			}
+		}
+	}
+	// 
+}
+
+void Playlist::save()
+{
+
 }
 
 bool Playlist::isModified() const

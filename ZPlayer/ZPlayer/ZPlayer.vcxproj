@@ -82,7 +82,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DbModel.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MusicListCtrl.cpp" />
@@ -95,7 +94,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
-    <ClInclude Include="DbModel.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MusicListCtrl.h" />
     <ClInclude Include="MusicManager.h" />
