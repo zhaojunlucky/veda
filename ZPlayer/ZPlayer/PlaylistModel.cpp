@@ -60,7 +60,7 @@ void Playlist::load()
 			{
 				// parse name
 				mPlaylistName.clear();
-				
+				mPlaylistName.append(*data->subString(5).get());
 				break;
 			}
 		}

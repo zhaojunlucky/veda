@@ -916,6 +916,34 @@ namespace veda
 			}
 			return std::shared_ptr<_String>(tmp);
 		}
+
+		StringPtr subString(size_type startIndex)
+		{
+			return subString(startIndex, this->getSize() - startIndex );
+		}
+
+		StringPtr subString(size_type startIndex, size_type count)
+		{
+			_String* tmp = new _String();
+			tmp->reserve(count);
+
+			_traits::_ncopy(tmp->mData, &mData[startIndex], count);
+			tmp->mSize = count;
+			
+			return std::shared_ptr<_String>(tmp);
+		}
+
+		void reserve(size_type capacity)
+		{
+			if (capacity >= mCapacity)
+			{
+				mCapacity = capacity + DEFAULT_SIZE;
+				value_type* buf = new value_type[mCapacity];
+				_traits::_ncopy(buf, mData, mSize);
+				mData = buf;
+				delete mData;
+			}
+		}
 private:
 		void assign(const value_type* buf, size_type size)
 		{
@@ -929,7 +957,7 @@ private:
 
 				mData = alloc(mCapacity);
 			}
-			else if (size <= mCapacity / 4)
+			else if (size = mCapacity / 2)
 			{
 				mCapacity = size / 2;
 				if (mCapacity < DEFAULT_SIZE)
