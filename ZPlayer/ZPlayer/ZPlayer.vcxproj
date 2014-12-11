@@ -87,7 +87,6 @@
     <ClCompile Include="MusicListCtrl.cpp" />
     <ClCompile Include="PlaylistModel.cpp" />
     <ClCompile Include="PlayerMainUI.cpp" />
-    <ClCompile Include="PlaylistController.cpp" />
     <ClCompile Include="SkinResource.cpp" />
     <ClCompile Include="UIListCtrlCommon.cpp" />
     <ClCompile Include="ZPLException.cpp" />
@@ -99,7 +98,6 @@
     <ClInclude Include="PlayControl.h" />
     <ClInclude Include="PlaylistModel.h" />
     <ClInclude Include="PlayerMainUI.h" />
-    <ClInclude Include="PlaylistController.h" />
     <ClInclude Include="SkinResource.h" />
     <ClInclude Include="UIListCtrlCommon.h" />
     <ClInclude Include="ZPLException.h" />

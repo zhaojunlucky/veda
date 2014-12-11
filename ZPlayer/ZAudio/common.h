@@ -1,7 +1,6 @@
 #pragma once
 #include <Windows.h>
 #include <Mmsystem.h>
-#include <Exia\common\StringConvertInternal.hpp>
 
 
 namespace audio

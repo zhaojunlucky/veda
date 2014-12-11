@@ -19,7 +19,7 @@ namespace veda
 	 * S -> millisecond [0-999]
 	 * a -> AM PM 
 	 */
-	class Datetime
+	class VEDA_EXPORT Datetime
 	{
 	public:
 		Datetime();

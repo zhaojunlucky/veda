@@ -4,7 +4,7 @@
 
 namespace veda
 {
-	struct Token
+	struct VEDA_EXPORT Token
 	{
 		Token(){}
 		Token(const Token& t)
@@ -21,7 +21,7 @@ namespace veda
 	};
 
 	
-	class DateFormat
+	class VEDA_EXPORT DateFormat
 	{
 	public:
 		void parseDatePattern(Vector<Token>& tokens, const wchar_t* pattern);

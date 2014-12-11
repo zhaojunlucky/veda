@@ -5,6 +5,7 @@
 #include "MP3Decoder.h"
 #include "WavDecoder.h"
 #include "common.h"
+#include <ZString.h>
 
 namespace audio
 {
@@ -49,8 +50,9 @@ namespace audio
 			{
 				return 0;
 			}
-			eio::StringConvertInternal sci;
-			return CreateDecoderByFile(sci.Char2Wchar(file,strlen(file)));
+			veda::WString tmp;
+			tmp.from(file);
+			return CreateDecoderByFile(tmp.c_str());
 		}
 
 		static AudioFormat DetectMediaType(const wchar_t* file)
@@ -91,8 +93,9 @@ namespace audio
 			{
 				return AudioFormat::Unknown;
 			}
-			eio::StringConvertInternal sci;
-			return DetectMediaType(sci.Char2Wchar(file,strlen(file)));
+			veda::WString tmp;
+			tmp.from(file);
+			return DetectMediaType(tmp.c_str());
 		}
 	};
 

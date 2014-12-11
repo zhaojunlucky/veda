@@ -2,7 +2,6 @@
 #include "FileBase.h"
 #include <fstream>
 #include <string>
-#include "StringConvert.h"
 #include <locale>
 #include <codecvt>
 
@@ -12,7 +11,7 @@ namespace veda
 	using namespace std;
 
 	// not thread safe
-	class WFileReader : public FileReadBase<wchar_t>
+	class VEDA_EXPORT WFileReader : public FileReadBase<wchar_t>
 	{
 	public:
 		WFileReader(const char* file, FileEncoding enc = FileEncoding::ASCII);
@@ -28,51 +27,31 @@ namespace veda
 		std::ifstream mAFile;
 		std::wifstream mUFile;
 		bool mIsUFile;
-		StringConvert mSci;
 	};
 
-	// not thread safe
-	class CFileReader : public FileReadBase<char>
-	{
-	public:
-		CFileReader(const char* file, FileEncoding enc = FileEncoding::ASCII);
-		CFileReader(const wchar_t* file, FileEncoding enc = FileEncoding::ASCII);
-		CFileReader(const char* file, bool detectEnc);
-		CFileReader(const wchar_t* file, bool detectEnc);
-		virtual ~CFileReader(){};
-
-		void close();
-	private:
-		void InitFileInternal(bool detectEnc);
-	protected:
-		std::ifstream mAFile;
-		std::wifstream mUFile;
-		bool mIsUFile;
-		StringConvert mSci;
-	};
 
 	WFileReader::WFileReader(const char* file, FileEncoding enc)
 		:FileReadBase<wchar_t>(file, enc)
 	{
-			InitFileInternal(false);
-		}
+		InitFileInternal(false);
+	}
 	WFileReader::WFileReader(const wchar_t* file, FileEncoding enc)
 		: FileReadBase<wchar_t>(file, enc)
 	{
-			InitFileInternal(false);
-		}
+		InitFileInternal(false);
+	}
 	WFileReader::WFileReader(const char* file, bool detectEnc)
 		: FileReadBase<wchar_t>(file, FileEncoding::ASCII)
 
 	{
-			InitFileInternal(true);
-		}
+		InitFileInternal(true);
+	}
 	WFileReader::WFileReader(const wchar_t* file, bool detectEnc)
 		: FileReadBase<wchar_t>(file, FileEncoding::ASCII)
 
 	{
-			InitFileInternal(true);
-		}
+		InitFileInternal(true);
+	}
 
 	void WFileReader::close()
 	{
@@ -118,6 +97,27 @@ namespace veda
 #endif
 		}
 	}
+
+	// not thread safe
+	class VEDA_EXPORT CFileReader : public FileReadBase<char>
+	{
+	public:
+		CFileReader(const char* file, FileEncoding enc = FileEncoding::ASCII);
+		CFileReader(const wchar_t* file, FileEncoding enc = FileEncoding::ASCII);
+		CFileReader(const char* file, bool detectEnc);
+		CFileReader(const wchar_t* file, bool detectEnc);
+		virtual ~CFileReader(){};
+
+		void close();
+	private:
+		void InitFileInternal(bool detectEnc);
+	protected:
+		std::ifstream mAFile;
+		std::wifstream mUFile;
+		bool mIsUFile;
+	};
+
+	
 
 
 	CFileReader::CFileReader(const char* file, FileEncoding enc)

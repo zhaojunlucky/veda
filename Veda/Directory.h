@@ -25,7 +25,7 @@ namespace veda
 		All
 	};
 
-	class DirectoryIterator : public Iterator < FileInfo >
+	class VEDA_EXPORT DirectoryIterator : public Iterator < FileInfo >
 	{
 		friend class Directory;
 	public:
@@ -51,7 +51,7 @@ namespace veda
 
 	typedef shared_ptr<DirectoryIterator> DirectoryIteratorPtr;
 
-	class Directory
+	class VEDA_EXPORT Directory
 	{
 	public:
 		Directory(const wchar_t* dirPath);

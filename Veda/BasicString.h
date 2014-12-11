@@ -7,6 +7,7 @@
 #include "StringTraits.h"
 #include <tchar.h>
 #include <StringFind.h>
+#include "veda.h"
 
 namespace veda
 {
@@ -15,7 +16,7 @@ namespace veda
 #define DEFAULT_SIZE 64
 
 	template<class _traits, class _ochar>
-	class BasicString
+	class VEDA_EXPORT BasicString
 	{
 	public:
 		typedef typename _traits::value_type value_type;

@@ -29,7 +29,7 @@ namespace veda
 		SP_UDP = IPPROTO_UDP,
 		SP_ICMPv6 = IPPROTO_ICMPV6
 	};
-	class WinSocket
+	class VEDA_EXPORT WinSocket
 	{
 	public:
 		WinSocket();

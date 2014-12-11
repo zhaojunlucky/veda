@@ -11,7 +11,7 @@
 namespace veda
 {
 	using namespace ::std;
-	class WFileWriter : public FileWriteBase<wchar_t>
+	class VEDA_EXPORT WFileWriter : public FileWriteBase<wchar_t>
 	{
 	public:
 		WFileWriter(const char* file, FileEncoding enc = FileEncoding::ASCII)
@@ -104,7 +104,7 @@ namespace veda
 		bool mIsUFile;
 	};
 
-	class CFileWriter : public FileWriteBase<char>
+	class VEDA_EXPORT CFileWriter : public FileWriteBase<char>
 	{
 	public:
 		CFileWriter(const char* file, FileEncoding enc)

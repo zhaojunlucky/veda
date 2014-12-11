@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
 using namespace std;
+#include "veda.h"
 namespace veda
 {
-	class PathUtil
+	class VEDA_EXPORT PathUtil
 	{
 	public:
 		PathUtil();

@@ -3,7 +3,6 @@
 #include <string>
 #include "common.h"
 #include "Sqlite3Exception.h"
-#include <common\StringConvertInternal.hpp>
 
 using namespace std;
 namespace sqlite3
@@ -75,7 +74,6 @@ namespace sqlite3
 		int mRow;
 		int mCol;
 		int mRowIndex;
-		eio::StringConvertInternal mSci;
 	};
 
 

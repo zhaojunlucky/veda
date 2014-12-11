@@ -1,11 +1,12 @@
 #pragma once
 #include <ZString.h>
 #include <Vector.h>
+#include <BufferedFileReader.h>
 using namespace veda;
 #include <memory>
 using namespace std;
-#include <File.h>
-using namespace eio;
+
+
 #include "Base.h"
 #include "ZPLException.h"
 

@@ -2,7 +2,7 @@
 #include <string>
 #include <queue>
 #include "FileReader.h"
-#include "StringConvert.h"
+#include "ZString.h"
 
 namespace veda
 {
@@ -66,8 +66,9 @@ namespace veda
 			{
 				size_t n = mAFile.readsome(mCBuffer, BUFFER_SIZE - 1);
 				mCBuffer[n] = '\0';
-				wstring tmp = mSci.char2wchar(mCBuffer, n);
-				Push2Queue<wchar_t>(mBuffer, tmp.c_str(), tmp.size());
+				WString tmp;
+				tmp.from(mCBuffer, n);
+				Push2Queue<wchar_t>(mBuffer, tmp.c_str(), tmp.getSize());
 			}
 		}
 		bool Eof()
@@ -125,8 +126,9 @@ namespace veda
 			{
 				size_t n = mUFile.readsome(mWBuffer, BUFFER_SIZE - 1);
 				mWBuffer[n] = L'\0';
-				std::string tmp = mSci.Wchar2Char(mWBuffer, n);
-				Push2Queue<char>(mBuffer, tmp.c_str(), tmp.size());
+				AString tmp;
+				tmp.from(mWBuffer, n);
+				Push2Queue<char>(mBuffer, tmp.c_str(), tmp.getSize());
 			}
 			else if (!mAFile.eof())
 			{

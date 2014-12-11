@@ -18,7 +18,7 @@ namespace veda
 		UTF16L = UNICODE_
 	};
 
-	FileEncoding _DetectEncoding(const char header[3])
+	static FileEncoding _DetectEncoding(const char header[3])
 	{
 		FileEncoding enc = FileEncoding::ASCII;
 		if (header[0] == 0xFF && header[1] == 0xFE)
@@ -33,7 +33,7 @@ namespace veda
 		return enc;
 	}
 
-	FileEncoding DetectEncoding(const char* file)
+	static FileEncoding DetectEncoding(const char* file)
 	{
 		char buf[3];
 		memset(buf, 0, sizeof(char)* 3);
@@ -49,7 +49,7 @@ namespace veda
 
 
 	template<class T>
-	class FileReadBase
+	class VEDA_EXPORT FileReadBase
 	{
 	public:
 		FileReadBase(const char* file, FileEncoding enc)
@@ -77,7 +77,7 @@ namespace veda
 
 
 	template<class T>
-	class FileWriteBase
+	class VEDA_EXPORT FileWriteBase
 	{
 	public:
 		FileWriteBase(const char* file, FileEncoding enc)

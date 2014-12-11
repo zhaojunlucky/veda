@@ -1,8 +1,9 @@
 #pragma once
+#include "veda.h"
 #include "ZString.h"
 namespace veda
 {
-	class BaseException
+	class VEDA_EXPORT BaseException
 	{
 	public:
 		BaseException();

@@ -42,9 +42,6 @@
     <ClCompile Include="Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PlaylistController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlaylistModel.cpp">
       <Filter>Model</Filter>
     </ClCompile>
@@ -66,9 +63,6 @@
       <Filter>Control</Filter>
     </ClInclude>
     <ClInclude Include="Logger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlaylistController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlaylistModel.h">

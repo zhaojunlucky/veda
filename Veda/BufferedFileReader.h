@@ -1,12 +1,12 @@
 #pragma once
 #include <string>
 #include "FileReader.h"
-
+#include "ZString.h"
 
 using namespace std;
-namespace eio
+namespace veda
 {
-	class WBufferedFileReader : public WFileReader
+	class VEDA_EXPORT WBufferedFileReader : public WFileReader
 	{
 	public:
 		WBufferedFileReader(const char* file, FileEncoding enc = FileEncoding::ASCII)
@@ -50,7 +50,10 @@ namespace eio
 				}
 				mALineBuffer.clear();
 				getline(mAFile, mALineBuffer);
-				mULineBuffer = mSci.Char2Wchar(mALineBuffer.c_str(), mALineBuffer.size());
+
+				veda::WString tmp;
+				tmp.from(mALineBuffer.c_str());
+				mULineBuffer = tmp.c_str();
 			}
 			return mULineBuffer.c_str();
 		}
@@ -103,7 +106,9 @@ namespace eio
 				}
 				mULineBuffer.clear();
 				getline(mUFile, mULineBuffer);
-				mALineBuffer = mSci.Wchar2Char(mULineBuffer.c_str(), mULineBuffer.size());
+				veda::AString tmp;
+				tmp.from(mULineBuffer.c_str(), mULineBuffer.size());
+				mALineBuffer = tmp.c_str();
 			}
 			return mALineBuffer.c_str();
 		}

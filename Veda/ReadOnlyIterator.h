@@ -1,8 +1,9 @@
 #pragma once
+#include "veda.h"
 namespace veda
 {
 	template <class T>
-	class Iterator
+	class VEDA_EXPORT Iterator
 	{
 	public:
 		virtual bool hasNext() = 0;
@@ -10,7 +11,7 @@ namespace veda
 	};
 
 	template <class T>
-	class NullIterator : public Iterator<T>
+	class VEDA_EXPORT NullIterator : public Iterator<T>
 	{
 	public:
 		NullIterator(){}

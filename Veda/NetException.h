@@ -2,7 +2,7 @@
 #include "BaseException.h"
 namespace veda
 {
-	class NetException : public BaseException
+	class VEDA_EXPORT NetException : public BaseException
 	{
 	public:
 		NetException();
