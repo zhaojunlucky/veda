@@ -51,6 +51,21 @@
     <ClCompile Include="ZPLException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Playlist.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DbHelper.cpp">
+      <Filter>Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="DropTargetBase.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicInfoHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CueSheet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerMainUI.h">
@@ -78,6 +93,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ZPLException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Playlist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DropTargetBase.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="DbHelper.h">
+      <Filter>Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicInfoHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CueSheet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

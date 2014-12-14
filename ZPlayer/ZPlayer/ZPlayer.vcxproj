@@ -82,9 +82,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CueSheet.cpp" />
+    <ClCompile Include="DbHelper.cpp" />
+    <ClCompile Include="DropTargetBase.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MusicInfoHelper.cpp" />
     <ClCompile Include="MusicListCtrl.cpp" />
+    <ClCompile Include="Playlist.cpp" />
     <ClCompile Include="PlaylistModel.cpp" />
     <ClCompile Include="PlayerMainUI.cpp" />
     <ClCompile Include="SkinResource.cpp" />
@@ -93,9 +98,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="CueSheet.h" />
+    <ClInclude Include="DbHelper.h" />
+    <ClInclude Include="DropTargetBase.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="MusicInfoHelper.h" />
     <ClInclude Include="MusicListCtrl.h" />
     <ClInclude Include="PlayControl.h" />
+    <ClInclude Include="Playlist.h" />
     <ClInclude Include="PlaylistModel.h" />
     <ClInclude Include="PlayerMainUI.h" />
     <ClInclude Include="SkinResource.h" />

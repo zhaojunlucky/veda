@@ -134,5 +134,8 @@
     <ClCompile Include="IPEndPoint.cpp">
       <Filter>Network</Filter>
     </ClCompile>
+    <ClCompile Include="FileReader.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

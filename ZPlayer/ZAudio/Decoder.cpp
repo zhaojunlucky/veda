@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Decoder.h"
 #include <string.h>
+#include <ZString.h>
 
 namespace audio
 {
@@ -34,8 +35,9 @@ namespace audio
 
 	int Decoder::Open(const char* file)
 	{
-		eio::StringConvertInternal sci;
-		return Open(sci.Char2Wchar(file,strlen(file)));
+		veda::WString tmp;
+		tmp.from(file, strlen(file));
+		return Open(tmp.c_str());
 	}
 
 	const AudioInfo* Decoder::GetAudioInfo()

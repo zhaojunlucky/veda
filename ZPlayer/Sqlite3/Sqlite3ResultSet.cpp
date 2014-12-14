@@ -1,5 +1,6 @@
 #include "Sqlite3ResultSet.h"
 
+
 namespace sqlite3
 {
 	Sqlite3ResultSet::Sqlite3ResultSet(sqlite3* db, sqlite3_stmt* stmt)
@@ -104,8 +105,10 @@ namespace sqlite3
 	int NonPrepareSqlite3ResultSet::getBytes16(int colIndex)
 	{
 		const char* data = get(colIndex);
-		int len = wcslen(mSci.Char2Wchar(data, strlen(data)));
-		return len;
+		veda::WString tmp;
+		tmp.from(data);
+		
+		return tmp.getSize();
 	}
 	double NonPrepareSqlite3ResultSet::getDouble(int colIndex)
 	{
@@ -126,7 +129,8 @@ namespace sqlite3
 	const void* NonPrepareSqlite3ResultSet::getText16(int colIndex)
 	{
 		const char* data = get(colIndex);
-		return mSci.Char2Wchar(data, strlen(data));
+		mTmp.from(data);
+		return mTmp.c_str();
 	}
 	int NonPrepareSqlite3ResultSet::getColumnType(int colIndex)
 	{

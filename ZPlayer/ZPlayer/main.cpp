@@ -15,68 +15,13 @@ using namespace DuiLib;
 #include "Logger.h"
 Logger logger;
 #include <Datetime.h>
-#include <sqlite.h>
-using namespace sqlite3;
 #include <Directory.h>
-
-#include <taglib/fileref.h>
-void testWriteData()
-{
-	try
-	{ 
-		//Sqlite3Connection conn("E:\\Documents\\Projects\\GitHub\\veda\\ZPlayer\\x64\\Debug\\data\\music.db");
-		//conn.open();
-		//Sqlite3StatementPtr stmt = conn.prepare("INSERT INTO MUSIC_META_DATA(FULL_PATH,IS_CUE,ARTIST,ALBUM,TITLE,START_TIME,END_TIME,LAST_MODIFIED_TIME,LAST_SIZE) VALUES(?,0,?,?,?,?,?,?,?)");
-		//Directory dir(L"E:\\Documents\\Musics\\Aldnoah Zero");
-		//DirectoryIteratorPtr it = dir.searchFiles(L"*.wav");
-		//AString str;
-		//while (it->hasNext())
-		//{
-		//	const FileInfo & fi = it->get();
-		//	str.from(fi.fullPath.c_str());
-		//	TagLib::FileRef f(str.c_str());
-
-		//	stmt->bindText(1, str.c_str(), str.getSize(), SQLITE_STATIC);
-		//	stmt->bindText(2, f.tag()->artist().toCString(), f.tag()->artist().length(), SQLITE_STATIC);
-		//	stmt->bindText(3, f.tag()->album().toCString(), f.tag()->album().length(), SQLITE_STATIC);
-		//	stmt->bindText(4, f.tag()->title().toCString(), f.tag()->title().length(), SQLITE_STATIC);
-		//	stmt->bindInt64(5, 0);
-		//	stmt->bindInt64(6, f.audioProperties()->length());
-		//	stmt->bindInt64(7, fi.lastModifiedTime);
-		//	stmt->bindInt64(8, fi.fileSize);
-		//	stmt->executeUpdate();
-		//}
-		//conn.close();
-
-		//Sqlite3StatementPtr stmtQuery = conn.prepare("SELECT FULL_PATH FROM MUSIC_META_DATA");
-		//Sqlite3ResultSetPtr rs = stmtQuery->executeQuery();
-		//while (rs->hasNext())
-		//{
-		//	TagLib::FileRef f((const char*)rs->getText(0));
-		//	LOG_INFO(logger) << (const char*)rs->getText(0)<<","<<f.audioProperties()->length() << endl;
-		//}
-		//rs->close();
-		//stmtQuery->close();
-		//conn.close();
-		/*
-		Directory dir(L"E:\\Documents\\Musics\\Aldnoah Zero");
-		DirectoryIteratorPtr it = dir.searchFiles(L"*.wav");
-		while (it->hasNext())
-		{
-			const FileInfo & fi = it->get();
-			Datetime dt(fi.lastModifiedTime);
-			LOG_INFO(logger) << dt.format(L"yyyy年MM月dd日HH时mm分ss秒S毫秒")->c_str() << " : "<< fi.fileSize << endl;
-		}*/
-	}
-	catch (Sqlite3Exception &e)
-	{
-		LOG_INFO(logger) << e.what() << endl;
-	}
-}
+#include "CueSheet.h"
 
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
-
+	CoInitialize(NULL);
+	OleInitialize(NULL);
 	Datetime dt;
 	LOG_INFO(logger) << dt.format(L"yyyy年MM月dd日HH时mm分ss秒S毫秒")->c_str() << endl;
 
@@ -95,8 +40,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	item.isEmpty = true;
 	mainUI.mMusicListCtrl->AddNode(item);
 	mainUI.mMusicListCtrl->AddNode(std::move(item));
-
-	testWriteData();
+	CueSheet cue;
+	cue.parse(L"C:\\Users\\Jun\\Downloads\\杨千嬅.-.[狼来了].专辑.(APE).cue");
 
 	/*MusicListItemInfo item;
 	item.isFolder = true;
@@ -117,7 +62,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	//item2.isEmpty = true;
 	//mainUI.mMusicListCtrl->AddNode((item2), root);
 	//mainUI.mMusicListCtrl->AddNode((item2), root);
-
 	mainUI.ShowModal();
+	//OleUninitialize();
+	//CoUninitialize();
 	return 0;
 }

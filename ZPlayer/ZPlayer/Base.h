@@ -2,6 +2,7 @@
 #include <ZString.h>
 #include <Vector.h>
 using namespace veda;
+#include <memory>
 
 enum PlayMode
 {
@@ -12,12 +13,17 @@ enum PlayMode
 
 struct MusicInfo
 {
+	long id;
 	String fileName;
 	String fullPath;
 	String artist;
-	String alblum;
+	String album;
 	String title;
 	bool isCue;
 	int start;
 	int end;
+	float order;
+	bool isUpdated;
 };
+
+typedef std::shared_ptr<MusicInfo> MusicInfoPtr;

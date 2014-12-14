@@ -2,7 +2,7 @@
 namespace common
 {
 	template <class T>
-	class InternalBuffer
+	class __declspec(dllexport) InternalBuffer
 	{
 	public:
 		InternalBuffer(size_t size)

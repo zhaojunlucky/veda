@@ -12,11 +12,11 @@ using namespace audio::player;
 #include <Decoder.h>
 #include <DecoderFactory.hpp>
 using namespace audio;
-
+#include "DropTargetBase.h"
 
 extern Logger logger;
 class CPlayerMainUI :
-	public WindowImplBase
+	public WindowImplBase, public CDropTargetBase
 {
 public:
 	CPlayerMainUI();
@@ -28,6 +28,7 @@ public:
 protected:
 	virtual void InitWindow();
 	virtual CControlUI* CreateControl(LPCTSTR pstrClass);
+	//virtual LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
 	void Notify(TNotifyUI& msg);
 	bool handleClick(TNotifyUI& msg);
 	bool handleSliderAndProgress(TNotifyUI& msg);
@@ -35,6 +36,11 @@ protected:
 	void updateSoundBtn();
 	void updatePlayMode();
 	static void __stdcall PlayerCallback(void* instance, PlayerStateMessage mes, void *client, WPARAM, LPARAM);
+
+	virtual DROPEFFECT onDragEnter(HWND hwnd, IDataObject* dataObj, DWORD grfKeyState, POINT pt);
+	virtual DROPEFFECT onDragOver(HWND hwnd, DWORD grfKeyState, POINT pt);
+	virtual void onDragLeave(HWND hwnd);
+	virtual HRESULT onDrop(HWND hwnd, IDataObject* dataObj, DWORD grfKeyState, POINT pt);
 public:
 	PlayMode mPlayMode;
 	CMusicListCtrl* mMusicListCtrl;
@@ -49,5 +55,6 @@ public:
 	String mVolumnStr;
 	AudioPlayer *mAPlayer;
 	Decoder* mDecoder;
+	DROPEFFECT mDropEffect;
 };
 

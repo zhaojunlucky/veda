@@ -57,6 +57,7 @@ namespace audio
 			}
 			mPlayerState.isPlaying = true;
 			mPlayerState.isStop = false;
+			mPlayerState.isPause = false;
 			return 0;
 		}
 

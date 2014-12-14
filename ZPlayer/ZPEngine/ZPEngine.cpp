@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "ZPEngine.h"
 
-
+#pragma comment(lib,"veda.lib")
 // This is an example of an exported variable
 ZPENGINE_API int nZPEngine=0;
 

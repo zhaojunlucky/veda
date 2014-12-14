@@ -12,6 +12,7 @@ CPlayerMainUI::CPlayerMainUI()
 
 CPlayerMainUI::~CPlayerMainUI()
 {
+	mAPlayer->Stop();
 }
 
 CControlUI* CPlayerMainUI::CreateControl(LPCTSTR pstrClass)
@@ -27,6 +28,16 @@ CControlUI* CPlayerMainUI::CreateControl(LPCTSTR pstrClass)
 	}
 	return NULL;
 }
+
+//LRESULT CPlayerMainUI::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
+//{
+//	switch (uMsg)
+//	{
+//	case WM_DROPFILES:LOG_INFO(logger) << L"on drop file" << endl; break;
+//	default:break;
+//	}
+//
+//}
 
 void CPlayerMainUI::Notify(TNotifyUI& msg)
 {
@@ -105,7 +116,9 @@ void CPlayerMainUI::InitWindow()
 	mAPlayer->Open(mDecoder);
 	mAPlayer->SetVolumne(5000);
 	mAPlayer->SetMute(false);
-	mAPlayer->Play();
+	//mAPlayer->Play();
+
+	DragDropRegister(this->GetHWND());
 }
 
 bool CPlayerMainUI::handleClick(TNotifyUI& msg)
@@ -122,7 +135,7 @@ bool CPlayerMainUI::handleClick(TNotifyUI& msg)
 	}
 	else if (msg.pSender->GetName() == _T("playModeBtn"))
 	{
-		mPlayMode = (PlayMode)((mPlayMode + 1) % (PlayMode::Shuffle+1));
+		mPlayMode = (PlayMode)((mPlayMode + 1) % (PlayMode::Shuffle + 1));
 		updatePlayMode();
 	}
 	else
@@ -238,4 +251,46 @@ void CPlayerMainUI::updatePlayMode()
 void CPlayerMainUI::PlayerCallback(void* instance, PlayerStateMessage mes, void *client, WPARAM, LPARAM)
 {
 	CPlayerMainUI* p = (CPlayerMainUI*)client;
+}
+
+DROPEFFECT CPlayerMainUI::onDragEnter(HWND hwnd, IDataObject* dataObj, DWORD grfKeyState, POINT pt)
+{ 
+	DROPEFFECT eff = DROPEFFECT_NONE;
+	FORMATETC cFmt = { (CLIPFORMAT)CF_HDROP, NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
+	STGMEDIUM stgmedium;
+	if (dataObj->GetData(&cFmt, &stgmedium) == S_OK)
+	{
+		eff = DROPEFFECT_COPY;
+		ReleaseStgMedium(&stgmedium);
+	}
+	mDropEffect = eff;
+	return eff; 
+}
+DROPEFFECT CPlayerMainUI::onDragOver(HWND hwnd, DWORD grfKeyState, POINT pt)
+{ 
+	return mDropEffect;
+}
+void CPlayerMainUI::onDragLeave(HWND hwnd)
+{
+
+}
+HRESULT CPlayerMainUI::onDrop(HWND hwnd, IDataObject* dataObj, DWORD grfKeyState, POINT pt)
+{ 
+	FORMATETC cFmt = { (CLIPFORMAT)CF_HDROP, NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
+	STGMEDIUM stgmedium;
+
+	if (dataObj->GetData(&cFmt, &stgmedium) == S_OK)
+	{
+		HDROP hdrop = reinterpret_cast<HDROP>(stgmedium.hGlobal);
+		UINT cFiles = DragQueryFile(hdrop, 0xFFFFFFFF, NULL, 0);
+		for (UINT i = 0; i < cFiles; i++) {
+			TCHAR szFile[MAX_PATH];
+			UINT cch = DragQueryFile(hdrop, i, szFile, MAX_PATH);
+			if (cch > 0 && cch < MAX_PATH) {
+				LOG_INFO(logger) << szFile << endl;
+			}
+		}
+		ReleaseStgMedium(&stgmedium);
+	}
+	return S_OK;
 }

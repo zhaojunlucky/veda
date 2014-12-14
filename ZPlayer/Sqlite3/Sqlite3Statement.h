@@ -4,7 +4,7 @@
 #include "Sqlite3ResultSet.h"
 #include "Sqlite3Exception.h"
 using namespace std;
-
+#include <ZString.h>
 namespace sqlite3
 {
 	typedef shared_ptr<Sqlite3Statement> Sqlite3StatementPtr;
@@ -36,9 +36,9 @@ namespace sqlite3
 		// bind null parametrer, index start with 1
 		void bindNull(int index);
 		// bind text parametrer, index start with 1
-		void bindText(int index, const char* value, int n, void(*)(void*));
+		void bindText(int index, const char* value, int n, void(*)(void*) = SQLITE_STATIC);
 		// bind text16 parametrer, index start with 1
-		void bindText16(int index, const void* value, int n, void(*)(void*));
+		void bindText16(int index, const void* value, int n, void(*)(void*) = SQLITE_STATIC);
 		// bind value parametrer, index start with 1
 		void bindValue(int index, const sqlite3_value* value);
 		// bind zeroblob parametrer, index start with 1

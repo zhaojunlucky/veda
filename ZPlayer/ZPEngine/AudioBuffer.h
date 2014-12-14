@@ -9,7 +9,7 @@ namespace audio
 	namespace player
 	{
 		template <class T>
-		class AudioBuffer
+		class __declspec(dllexport) AudioBuffer
 		{
 		public:
 			AudioBuffer(size_t bufferCount,size_t bufferSize);

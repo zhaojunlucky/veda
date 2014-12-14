@@ -1,5 +1,5 @@
 #include "Sqlite3Connection.h"
-#include <common\StringConvertInternal.hpp>
+#include <ZString.h>
 
 namespace sqlite3
 {
@@ -8,8 +8,9 @@ namespace sqlite3
 	{
 		if (NULL != db)
 		{
-			eio::StringConvertInternal sci;
-			mDbFile = sci.Wchar2Char(db, wcslen(db));
+			veda::AString tmp;
+			tmp.from(db);
+			mDbFile = tmp.c_str();
 		}
 	}
 
@@ -52,8 +53,9 @@ namespace sqlite3
 	}
 	void Sqlite3Connection::open(const wchar_t* key)
 	{
-		eio::StringConvertInternal sci;
-		open(sci.Wchar2Char(key, wcslen(key)));
+		veda::AString tmp;
+		tmp.from(key);
+		open(tmp.c_str());
 	}
 
 	void Sqlite3Connection::beginTransaction() const

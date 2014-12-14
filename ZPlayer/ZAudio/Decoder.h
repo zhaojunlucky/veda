@@ -1,6 +1,6 @@
 #pragma once
 #include "common.h"
-#include <string>
+#include <ZString.h>
 #include "AudioInfo.h"
 namespace audio
 {
@@ -27,7 +27,7 @@ namespace audio
 		float CalcalateTime(DWORD waveSize) const;
 	protected:
 		WaveInfo mWaveInfo;
-		std::wstring mFile;
+		veda::String mFile;
 		AudioInfo mAudioInfo;
 		DWORD mCurrentPosition;
 	};

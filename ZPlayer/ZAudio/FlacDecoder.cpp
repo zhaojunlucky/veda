@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "FlacDecoder.h"
 #include <stdio.h>
+#include <ZString.h>
 
 namespace audio
 {
@@ -17,9 +18,11 @@ namespace audio
 	int FlacDecoder::Open(const wchar_t* file)
 	{
 		Decoder::Open(file);
-		eio::StringConvertInternal sci;
-		std::string strFile = sci.Wchar2Char(file,wcslen(file));
-		FILE *afile = fopen(strFile.c_str(), "r");
+		veda::AString tmp;
+		tmp.from(file, wcslen(file));
+		
+
+		FILE *afile = fopen(tmp.c_str(), "r");
 		long len = 0;
 		if (afile)
 		{
@@ -33,7 +36,7 @@ namespace audio
 			return AudioError::FailToInitialized;//E_FAIL;// ??
 		}
 		(void)FLAC__stream_decoder_set_md5_checking(decoder, true);
-		init_status = FLAC__stream_decoder_init_file(decoder, strFile.c_str(), write_callback, metadata_callback, error_callback, /*client_data=*/this);
+		init_status = FLAC__stream_decoder_init_file(decoder, tmp.c_str(), write_callback, metadata_callback, error_callback, /*client_data=*/this);
 		if (FLAC__STREAM_DECODER_INIT_STATUS_OK != init_status)
 		{
 			return AudioError::FailToOpenFile;//E_FAIL;

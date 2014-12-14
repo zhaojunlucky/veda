@@ -945,6 +945,27 @@ namespace veda
 				delete mData;
 			}
 		}
+
+		bool startWith(const _String& prefix)
+		{
+			return (0 == _traits::_ncmpstr(mData,prefix.mData,prefix.getSize()));
+		}
+
+		bool startWith(const value_type* prefix)
+		{
+			return (0 == _traits::_ncmpstr(mData, prefix, _traits::_len(prefix)));
+		}
+
+		bool endWith(const _String& suffix)
+		{
+			return (0 == _traits::_ncmpstr(&mData[getSize() - suffix.getSize()], suffix.mData, suffix.getSize()));
+		}
+
+		bool endWith(const value_type* suffix)
+		{
+			size_type len = _traits::_len(suffix);
+			return (0 == _traits::_ncmpstr(&mData[getSize() - len], suffix, len));
+		}
 private:
 		void assign(const value_type* buf, size_type size)
 		{
@@ -958,7 +979,7 @@ private:
 
 				mData = alloc(mCapacity);
 			}
-			else if (size = mCapacity / 2)
+			else if (size == mCapacity / 2)
 			{
 				mCapacity = size / 2;
 				if (mCapacity < DEFAULT_SIZE)

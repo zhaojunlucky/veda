@@ -35,6 +35,16 @@ namespace veda
 			return strcmp(str1, str2);
 		}
 
+		static int _ncmpstr(const value_type * str1, const value_type * str2, size_t count)
+		{
+			return strncmp(str1, str2, count);
+		}
+
+		static int _ncmpicase(const value_type *str1, const value_type *str2, size_t count)
+		{
+			return strnicmp(str1, str2, count);
+		}
+
 		static int _cmpicase(const value_type* str1, const value_type* str2)
 		{
 			return stricmp(str1, str2);
@@ -101,6 +111,15 @@ namespace veda
 		static int _cmpstr(const wchar_t* str1, const wchar_t* str2)
 		{
 			return wcscmp(str1, str2);
+		}
+		static int _ncmpstr(const value_type * str1, const value_type * str2, size_t count)
+		{
+			return wcsncmp(str1, str2, count);
+		}
+
+		static int _ncmpicase(const value_type *str1, const value_type *str2, size_t count)
+		{
+			return _wcsnicmp(str1, str2, count);
 		}
 		static int _cmpicase(const value_type* str1, const value_type* str2)
 		{

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "MP3Decoder.h"
 #include <FLAC\stream_decoder.h>
+#include <ZString.h>
 
 namespace audio
 {
@@ -28,9 +29,11 @@ namespace audio
 		{
 			return AudioError::FailToInitializeAudioLibrary;
 		}
-		eio::StringConvertInternal sci;
+		
+		veda::AString tmp;
 
-		if (mpg123_open(_handle,sci.Wchar2Char(file,wcslen(file))) != MPG123_OK)
+		tmp.from(file, wcslen(file));
+		if (mpg123_open(_handle, tmp.c_str()) != MPG123_OK)
 		{
 			return AudioError::FailToOpenFile;
 		}

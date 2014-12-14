@@ -3,7 +3,7 @@
 #include <string>
 #include "common.h"
 #include "Sqlite3Exception.h"
-
+#include <ZString.h>
 using namespace std;
 namespace sqlite3
 {
@@ -74,6 +74,7 @@ namespace sqlite3
 		int mRow;
 		int mCol;
 		int mRowIndex;
+		veda::String mTmp;
 	};
 
 

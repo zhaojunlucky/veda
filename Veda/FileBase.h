@@ -37,8 +37,11 @@ namespace veda
 	{
 		char buf[3];
 		memset(buf, 0, sizeof(char)* 3);
-		FILE* fp = fopen(file, "r");
-		if (file)
+		FILE* fp = 0;
+		errno_t err = fopen_s(&fp, file, "r");
+		//char buffer[100];
+		//strerror_s(buffer, 80,err);
+		if (fp)
 		{
 			fread(buf, sizeof(char), 3, fp);
 			fclose(fp);

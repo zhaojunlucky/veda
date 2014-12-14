@@ -104,6 +104,7 @@
     <ClCompile Include="DateFormat.cpp" />
     <ClCompile Include="Datetime.cpp" />
     <ClCompile Include="Directory.cpp" />
+    <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="IPAddress.cpp" />
     <ClCompile Include="IPEndPoint.cpp" />
     <ClCompile Include="PathUtil.cpp" />
