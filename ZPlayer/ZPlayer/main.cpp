@@ -41,7 +41,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	mainUI.mMusicListCtrl->AddNode(item);
 	mainUI.mMusicListCtrl->AddNode(std::move(item));
 	CueSheet cue;
-	cue.parse(L"C:\\Users\\Jun\\Downloads\\杨千嬅.-.[狼来了].专辑.(APE).cue");
+//	cue.parse(L"C:\\Users\\Jun\\Downloads\\杨千嬅.-.[狼来了].专辑.(APE).cue");
 
 	/*MusicListItemInfo item;
 	item.isFolder = true;

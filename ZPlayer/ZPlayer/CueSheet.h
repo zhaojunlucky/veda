@@ -14,6 +14,12 @@ public:
 	MusicInfoPtr& get(size_t index);
 	const MusicInfoPtr& get(size_t index) const;
 private:
+	bool isIndex01(const StringPtr& indexStr);
+	void parse(const Vector<StringPtr>& cueDatas);
+	
+private:
 	veda::Vector<MusicInfoPtr> mMusics;
+	// contains '/' at the end
+	String mDirPath;
 };
 
