@@ -20,7 +20,7 @@ namespace veda
 		static const value_type* _lFloatFormat;
 		static std::shared_ptr<Array<value_type>> from(const wchar_t* str, size_type size)
 		{
-			int cchStr = WideCharToMultiByte(::GetACP(), 0, str, (int)size, NULL, 0, NULL, NULL) + 1;
+			int cchStr = WideCharToMultiByte(GetACP(), 0, str, (int)size, NULL, 0, NULL, NULL) + 1;
 			std::shared_ptr<Array<value_type>> p(new Array<value_type>(cchStr));
 			WideCharToMultiByte(::GetACP(), 0, str, (int)size, &(*p.get())[0], cchStr, NULL, NULL);
 			(*p.get())[cchStr-1] = '\0';

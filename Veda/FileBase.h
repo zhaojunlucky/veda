@@ -33,14 +33,14 @@ namespace veda
 		return enc;
 	}
 
-	static FileEncoding DetectEncoding(const char* file)
+	static FileEncoding DetectEncoding(const wchar_t* file)
 	{
 		char buf[3];
 		memset(buf, 0, sizeof(char)* 3);
 		FILE* fp = 0;
-		errno_t err = fopen_s(&fp, file, "r");
-		//char buffer[100];
-		//strerror_s(buffer, 80,err);
+		errno_t err = _wfopen_s(&fp, file, L"r");
+		wchar_t buffer[100];
+		_wcserror_s(buffer, 80,err);
 		if (fp)
 		{
 			fread(buf, sizeof(char), 3, fp);
@@ -56,14 +56,14 @@ namespace veda
 	{
 	public:
 		FileReadBase(const char* file, FileEncoding enc)
-			:mFile(file), mEnc(enc)
-		{
-
-		}
-		FileReadBase(const wchar_t* file, FileEncoding enc)
-			:mEnc(enc)
+			: mEnc(enc)
 		{
 			mFile.from(file);
+		}
+		FileReadBase(const wchar_t* file, FileEncoding enc)
+			:mFile(file), mEnc(enc)
+		{
+			
 		}
 		~FileReadBase()
 		{
@@ -74,7 +74,7 @@ namespace veda
 		const char* GetFilePath(){ return mFile.c_str(); };
 		virtual void close() = 0;
 	protected:
-		AString mFile;
+		String mFile;
 		FileEncoding mEnc;
 	};
 
@@ -84,14 +84,14 @@ namespace veda
 	{
 	public:
 		FileWriteBase(const char* file, FileEncoding enc)
-			:mFile(file), mEnc(enc)
-		{
-
-		}
-		FileWriteBase(const wchar_t* file, FileEncoding enc)
 			:mEnc(enc)
 		{
 			mFile.from(file);
+		}
+		FileWriteBase(const wchar_t* file, FileEncoding enc)
+			:mFile(file), mEnc(enc)
+		{
+			
 		}
 
 		virtual void close() = 0;
@@ -100,7 +100,7 @@ namespace veda
 		FileEncoding GetEncoding(){ return mEnc; };
 		const char* GetFilePath(){ return mFile.c_str(); };
 	protected:
-		AString mFile;
+		String mFile;
 		FileEncoding mEnc;
 	};
 }

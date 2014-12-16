@@ -27,3 +27,19 @@ struct MusicInfo
 };
 
 typedef std::shared_ptr<MusicInfo> MusicInfoPtr;
+
+class CueSheetTreeNode
+{
+public:
+	String nodeKey;
+	String nodeData;
+	Vector<std::shared_ptr<CueSheetTreeNode>> childs;
+
+	// empty all nodes data
+	void clear()
+	{
+		nodeKey.clear();
+		nodeData.clear();
+		childs.clear();
+	}
+};

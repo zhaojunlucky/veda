@@ -13,7 +13,9 @@ void CueSheet::parse(const wchar_t* file)
 {
 	veda::WBufferedFileReader reader(file,true);
 	const wchar_t* line = NULL;
-	Vector<StringPtr> cueDatas;
+	mRoot.clear();
+	CueSheetTreeNode* fileNode = NULL;
+	CueSheetTreeNode* trackNode = NULL;
 	while ((line = reader.ReadLine()) != NULL)
 	{
 		LOG_INFO(logger) << line << endl;
@@ -21,25 +23,88 @@ void CueSheet::parse(const wchar_t* file)
 		auto& str = tmp.trim();
 		if (str->startWith(L"FILE"))
 		{
-			cueDatas.add(str);
+			if (fileNode != NULL && trackNode != NULL)
+			{
+				// add last track node to file node childs
+				fileNode->childs.add(std::shared_ptr<CueSheetTreeNode>(trackNode));
+				trackNode = NULL;
+				mRoot.childs.add(std::shared_ptr<CueSheetTreeNode>(fileNode));
+				fileNode = NULL;
+			} 
+			if (fileNode == NULL)
+			{
+				// create a new node
+				fileNode = new CueSheetTreeNode;
+				fileNode->nodeData = std::move(*str.get());
+				fileNode->nodeKey = L"FILE";
+			}
+			else
+			{
+				// log error
+			}
 		}
 		else if (str->startWith(L"TRACK"))
 		{
-			cueDatas.add(str);
+			if (trackNode != NULL && fileNode != NULL)
+			{
+				fileNode->childs.add(std::shared_ptr<CueSheetTreeNode>(trackNode));
+				trackNode = NULL;
+			}
+			if (trackNode == NULL)
+			{
+				// create a new track node
+				trackNode = new CueSheetTreeNode;
+				trackNode->nodeKey = L"TRACK";
+				trackNode->nodeData = std::move(*str.get());
+			}
+			else
+			{
+				// log error
+			}
 		}
 		else if (str->startWith(L"TITLE"))
 		{
-			cueDatas.add(str);
+			if (trackNode != NULL)
+			{
+				auto node = new CueSheetTreeNode;
+				node->nodeData = std::move(*str.get());
+				node->nodeKey = L"TITLE";
+				trackNode->childs.add(std::shared_ptr<CueSheetTreeNode>(node));
+			}
+			else
+			{
+				// log error
+			}
 		}
 		else if (str->startWith(L"PERFORMER"))
 		{
-			cueDatas.add(str);
+			if (trackNode != NULL)
+			{
+				auto node = new CueSheetTreeNode;
+				node->nodeData = std::move(*str.get());
+				node->nodeKey = L"PERFORMER";
+				trackNode->childs.add(std::shared_ptr<CueSheetTreeNode>(node));
+			}
+			else
+			{
+				// log error
+			}
 		}
 		else if (str->startWith(L"INDEX") && isIndex01(str))
 		{
-			cueDatas.add(str);
+			if (trackNode != NULL)
+			{
+				auto node = new CueSheetTreeNode;
+				node->nodeData = std::move(*str.get());
+				node->nodeKey = L"INDEX";
+				trackNode->childs.add(std::shared_ptr<CueSheetTreeNode>(node));
+			}
+			else
+			{
+				// log error
+			}
 		}
-		else if (str->startWith(L"CATALOG"))
+		/*else if (str->startWith(L"CATALOG"))
 		{
 
 		}
@@ -70,12 +135,30 @@ void CueSheet::parse(const wchar_t* file)
 		else if (str->startWith(L"SONGWRITER"))
 		{
 
-		}
+		}*/
 		
 	}
+	// add last track into file node
+	if (trackNode != NULL && fileNode != NULL)
+	{
+		fileNode->childs.add(std::shared_ptr<CueSheetTreeNode>(trackNode));
+		trackNode = NULL;
+	}
+	else
+	{
+		// log error
+	}
+	// add last file node into root
+	if (fileNode != NULL)
+	{
+		mRoot.childs.add(std::shared_ptr<CueSheetTreeNode>(fileNode));
+		fileNode = NULL;
+	}
+	else
+	{
+		// log error
+	}
 	reader.close();
-
-	parse(cueDatas);
 }
 size_t CueSheet::getMusicCount() const
 {
@@ -95,19 +178,7 @@ bool CueSheet::isIndex01(const StringPtr& indexStr)
 	auto& str = indexStr->subString(5)->trimLeft();
 	return str->startWith(L"01") || str->startWith(L"1");
 }
-void CueSheet::parse(const Vector<StringPtr>& cueDatas)
+void CueSheet::parse()
 {
-	for (size_t i = 0; i < cueDatas.getLength(); i++)
-	{
-		auto& str = cueDatas[i];
-		if (str->startWith(L"FILE"))
-		{
-			size_t count = str->rfind('"') - 1;
-			auto p = str->subString(1, count);
-			String filePath = mDirPath;
-			filePath.append(*p.get());
-			
-			
-		}
-	}
+	
 }

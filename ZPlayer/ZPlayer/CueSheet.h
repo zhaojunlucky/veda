@@ -15,10 +15,11 @@ public:
 	const MusicInfoPtr& get(size_t index) const;
 private:
 	bool isIndex01(const StringPtr& indexStr);
-	void parse(const Vector<StringPtr>& cueDatas);
+	void parse();
 	
 private:
 	veda::Vector<MusicInfoPtr> mMusics;
+	CueSheetTreeNode mRoot;
 	// contains '/' at the end
 	String mDirPath;
 };

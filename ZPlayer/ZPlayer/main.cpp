@@ -1,4 +1,4 @@
-#include <windows.h>
+﻿#include <windows.h>
 #include <tchar.h>
 #pragma once
 #include <UIlib.h>
@@ -23,7 +23,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	CoInitialize(NULL);
 	OleInitialize(NULL);
 	Datetime dt;
-	LOG_INFO(logger) << dt.format(L"yyyy��MM��dd��HHʱmm��ss��S����")->c_str() << endl;
+	LOG_INFO(logger) << dt.format(L"yyyy年MM月dd日HH时mm分ss秒S毫秒")->c_str() << endl;
 
 	CPaintManagerUI::SetInstance(hInstance);
 
@@ -41,8 +41,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	mainUI.mMusicListCtrl->AddNode(item);
 	mainUI.mMusicListCtrl->AddNode(std::move(item));
 	CueSheet cue;
-//	cue.parse(L"C:\\Users\\Jun\\Downloads\\��ǧ��.-.[������].ר��.(APE).cue");
-
+	auto str = L"C:\\Users\\i076777\\Desktop\\Musics\\[140910]TVアニメ「アルドノア・ゼロ」ED『AZaLIEz』SawanoHiroyuki[nZk](期間生産限定アニメ盤)(DVD付)\\SawanoHiroyuki[nZk] - AZaLIEz.cue";
+	AString tmp;
+	tmp.from(str);
+	//cue.parse(L"C:\\Users\\Jun\\Downloads\\杨千嬅.-.[狼来了].专辑.(APE).cue");
+	cue.parse(L"C:\\Users\\i076777\\Desktop\\Musics\\[140910]TVアニメ「アルドノア・ゼロ」ED『AZaLIEz』SawanoHiroyuki[nZk](期間生産限定アニメ盤)(DVD付)\\SawanoHiroyuki[nZk] - AZaLIEz.cue");
 	/*MusicListItemInfo item;
 	item.isFolder = true;
 	item.id = _T("");
@@ -53,7 +56,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	//MusicListItemInfo item2;
 	//item2.id = _T("");
 	//item2.title = _T("xx");
-	//item2.album = _T("����");
+	//item2.album = _T("保险");
 	//item2.artist = _T("JJ");
 	//item2.isFolder = true;
 	//item2.isEmpty = false;
