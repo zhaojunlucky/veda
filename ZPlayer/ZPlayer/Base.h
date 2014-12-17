@@ -20,8 +20,8 @@ struct MusicInfo
 	String album;
 	String title;
 	bool isCue;
-	int start;
-	int end;
+	float start;
+	float end;
 	float order;
 	bool isUpdated;
 };

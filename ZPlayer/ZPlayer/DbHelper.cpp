@@ -59,8 +59,8 @@ void DbHelper::loadPlaylistMusics(Sqlite3ConnectionPtr& conn, shared_ptr<Playlis
 		musicInfo->artist = (const wchar_t*)rs->getText16(3);
 		musicInfo->album = (const wchar_t*)rs->getText16(4);
 		musicInfo->title = (const wchar_t*)rs->getText16(5);
-		musicInfo->start = rs->getInteger(6);
-		musicInfo->end = rs->getInteger(7);
+		musicInfo->start = rs->getDouble(6);
+		musicInfo->end = rs->getDouble(7);
 		//musicInfo->lastModifiedTime = rs->getInt64(8);
 		//musicInfo->lastSize = rs->getInt64(9);
 		musicInfo->order = rs->getDouble(10);
@@ -113,8 +113,8 @@ long DbHelper::addMusic(MusicInfo& musicInfo)
 	stmt->bindText16(3, musicInfo.artist.c_str(), musicInfo.artist.getSize());
 	stmt->bindText16(4, musicInfo.album.c_str(), musicInfo.album.getSize());
 	stmt->bindText16(5, musicInfo.title.c_str(), musicInfo.title.getSize());
-	stmt->bindInteger(6, musicInfo.start);
-	stmt->bindInteger(7, musicInfo.end);
+	stmt->bindDouble(6, musicInfo.start);
+	stmt->bindDouble(7, musicInfo.end);
 	stmt->bindInt64(8, 0);
 	stmt->bindInt64(9, 0);
 	stmt->executeUpdate();
@@ -154,8 +154,8 @@ void DbHelper::updateMusic(Sqlite3ConnectionPtr& conn,const MusicInfo& musicInfo
 	stmt->bindText16(3, musicInfo.artist.c_str(), musicInfo.artist.getSize());
 	stmt->bindText16(4, musicInfo.album.c_str(), musicInfo.album.getSize());
 	stmt->bindText16(5, musicInfo.title.c_str(), musicInfo.title.getSize());
-	stmt->bindInteger(6, musicInfo.start);
-	stmt->bindInteger(7, musicInfo.end);
+	stmt->bindDouble(6, musicInfo.start);
+	stmt->bindDouble(7, musicInfo.end);
 	stmt->bindInt64(8, 0);
 	stmt->bindInt64(9, 0);
 	stmt->bindInteger(10, musicInfo.id);
@@ -203,8 +203,8 @@ long DbHelper::queryMusic(const String& fullpath, bool isCue, int start, int end
 	auto& stmt = conn->prepare(QUERY_SQL);
 	stmt->bindText16(1, fullpath.c_str(), fullpath.getSize());
 	stmt->bindInteger(2, isCue?1:0);
-	stmt->bindInteger(3, start);
-	stmt->bindInteger(4, end);
+	stmt->bindDouble(3, start);
+	stmt->bindDouble(4, end);
 	auto& rs = stmt->executeQuery();
 	if (rs->hasNext())
 	{

@@ -14,9 +14,12 @@ public:
 	MusicInfoPtr& get(size_t index);
 	const MusicInfoPtr& get(size_t index) const;
 private:
+	bool isIndex00(const StringPtr& indexStr);
 	bool isIndex01(const StringPtr& indexStr);
 	void parse();
-	
+	void processFileNode(const CueSheetTreeNode* fileNode);
+	float parseTime(const String& str);
+	void parseString(String& dst, const String& src);
 private:
 	veda::Vector<MusicInfoPtr> mMusics;
 	CueSheetTreeNode mRoot;
