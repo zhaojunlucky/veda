@@ -30,26 +30,26 @@ namespace veda
 		return isPathSeparator(path[l]);
 	}
 
-	wstring PathUtil::combinePath(const wchar_t* basePath, const wchar_t* path1, ...)
+	StringPtr PathUtil::combinePath(const wchar_t* basePath, const wchar_t* path1, ...)
 	{
-		wstring path;
-		copyChars(&path, basePath, false);
-		path.push_back('/');
-		copyChars(&path, path1, true);
+		StringPtr path(new String());
+		copyChars(path.get(), basePath, false);
+		path->append('/');
+		copyChars(path.get(), path1, true);
 		va_list argp;
 		va_start(argp, path1);
 		const wchar_t* p = NULL;
 		while ((p = va_arg(argp, const wchar_t *)) != nullptr)
 		{
-			path.push_back('/');
-			copyChars(&path, p, true);
+			path->append('/');
+			copyChars(path.get(), p, true);
 		}
 		va_end(argp);
-		return std::move(path);
+		return path;
 	}
-	wstring PathUtil::trimPathLeftSeparator(const wchar_t* path)
+	StringPtr PathUtil::trimPathLeftSeparator(const wchar_t* path)
 	{
-		wstring dist;
+		String* dist = new String;
 
 		size_t s = 0;
 		size_t e = wcslen(path) - 1;
@@ -57,29 +57,29 @@ namespace veda
 		{
 			s++;
 		}
-		dist.reserve(e-s+1);
+		dist->reserve(e-s+1);
 		for (size_t i = s; i <= e; i++)
 		{
-			dist.push_back(path[i]);
+			dist->append(path[i]);
 		}
 
-		return std::move(dist);
+		return makeStringPtr(dist);
 	}
-	wstring PathUtil::trimPathRightSeparator(const wchar_t* path)
+	StringPtr PathUtil::trimPathRightSeparator(const wchar_t* path)
 	{
-		wstring dist;
-		copyChars(&dist, path, false);
-		return std::move(dist);
+		String* dist = new String;
+		copyChars(dist, path, false);
+		return makeStringPtr(dist);
 	}
-	wstring PathUtil::trimPathSeparator(const wchar_t* path)
+	StringPtr PathUtil::trimPathSeparator(const wchar_t* path)
 	{
-		wstring dist;
-		copyChars(&dist, path, true);
-		return std::move(dist);
+		String* dist = new String;
+		copyChars(dist, path, true);
+		return makeStringPtr(dist);
 	}
 
 
-	void PathUtil::copyChars(std::wstring* dist, const wchar_t* src, bool checkHead)
+	void PathUtil::copyChars(String* dist, const wchar_t* src, bool checkHead)
 	{
 		size_t s = 0;
 		size_t e = wcslen(src) - 1;
@@ -95,10 +95,10 @@ namespace veda
 		{
 			e--;
 		}
-		dist->reserve(dist->size() + e - s + 1);
+		dist->reserve(dist->getSize() + e - s + 1);
 		for (size_t i = s; i <= e; i++)
 		{
-			dist->push_back(src[i]);
+			dist->append(src[i]);
 		}
 	}
 

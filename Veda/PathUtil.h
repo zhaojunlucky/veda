@@ -2,6 +2,7 @@
 #include <string>
 using namespace std;
 #include "veda.h"
+#include "ZString.h"
 namespace veda
 {
 	class VEDA_EXPORT PathUtil
@@ -16,12 +17,12 @@ namespace veda
 		/**
 		 * must pass 'NULL' as the last paramater
 		 */
-		wstring combinePath(const wchar_t* basePath, const wchar_t* path1, ...);
-		wstring trimPathLeftSeparator(const wchar_t* path);
-		wstring trimPathRightSeparator(const wchar_t* path);
-		wstring trimPathSeparator(const wchar_t* path);
+		StringPtr combinePath(const wchar_t* basePath, const wchar_t* path1, ...);
+		StringPtr trimPathLeftSeparator(const wchar_t* path);
+		StringPtr trimPathRightSeparator(const wchar_t* path);
+		StringPtr trimPathSeparator(const wchar_t* path);
 	private:
-		void copyChars(std::wstring* dist, const wchar_t* src, bool checkHead);
+		void copyChars(String* dist, const wchar_t* src, bool checkHead);
 	};
 
 
