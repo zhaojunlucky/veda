@@ -21,6 +21,7 @@ public:
 	Playlist* getPlaylist(const wchar_t* PlaylistName);
 	void addPlaylist(shared_ptr<Playlist> Playlist);
 	void remove(const wchar_t* PlaylistName);
+	void loadData();
 protected:
 	size_t findIndexByName(const wchar_t* PlaylistName) const;
 private:

@@ -1,5 +1,6 @@
 #include "PlayerMainUI.h"
-
+#include <gdipluscolor.h>
+#include <Sqlite3Exception.h>
 const TCHAR* const KMUSIC_LIST_CTRL_NAME = _T("musicList");
 CPlayerMainUI::CPlayerMainUI()
 {
@@ -105,6 +106,7 @@ void CPlayerMainUI::InitWindow()
 	mPlayModeBtn = (CButtonUI*)pPlayControl->FindSubControl(L"playModeBtn");
 	mVolumeSlider = (CSliderUI*)pPlayControl->FindSubControl(L"volumeSlider");
 	mSeekSlider = (CSliderUI*)pPlayControl->FindSubControl(L"seekSlider");
+	mPlaylisyCtrl = (CListUI*)m_PaintManager.FindControl(L"playlist");
 	updateSoundBtn();
 	updatePlayMode();
 	// test play music
@@ -117,8 +119,10 @@ void CPlayerMainUI::InitWindow()
 	mAPlayer->SetVolumne(5000);
 	mAPlayer->SetMute(false);
 	//mAPlayer->Play();
-
+	loadData();
+	loadPlaylist();
 	DragDropRegister(this->GetHWND());
+
 }
 
 bool CPlayerMainUI::handleClick(TNotifyUI& msg)
@@ -293,4 +297,44 @@ HRESULT CPlayerMainUI::onDrop(HWND hwnd, IDataObject* dataObj, DWORD grfKeyState
 		ReleaseStgMedium(&stgmedium);
 	}
 	return S_OK;
+}
+
+void CPlayerMainUI::addPlaylistInUI(const wchar_t* name)
+{
+	CListContainerElementUI* lce = new CListContainerElementUI;
+	lce->SetFixedHeight(33);
+	CLabelUI* label = new CLabelUI;
+	label->SetName(name);
+	label->SetText(name);
+	label->SetFixedWidth(120);
+	RECT rc = {12,0,0,0};
+	label->SetTextPadding(rc);
+	label->SetFont(0);
+	static Color textColor(0, 255, 255, 255);
+	label->SetTextColor(textColor.GetValue());
+	static Color disabledTextColor(255,128,128,128);
+	label->SetDisabledTextColor(disabledTextColor.GetValue());
+	lce->Add(label);
+	mPlaylisyCtrl->Add(lce);
+}
+
+void CPlayerMainUI::loadData()
+{
+	try
+	{
+		mPlModel.loadData();
+	}
+	catch (sqlite3::Sqlite3Exception& e)
+	{
+		LOG_ERROR(logger) << e.what() << endl;
+	}
+	
+}
+void CPlayerMainUI::loadPlaylist()
+{
+	auto count = mPlModel.getPlaylistCount();
+	for (auto i = 0; i < count; i++)
+	{
+		addPlaylistInUI(mPlModel.getPlaylist(i)->getPlaylistName());
+	}
 }

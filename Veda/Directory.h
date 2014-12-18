@@ -1,10 +1,10 @@
 #pragma once
 #include <Windows.h>
-#include <string>
 #include <memory>
 using namespace std;
 #include "ReadOnlyIterator.h"
 #include "PathUtil.h"
+#include "ZString.h"
 namespace veda
 {
 	struct FileInfo
@@ -40,8 +40,8 @@ namespace veda
 		time_t localFileTimeToUTC(FILETIME& ft);
 	private:
 		FileSearchMode mSearchMode;
-		wstring mExtension;
-		wstring mDirPath;
+		String mExtension;
+		String mDirPath;
 		PathUtil mPathUtil;
 		WIN32_FIND_DATA mWFD;
 		HANDLE mHandle;

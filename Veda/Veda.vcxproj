@@ -84,6 +84,7 @@
     <ClInclude Include="File.h" />
     <ClInclude Include="FileBase.h" />
     <ClInclude Include="FileReader.h" />
+    <ClInclude Include="FileUtil.h" />
     <ClInclude Include="FileWriter.h" />
     <ClInclude Include="IPAddress.h" />
     <ClInclude Include="IPEndPoint.h" />
@@ -105,6 +106,7 @@
     <ClCompile Include="Datetime.cpp" />
     <ClCompile Include="Directory.cpp" />
     <ClCompile Include="FileReader.cpp" />
+    <ClCompile Include="FileUtil.cpp" />
     <ClCompile Include="IPAddress.cpp" />
     <ClCompile Include="IPEndPoint.cpp" />
     <ClCompile Include="PathUtil.cpp" />

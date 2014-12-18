@@ -1,6 +1,6 @@
 #include "PlaylistModel.h"
 #include <taglib/fileref.h>
-
+#include "DbHelper.h"
 
 
 PlaylistModel::PlaylistModel()
@@ -42,4 +42,10 @@ size_t PlaylistModel::findIndexByName(const wchar_t* PlaylistName) const
 		}
 	}
 	throw "playlist name is not found";
+}
+
+void PlaylistModel::loadData()
+{
+	DbHelper db;// = DbHelper::getInstance();
+	db.loadAllPlayList(mPlaylists);
 }

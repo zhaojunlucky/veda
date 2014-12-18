@@ -102,6 +102,9 @@
     <ClInclude Include="veda.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="FileUtil.h">
+      <Filter>File</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -135,6 +138,9 @@
       <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="FileReader.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="FileUtil.cpp">
       <Filter>File</Filter>
     </ClCompile>
   </ItemGroup>

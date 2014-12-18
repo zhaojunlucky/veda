@@ -14,18 +14,18 @@ namespace veda
 	DirectoryIterator::DirectoryIterator(const wchar_t* dirPath, FileSearchMode mode)
 		: mSearchMode(mode)
 	{
-		mDirPath = mPathUtil.trimPathRightSeparator(dirPath);
-		wstring find = mPathUtil.combinePath(mDirPath.c_str(), L"*.*",NULL);
-		mHandle = FindFirstFile(find.c_str(), &mWFD);
+		mDirPath = mPathUtil.trimPathRightSeparator(dirPath)->getData();
+		StringPtr find = mPathUtil.combinePath(mDirPath.c_str(), L"*.*",NULL);
+		mHandle = FindFirstFile(find->c_str(), &mWFD);
 		mFirst = true;
 	}
 
 	DirectoryIterator::DirectoryIterator(const wchar_t* dirPath, const wchar_t* extension)
 		: mSearchMode(FileSearchMode::Files), mExtension(extension)
 	{
-		mDirPath = mPathUtil.trimPathRightSeparator(dirPath);
-		wstring find = mPathUtil.combinePath(mDirPath.c_str(), extension,NULL);
-		mHandle = FindFirstFile(find.c_str(), &mWFD);
+		mDirPath = mPathUtil.trimPathRightSeparator(dirPath)->getData();
+		StringPtr find = mPathUtil.combinePath(mDirPath.c_str(), extension, NULL);
+		mHandle = FindFirstFile(find->c_str(), &mWFD);
 		mFirst = true;
 	}
 
@@ -45,7 +45,7 @@ namespace veda
 	const FileInfo & DirectoryIterator::get()
 	{
 		mFileInfo.fileName = mWFD.cFileName;
-		mFileInfo.fullPath = mPathUtil.combinePath(mDirPath.c_str(), mWFD.cFileName, 0);
+		mFileInfo.fullPath = mPathUtil.combinePath(mDirPath.c_str(), mWFD.cFileName, 0)->getData();
 		mFileInfo.isDirectory = ((mWFD.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 1);
 		mFileInfo.creationTime = localFileTimeToUTC(mWFD.ftCreationTime);
 		mFileInfo.lastAccessTime = localFileTimeToUTC(mWFD.ftLastAccessTime);

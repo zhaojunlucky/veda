@@ -17,12 +17,7 @@
             <VerticalLayout width="225">
                 <List name="playlist" padding="20,-15,0,0" itemtextcolor="#FF000000" itemselectedbkcolor="#FFA88D78" itemdisabledtextcolor="#FFCCCCCC" itemhotbkcolor="" itemdisabledbkcolor="#FFFFFFFF" vscrollbar="true" hscrollbar="true">
                     <ListHeader />
-                    <ListContainerElement height="33">
-                        <Label name="dd" text="now playing" width="120" textpadding="12,0,0,0" textcolor="#00FFFFFF" disabledtextcolor="#FF808080" font="0" />
-                    </ListContainerElement>
-                    <ListContainerElement name="playlistItem" height="33">
-                        <Label name="dd" text="test2" width="120" textpadding="12,0,0,0" textcolor="#00FFFFFF" disabledtextcolor="#FF808080" font="0" />
-                    </ListContainerElement>
+                  
                 </List>
             </VerticalLayout>
             <VerticalLayout>

@@ -11,7 +11,7 @@ DbHelper::~DbHelper()
 {
 }
 
-Sqlite3ConnectionPtr& DbHelper::getConnection()
+Sqlite3ConnectionPtr DbHelper::getConnection()
 {
 	auto connPtr = make_shared<Sqlite3Connection>(mDbFile.c_str());
 	connPtr->open();
@@ -44,7 +44,7 @@ void DbHelper::loadAllPlayList(Vector<shared_ptr<Playlist>> &arr)
 }
 void DbHelper::loadPlaylistMusics(Sqlite3ConnectionPtr& conn, shared_ptr<Playlist>& pl)
 {
-	static wchar_t* PL_MUSICS_SQL = L"SELECT a.UUID,a.FULL_PATH,a.IS_CUE,a.ARTIST,a.ALBUM,a.TITLE,a.START_TIME,a.END_TIME,a.LAST_MODIFIED_TIME,a.LAST_SIZE,b.ORDER FROM MUSIC_META_DATA a JOIN PLAYLIST_MUSICS b ON a.UUID=b.MUSIC_ID AND b.PARENT_ID=? ORDER BY b.ORDER";
+	static wchar_t* PL_MUSICS_SQL = L"SELECT a.UUID,a.FULL_PATH,a.IS_CUE,a.ARTIST,a.ALBUM,a.TITLE,a.START_TIME,a.END_TIME,a.LAST_MODIFIED_TIME,a.LAST_SIZE,b.DISPLAY_ORDER FROM MUSIC_META_DATA a JOIN PLAYLIST_MUSICS b ON a.UUID=b.MUSIC_ID AND b.PARENT_ID=? ORDER BY b.DISPLAY_ORDER";
 
 	auto& stmt = conn->prepare(PL_MUSICS_SQL);
 	stmt->bindInteger(1, pl->getPlaylistId());
@@ -80,7 +80,7 @@ void DbHelper::updatePlaylists(Vector<shared_ptr<Playlist>> &arr)
 }
 void DbHelper::updatePlaylist(Sqlite3ConnectionPtr& conn, shared_ptr<Playlist>& pl)
 {
-	static wchar_t* UP_ORDER_SQL = L"UPDATE PLAYLIST_MUSICS SET ORDER=? WHERE PARENT_ID=? AND MUSIC_ID = ?";
+	static wchar_t* UP_ORDER_SQL = L"UPDATE PLAYLIST_MUSICS SET DISPLAY_ORDER=? WHERE PARENT_ID=? AND MUSIC_ID = ?";
 	if (pl->isModified())
 	{
 		size_t size = pl->getPlaylistSize();

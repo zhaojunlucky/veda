@@ -63,19 +63,19 @@ namespace veda
 			dist->append(path[i]);
 		}
 
-		return makeStringPtr(dist);
+		return shared_ptr<String>(dist);
 	}
 	StringPtr PathUtil::trimPathRightSeparator(const wchar_t* path)
 	{
 		String* dist = new String;
 		copyChars(dist, path, false);
-		return makeStringPtr(dist);
+		return shared_ptr<String>(dist);
 	}
 	StringPtr PathUtil::trimPathSeparator(const wchar_t* path)
 	{
 		String* dist = new String;
 		copyChars(dist, path, true);
-		return makeStringPtr(dist);
+		return shared_ptr<String>(dist);
 	}
 
 

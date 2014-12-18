@@ -11,18 +11,18 @@ class DbHelper
 public:
 	DbHelper();
 	~DbHelper();
-	static DbHelper* getInstance()
-	{
-		if (instance == NULL)
-		{
-			static DbHelper dbHelper;
-			instance = &dbHelper;
-		}
-		return instance;
-	}
+	//static DbHelper* getInstance()
+	//{
+	//	if (instance == NULL)
+	//	{
+	//		static DbHelper dbHelper;
+	//		instance = &dbHelper;
+	//	}
+	//	return instance;
+	//}
 
 
-	Sqlite3ConnectionPtr& getConnection();
+	Sqlite3ConnectionPtr getConnection();
 	void returnConnection(Sqlite3ConnectionPtr& conn);
 	void loadAllPlayList(Vector<shared_ptr<Playlist>> &arr);
 	void loadPlaylistMusics(Sqlite3ConnectionPtr& conn, shared_ptr<Playlist>& pl);
