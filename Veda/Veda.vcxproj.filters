@@ -105,6 +105,12 @@
     <ClInclude Include="FileUtil.h">
       <Filter>File</Filter>
     </ClInclude>
+    <ClInclude Include="ErrorUtil.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="SpecialFolder.h">
+      <Filter>File</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -142,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="FileUtil.cpp">
       <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorUtil.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
