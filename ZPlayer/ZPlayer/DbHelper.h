@@ -11,15 +11,11 @@ class DbHelper
 public:
 	DbHelper();
 	~DbHelper();
-	//static DbHelper* getInstance()
-	//{
-	//	if (instance == NULL)
-	//	{
-	//		static DbHelper dbHelper;
-	//		instance = &dbHelper;
-	//	}
-	//	return instance;
-	//}
+	static DbHelper* getInstance()
+	{
+		static DbHelper instance;
+		return &instance;
+	}
 
 
 	Sqlite3ConnectionPtr getConnection();
@@ -29,12 +25,15 @@ public:
 	void updatePlaylists(Vector<shared_ptr<Playlist>> &arr);
 	void updatePlaylist(Sqlite3ConnectionPtr& conn, shared_ptr<Playlist>& pl);
 	long addMusic(MusicInfo& musicInfo);
+	long addMusic(Sqlite3ConnectionPtr& conn, MusicInfo& musicInfo);
+	void addMusics(veda::Vector<MusicInfoPtr>& vec);
 	void removeMusicFromPl(long pl, long mId);
 	void removeMusicFromDb(long mId);
 	void updateMusic(Sqlite3ConnectionPtr& conn, const MusicInfo& musicInfo);
 	long addPlaylist(const String& name);
 	void removePlaylist(long id);
-	long queryMusic(const String& fullpath, bool isCue, int start, int end);
+	long queryMusic(const String& fullpath, int start, int end);
+	void checkTables();
 private:
 	static DbHelper* instance;
 	String mDbFile;

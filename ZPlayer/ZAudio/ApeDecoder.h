@@ -9,7 +9,7 @@
 namespace audio
 {
 #define APE_BLOCKS_NUM 1024
-	using namespace APE;
+
 	class __declspec(dllexport) ApeDecoder :
 		public Decoder
 	{
@@ -26,7 +26,7 @@ namespace audio
 		void SetAudioInfo(const char* key, const char* value);
 
 	private:
-		IAPEDecompress * m_pAPEDecompress;
+		APE::IAPEDecompress * m_pAPEDecompress;
 		unsigned int m_total_blocks;
 		unsigned int m_current_blocks;
 		int m_block_algin;

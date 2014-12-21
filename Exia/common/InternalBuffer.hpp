@@ -9,6 +9,8 @@ namespace common
 		{
 			mData = new T[size];
 			mSize = size;
+			mIndex = 0;
+			mDataSize = 0;
 		}
 		~InternalBuffer()
 		{

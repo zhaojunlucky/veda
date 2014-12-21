@@ -1,6 +1,7 @@
 #pragma once
 #include <Vector.h>
 #include "Base.h"
+#include "CueSheet.h"
 class MusicInfoHelper
 {
 public:

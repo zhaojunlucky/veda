@@ -1,9 +1,20 @@
 #include "DbHelper.h"
-
-
+#include <FileUtil.h>
+#include <SpecialFolder.h>
+#include <string>
+#include <hash_map>
+#include "SQL.h"
 DbHelper::DbHelper()
 {
-	mDbFile = L"E:\\Documents\\Projects\\GitHub\\veda\\ZPlayer\\x64\\Debug\\data\\music.db";
+	veda::SpecialFolder sf;
+	mDbFile = veda::FileUtil::getSpecialFolderPath(sf.RoamingAppData)->c_str();
+	mDbFile.append(L"\\ZPlayer\\data\\");
+	if (!veda::FileUtil::directoryExists(mDbFile.c_str()))
+	{
+		veda::FileUtil::createDirectoryRecursive(mDbFile.c_str());
+	}
+	mDbFile.append(L"music.db");
+	checkTables();
 }
 
 
@@ -56,15 +67,16 @@ void DbHelper::loadPlaylistMusics(Sqlite3ConnectionPtr& conn, shared_ptr<Playlis
 		musicInfo->id = rs->getInteger(1);
 		musicInfo->fullPath = (const wchar_t*)rs->getText16(2);
 		musicInfo->isCue = (1 == rs->getInteger(3));
-		musicInfo->artist = (const wchar_t*)rs->getText16(3);
-		musicInfo->album = (const wchar_t*)rs->getText16(4);
-		musicInfo->title = (const wchar_t*)rs->getText16(5);
-		musicInfo->start = rs->getDouble(6);
-		musicInfo->end = rs->getDouble(7);
-		//musicInfo->lastModifiedTime = rs->getInt64(8);
-		//musicInfo->lastSize = rs->getInt64(9);
-		musicInfo->order = rs->getDouble(10);
+		musicInfo->artist = (const wchar_t*)rs->getText16(4);
+		musicInfo->album = (const wchar_t*)rs->getText16(5);
+		musicInfo->title = (const wchar_t*)rs->getText16(6);
+		musicInfo->start = rs->getDouble(7);
+		musicInfo->end = rs->getDouble(8);
+		//musicInfo->lastModifiedTime = rs->getInt64(9);
+		//musicInfo->lastSize = rs->getInt64(10);
+		musicInfo->order = rs->getDouble(11);
 		musicInfo->isUpdated = false;
+		pl->addMusicInfo(musicInfo);
 	}
 	rs->close();
 	stmt->close();
@@ -105,14 +117,21 @@ void DbHelper::updatePlaylist(Sqlite3ConnectionPtr& conn, shared_ptr<Playlist>& 
 }
 long DbHelper::addMusic(MusicInfo& musicInfo)
 {
-	static wchar_t *INSERT_MUSIC_SQL = L"INSERT INTO MUSIC_META_DATA(FULL_PATH,IS_CUE,ARTIST,ALBUM,TITLE,START_TIME,END_TIME,LAST_MODIFIED_TIME,LAST_SIZE) VALUES(?,?,?,?,?,?,?,?,?)";
 	auto& conn = getConnection();
+	auto id = addMusic(conn, musicInfo);
+	returnConnection(conn);
+	return id;
+}
+
+long DbHelper::addMusic(Sqlite3ConnectionPtr& conn, MusicInfo& musicInfo)
+{
+	static wchar_t *INSERT_MUSIC_SQL = L"INSERT OR IGNORE INTO MUSIC_META_DATA(FULL_PATH,IS_CUE,ARTIST,ALBUM,TITLE,START_TIME,END_TIME,LAST_MODIFIED_TIME,LAST_SIZE) VALUES(?,?,?,?,?,?,?,?,?)";
 	auto& stmt = conn->prepare(INSERT_MUSIC_SQL);
-	stmt->bindText16(1, musicInfo.fullPath.c_str(), musicInfo.fullPath.getSize());
-	stmt->bindInteger(2, musicInfo.isCue?1:0);
-	stmt->bindText16(3, musicInfo.artist.c_str(), musicInfo.artist.getSize());
-	stmt->bindText16(4, musicInfo.album.c_str(), musicInfo.album.getSize());
-	stmt->bindText16(5, musicInfo.title.c_str(), musicInfo.title.getSize());
+	stmt->bindText16(1, musicInfo.fullPath.c_str(), -1);
+	stmt->bindInteger(2, musicInfo.isCue ? 1 : 0);
+	stmt->bindText16(3, musicInfo.artist.c_str(), -1);
+	stmt->bindText16(4, musicInfo.album.c_str(), -1);
+	stmt->bindText16(5, musicInfo.title.c_str(), -1);
 	stmt->bindDouble(6, musicInfo.start);
 	stmt->bindDouble(7, musicInfo.end);
 	stmt->bindInt64(8, 0);
@@ -121,9 +140,35 @@ long DbHelper::addMusic(MusicInfo& musicInfo)
 	stmt->close();
 
 	long id = conn->getLastInsertRowId();
-	returnConnection(conn);
+	if (id == 0)
+	{
+		static wchar_t* MUSIC_QUERY = L"SELECT UUID FROM MUSIC_META_DATA WHERE FULL_PATH=? AND START_TIME = ? AND END_TIME = ?";
+		auto& queryStmt = conn->prepare(MUSIC_QUERY);
+		queryStmt->bindText16(1, musicInfo.fullPath.c_str(), -1);
+		queryStmt->bindDouble(2, musicInfo.start);
+		queryStmt->bindDouble(3, musicInfo.end);
+		auto& rs = queryStmt->executeQuery();
+		rs->hasNext();
+		id = rs->getInt64(1);
+		rs->close();
+		queryStmt->close();
+	}
+	musicInfo.id = id;
+	musicInfo.isUpdated = false;
 	return id;
 }
+void DbHelper::addMusics(veda::Vector<MusicInfoPtr>& vec)
+{
+	auto& conn = getConnection();
+	conn->beginTransaction();
+	for (auto& m : vec)
+	{
+		m->id = addMusic(conn, *m.get());
+	}
+	conn->commitTransaction();
+	returnConnection(conn);
+}
+
 void DbHelper::removeMusicFromPl(long pl, long mId)
 {
 	static wchar_t* SQL = L"DELETE FROM PLAYLIST_MUSICS WHERE PARENT_ID=? AND MUSIC_ID=?";
@@ -149,11 +194,11 @@ void DbHelper::updateMusic(Sqlite3ConnectionPtr& conn,const MusicInfo& musicInfo
 {
 	static wchar_t *UPDATE_MUSIC_SQL = L"UPDATE MUSIC_META_DATA SET FULL_PATH=?,IS_CUE=?,ARTIST=?,ALBUM=?,TITLE=?,START_TIME=?,END_TIME=?,LAST_MODIFIED_TIME=?,LAST_SIZE=? WHERE UUID=?";
 	auto& stmt = conn->prepare(UPDATE_MUSIC_SQL);
-	stmt->bindText16(1, musicInfo.fullPath.c_str(), musicInfo.fullPath.getSize());
+	stmt->bindText16(1, musicInfo.fullPath.c_str(), -1);
 	stmt->bindInteger(2, musicInfo.isCue ? 1 : 0);
-	stmt->bindText16(3, musicInfo.artist.c_str(), musicInfo.artist.getSize());
-	stmt->bindText16(4, musicInfo.album.c_str(), musicInfo.album.getSize());
-	stmt->bindText16(5, musicInfo.title.c_str(), musicInfo.title.getSize());
+	stmt->bindText16(3, musicInfo.artist.c_str(), -1);
+	stmt->bindText16(4, musicInfo.album.c_str(), -1);
+	stmt->bindText16(5, musicInfo.title.c_str(), -1);
 	stmt->bindDouble(6, musicInfo.start);
 	stmt->bindDouble(7, musicInfo.end);
 	stmt->bindInt64(8, 0);
@@ -168,7 +213,7 @@ long DbHelper::addPlaylist(const String& name)
 	static wchar_t* INSERT_PL = L"INSERT INTO PLAYLIST(NAME,CREATE_TIME,LAST_MODIFIED_TIME)";
 	auto& conn = getConnection();
 	auto& stmt = conn->prepare(INSERT_PL);
-	stmt->bindText16(1, name.c_str(), name.getSize());
+	stmt->bindText16(1, name.c_str(), -1);
 	stmt->bindInt64(2, 0);
 	stmt->bindInt64(3, 0);
 	stmt->executeUpdate();
@@ -195,16 +240,15 @@ void DbHelper::removePlaylist(long id)
 	returnConnection(conn);
 }
 
-long DbHelper::queryMusic(const String& fullpath, bool isCue, int start, int end)
+long DbHelper::queryMusic(const String& fullpath, int start, int end)
 {
 	long id = -1;
-	static wchar_t* QUERY_SQL = L"SELECT UUID FROM MUSIC_META_DATA WHERE FULL_PATH =? AND IS_CUE=? AND START_TIME=? AND END_TIME=?";
+	static wchar_t* QUERY_SQL = L"SELECT UUID FROM MUSIC_META_DATA WHERE FULL_PATH =? AND START_TIME=? AND END_TIME=?";
 	auto& conn = getConnection();
 	auto& stmt = conn->prepare(QUERY_SQL);
-	stmt->bindText16(1, fullpath.c_str(), fullpath.getSize());
-	stmt->bindInteger(2, isCue?1:0);
-	stmt->bindDouble(3, start);
-	stmt->bindDouble(4, end);
+	stmt->bindText16(1, fullpath.c_str(), -1);
+	stmt->bindDouble(2, start);
+	stmt->bindDouble(3, end);
 	auto& rs = stmt->executeQuery();
 	if (rs->hasNext())
 	{
@@ -214,4 +258,50 @@ long DbHelper::queryMusic(const String& fullpath, bool isCue, int start, int end
 	stmt->close();
 	returnConnection(conn);
 	return id;
+}
+
+void DbHelper::checkTables()
+{
+	auto& conn = getConnection();
+
+	static wchar_t* TABLE_QUERY = L"SELECT tbl_name FROM sqlite_master WHERE type = 'table'";
+	auto& stmt = conn->prepare(TABLE_QUERY);
+	auto& rs = stmt->executeQuery();
+	std::hash_map<std::wstring, bool> map;
+	if (rs->hasNext())
+	{
+		std::wstring table = (wchar_t*)rs->getText16(1);
+		map[table] = true;
+	}
+	rs->close();
+	stmt->close();
+
+	if (map.find(L"MUSIC_META_DATA") == map.end())
+	{
+		auto& stmt = conn->prepare(MUSIC_META_DATA);
+		stmt->executeUpdate();
+		stmt->close();
+		stmt = conn->prepare(MUSIC_INDEX);
+		stmt->executeUpdate();
+		stmt->close();
+	}
+	if (map.find(L"PLAYLIST") == map.end())
+	{
+		auto& stmt = conn->prepare(PLAYLIST);
+		stmt->executeUpdate();
+		stmt->close();
+	}
+	if (map.find(L"PLAYLIST_MUSICS") == map.end())
+	{
+		auto& stmt = conn->prepare(PLAYLIST_MUSICS);
+		stmt->executeUpdate();
+		stmt->close();
+	}
+	if (map.find(L"PLAY_HISTORY") == map.end())
+	{
+		auto& stmt = conn->prepare(PLAY_HISTORY);
+		stmt->executeUpdate();
+		stmt->close();
+	}
+	returnConnection(conn);
 }

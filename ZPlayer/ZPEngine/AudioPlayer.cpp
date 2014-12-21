@@ -48,7 +48,7 @@ namespace audio
 			}
 			mPlayControl.start = mDecoder->CalcaulateWaveSize(mPlayControl.startSec);
 			mPlayControl.end = mDecoder->CalcaulateWaveSize(mPlayControl.endSec);
-
+			
 			// play
 			mThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)PlayerThread, (void *)this, 0, &mThreadId);
 			if (NULL == mThread)
@@ -58,6 +58,7 @@ namespace audio
 			mPlayerState.isPlaying = true;
 			mPlayerState.isStop = false;
 			mPlayerState.isPause = false;
+			Callback(PlayerStateMessage::Play);
 			return 0;
 		}
 
@@ -69,6 +70,7 @@ namespace audio
 			}
 			mPlayControl.startSec = start;
 			mPlayControl.endSec = end;
+			mDecoder->Seek(mPlayControl.startSec);
 			return Play();
 		}
 		int AudioPlayer::Pause()
@@ -94,6 +96,7 @@ namespace audio
 			}
 			mAudio2.pXAudio2->StartEngine();
 			mPlayerState.isPause = false;
+			Callback(PlayerStateMessage::Resume);
 			return 0;
 		}
 		int AudioPlayer::Stop()
@@ -106,14 +109,19 @@ namespace audio
 				mAudio2.pSourceVoice->SetVolume(0);
 				mAudio2.pXAudio2->StartEngine();
 			}
+			if (!mPlayerState.isPlaying)
+			{
+				return 0;
+			}
 			mPlayerState.isPause = false;
 			mPlayerState.isPlaying = false;
 			WaitForSingleObject(mThread, INFINITE);
 			if (mThread)
 				CloseHandle(mThread);
 			mThread = 0;
-
+			
 			mPlayerState.isStop = true;
+			Callback(PlayerStateMessage::UserStop);
 			return 0;
 		}
 		int AudioPlayer::Seek(float duration)
@@ -125,6 +133,7 @@ namespace audio
 			if (0 != mDecoder->Seek(duration))
 				return -1;
 			Play();
+			Callback(PlayerStateMessage::Seek);
 			return 0;
 		}
 		float AudioPlayer::GetPlayDuration() const
@@ -286,6 +295,7 @@ namespace audio
 			Decoder* decoder = player->mDecoder;
 			AudioBuffer<BYTE>* buffers = player->mBuffers.get();
 			bool isEnd = false;
+			PlayerStateMessage ps;
 			while (decoder->GetCurrentPosition() < end && player->mPlayerState.isPlaying)
 			{
 				has = end - decoder->GetCurrentPosition();
@@ -310,10 +320,10 @@ namespace audio
 				{
 					if (!player->mPlayerState.isPlaying)
 					{
-						player->mAudio2.pSourceVoice->Stop(0);
-						player->mPlayerState.isStop = true;
-						player->Callback(PlayerStateMessage::UserStop);
-						return 0;
+						/*player->mAudio2.pSourceVoice->Stop(0);
+						player->mPlayerState.isStop = true;*/
+						ps = PlayerStateMessage::UserStop;
+						goto stop;
 					}
 					WaitForSingleObject(voiceCallback.hBufferEndEvent, INFINITE);
 				}
@@ -324,6 +334,8 @@ namespace audio
 				if (isEnd)
 				{
 					buf.Flags = XAUDIO2_END_OF_STREAM;
+					hr = player->mAudio2.pSourceVoice->SubmitSourceBuffer(&buf);
+					break;
 				}
 				//HRESULT hh = GetLastError();
 
@@ -331,9 +343,24 @@ namespace audio
 				CurrentDiskBuffer++;
 				CurrentDiskBuffer %= MAX_BUFFER_COUNT;
 
+
 			}
-						
-			player->Callback(player->mPlayerState.isPlaying ? PlayerStateMessage::Stop : PlayerStateMessage::UserStop);
+
+			ps = player->mPlayerState.isPlaying ? PlayerStateMessage::Stop : PlayerStateMessage::UserStop;
+			stop:
+			if (player->mAudio2.pSourceVoice)
+			{
+				player->mAudio2.pSourceVoice->Stop(0);
+				player->mAudio2.pSourceVoice->DestroyVoice();
+				player->mAudio2.pSourceVoice = 0;
+			}
+			
+			player->mPlayerState.isPause = false;
+			player->mPlayerState.isPlaying = false;
+			player->mPlayerState.isStop = true;
+
+			player->Callback(ps);
+			
 			return 0;
 		}
 
@@ -343,6 +370,11 @@ namespace audio
 			{
 				mCallback.callbackFunc(this, message, mCallback.client,wp, lp);
 			}
+		}
+
+		float AudioPlayer::getCurrentPlayStart() const
+		{
+			return mPlayControl.startSec;
 		}
 	}
 }

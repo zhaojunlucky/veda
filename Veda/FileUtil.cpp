@@ -16,28 +16,42 @@ namespace veda
 
 	bool FileUtil::fileExists(const wchar_t* file)
 	{
-		DWORD ret = GetFileAttributes(file);
-		if (ret == INVALID_FILE_ATTRIBUTES)
+		if (_waccess(file, 0) != -1)
 		{
-			// log error
-			throw BaseException(ErrorUtil::getErrorMessage(GetLastError())->getData());
+			DWORD ret = GetFileAttributes(file);
+			if (ret == INVALID_FILE_ATTRIBUTES)
+			{
+				// log error
+				throw BaseException(ErrorUtil::getErrorMessage(GetLastError())->getData());
+			}
+			else
+			{
+				return (ret & FILE_ATTRIBUTE_NORMAL);
+			}
 		}
 		else
 		{
-			return (ret == FILE_ATTRIBUTE_NORMAL);
+			return false;
 		}
 	}
 	bool FileUtil::directoryExists(const wchar_t* file)
 	{
-		DWORD ret = GetFileAttributes(file);
-		if (ret == INVALID_FILE_ATTRIBUTES)
+		if (_waccess(file, 0) != -1)
 		{
-			// log error
-			throw BaseException(ErrorUtil::getErrorMessage(GetLastError())->getData());
+			DWORD ret = GetFileAttributes(file);
+			if (ret == INVALID_FILE_ATTRIBUTES)
+			{
+				// log error
+				throw BaseException(ErrorUtil::getErrorMessage(GetLastError())->getData());
+			}
+			else
+			{
+				return (ret & FILE_ATTRIBUTE_DIRECTORY);
+			}
 		}
 		else
 		{
-			return (ret == FILE_ATTRIBUTE_DIRECTORY);
+			return false;
 		}
 	}
 	void FileUtil::deleteFile(const wchar_t* file)
@@ -70,24 +84,24 @@ namespace veda
 
 	void FileUtil::createDirectoryRecursive(const wchar_t* path)
 	{
+		// _fullpath( full, partialPath, _MAX_PATH ) != NULL
 		String str = path;
-		if (str.getSize() == 2 && str[1] == L':')
+		if (str.getSize() == 4 && str[1] == L':')
 		{
 			return; 
 		}
-		LinkListQueue<StringPtr> parentDirs;
-		for (size_t i = 2; i < str.getSize(); i++)
+		Vector<StringPtr> parentDirs;
+		for (size_t i = 4; i < str.getSize(); i++)
 		{
 			auto c = str[i];
 			if (c == L'\\' || c == L'/')
 			{
-				parentDirs.enqueue(str.subString(0, i));
+				parentDirs.add(str.subString(0, i));
 			}
 		}
 		// create parent directory first
-		while (!parentDirs.isEmpty())
+		for (auto& dir : parentDirs)
 		{
-			auto& dir = parentDirs.dequeue();
 			if (!directoryExists(dir->getData()))
 			{
 				createDirectory(dir->getData());
@@ -104,13 +118,24 @@ namespace veda
 	{
 		wchar_t exeFullPath[MAX_PATH];
 		GetModuleFileName(NULL, exeFullPath, MAX_PATH);
-		return makeStringPtr(exeFullPath);
+		String path = exeFullPath;
+		return path.subString(0,path.rfind(L'\\'));
 	}
 
-	StringPtr FileUtil::getSpecialFolderPath(SpecialFolder sf)
+	StringPtr FileUtil::getSpecialFolderPath(REFKNOWNFOLDERID sf)
 	{
-		wchar_t  dirPath[MAX_PATH];
-		SHGetFolderPath(NULL, sf, NULL, 0, dirPath);
-		return makeStringPtr(dirPath);
+		wchar_t* dirPath = NULL;
+		auto hr = SHGetKnownFolderPath(sf, 0, NULL, &dirPath);
+		if (hr == S_OK)
+		{
+			auto path = makeStringPtr(dirPath);
+			CoTaskMemFree(dirPath);
+			return path;
+		}
+		else
+		{
+			// log error
+			throw BaseException(L"fail to get folder!");
+		}
 	}
 }

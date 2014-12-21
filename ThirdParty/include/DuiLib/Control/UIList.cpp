@@ -1841,7 +1841,8 @@ void CListLabelElementUI::DoEvent(TEventUI& event)
             Invalidate();
         }
         return;
-    }
+	}
+	
     if( event.Type == UIEVENT_MOUSEMOVE ) 
     {
         return;
@@ -2275,7 +2276,10 @@ void CListContainerElementUI::DoEvent(TEventUI& event)
     if( event.Type == UIEVENT_DBLCLICK )
     {
         if( IsEnabled() ) {
-            Activate();
+			// add double click for music list
+			m_pManager->SendNotify(this, DUI_MSGTYPE_ITEMDBCLICK); // new added
+			Select();// new added
+            //Activate(); // comment
             Invalidate();
         }
         return;

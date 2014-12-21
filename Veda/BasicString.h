@@ -922,7 +922,9 @@ namespace veda
 		{
 			return subString(startIndex, this->getSize() - startIndex );
 		}
-
+		/*
+		 * substring from start index, number of count
+		 */
 		StringPtr subString(size_type startIndex, size_type count)
 		{
 			_String* tmp = new _String();
@@ -930,7 +932,7 @@ namespace veda
 
 			_traits::_ncopy(tmp->mData, &mData[startIndex], count);
 			tmp->mSize = count;
-			
+			tmp->mData[count] = '\0';
 			return std::shared_ptr<_String>(tmp);
 		}
 

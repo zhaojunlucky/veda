@@ -21,31 +21,33 @@ namespace audio
 	int ApeDecoder::Open(const wchar_t* file)
 	{
 		Decoder::Open(file);
+		m_nWaveDataNum = 0;
 		int nRetVal = 0;
 		m_pAPEDecompress = CreateIAPEDecompress(file, &nRetVal);
 		if (NULL == m_pAPEDecompress)
 		{
 			return AudioError::FailToOpenFile;//E_FAIL;
 		}
-		m_block_algin = m_pAPEDecompress->GetInfo(APE_INFO_BLOCK_ALIGN);
+		m_block_algin = m_pAPEDecompress->GetInfo(APE::APE_INFO_BLOCK_ALIGN);
 		m_pWaveDataAlloc.reset(new common::InternalBuffer<BYTE>(APE_BLOCKS_NUM * m_block_algin));
-		m_pWaveDataBuffer = (BYTE*)m_pWaveDataAlloc.get();
-		m_total_blocks = m_pAPEDecompress->GetInfo(APE_DECOMPRESS_TOTAL_BLOCKS);
-		mWaveInfo.bitrate = m_pAPEDecompress->GetInfo(APE_DECOMPRESS_AVERAGE_BITRATE);
+		m_pWaveDataBuffer = (BYTE*)m_pWaveDataAlloc.get()->getData();
+		m_total_blocks = m_pAPEDecompress->GetInfo(APE::APE_DECOMPRESS_TOTAL_BLOCKS);
+		mWaveInfo.bitrate = m_pAPEDecompress->GetInfo(APE::APE_DECOMPRESS_AVERAGE_BITRATE);
 		// get and set wave header
-		nRetVal = m_pAPEDecompress->GetInfo(APE_INFO_WAVEFORMATEX, (int)&mWaveInfo.waveFormatex, 0);
+		nRetVal = m_pAPEDecompress->GetInfo(APE::APE_INFO_WAVEFORMATEX, (APE::intn)&mWaveInfo.waveFormatex, 0);
+
 		if (0 != nRetVal)
 		{
 			return AudioError::FailToGetWaveInfo;//E_FAIL;
 		}
-		mWaveInfo.waveSize = m_pAPEDecompress->GetInfo(APE_INFO_WAV_DATA_BYTES);
+		mWaveInfo.waveSize = m_pAPEDecompress->GetInfo(APE::APE_INFO_WAV_DATA_BYTES);
 		if (mWaveInfo.waveSize <= 0)
 		{
 			return AudioError::FailToGetWaveInfo;//E_FAIL;
 		}
 		mWaveInfo.durationTime = (double)mWaveInfo.waveSize / (double)mWaveInfo.waveFormatex.nAvgBytesPerSec;
 
-		CAPETag * pAPETag = (CAPETag *)m_pAPEDecompress->GetInfo(APE_INFO_TAG);
+		APE::CAPETag * pAPETag = (APE::CAPETag *)m_pAPEDecompress->GetInfo(APE::APE_INFO_TAG);
 		BOOL bHasID3Tag = pAPETag->GetHasID3Tag();
 		BOOL bHasAPETag = pAPETag->GetHasAPETag();
 
@@ -53,7 +55,7 @@ namespace audio
 		{
 			// iterate through all the tag fields
 			
-			CAPETagField * pTagField = pAPETag->GetTagField(APE_TAG_FIELD_TITLE);
+			APE::CAPETagField * pTagField = pAPETag->GetTagField(APE_TAG_FIELD_TITLE);
 			if (pTagField)
 			{
 			//	/*printf("%X\n",pTagField->GetFieldValue()[0]);
@@ -122,7 +124,7 @@ namespace audio
 
 		while (samplesNeed)
 		{
-			if (m_nWaveDataNum)// we have some data
+			if (m_nWaveDataNum > 0)// we have some data
 			{
 				unsigned int i;
 				if (m_nWaveDataNum >= samplesNeed)
@@ -146,7 +148,7 @@ namespace audio
 					*sizeReaded += m_nWaveDataNum;
 					samplesNeed -= m_nWaveDataNum;
 					buf = &buf[m_nWaveDataNum];
-					m_pWaveDataBuffer = (BYTE*)m_pWaveDataAlloc.get();
+					m_pWaveDataBuffer = (BYTE*)m_pWaveDataAlloc.get()->getData();
 					m_nWaveDataNum = 0;
 				}
 			}
@@ -155,13 +157,13 @@ namespace audio
 				if (m_current_blocks < m_total_blocks)
 				{
 					int nBlocksRetrieved;// 1024 * blockalign
-					nRetVal = m_pAPEDecompress->GetData((char*)m_pWaveDataAlloc.get(), APE_BLOCKS_NUM, &nBlocksRetrieved);
+					nRetVal = m_pAPEDecompress->GetData((char*)m_pWaveDataAlloc.get()->getData(), APE_BLOCKS_NUM, &nBlocksRetrieved);
 					m_current_blocks += nBlocksRetrieved;
 					if (ERROR_SUCCESS != nRetVal)
 					{
 						return AudioError::FailToDecodeData;//E_FAIL;
 					}
-					m_pWaveDataBuffer = (BYTE*)m_pWaveDataAlloc.get();
+					m_pWaveDataBuffer = (BYTE*)m_pWaveDataAlloc.get()->getData();
 					m_nWaveDataNum = nBlocksRetrieved * m_block_algin;
 				}
 				else

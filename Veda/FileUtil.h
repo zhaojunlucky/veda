@@ -1,11 +1,13 @@
 #pragma once
 #include <Windows.h>
 #include "SpecialFolder.h"
+#include "ZString.h"
+#include "veda.h"
 namespace veda
 {
 
 	
-	class FileUtil
+	class VEDA_EXPORT FileUtil
 	{
 	public:
 		FileUtil();
@@ -15,8 +17,10 @@ namespace veda
 		static void deleteFile(const wchar_t* file);
 		static void createDirectory(const wchar_t* path);
 		static void createDirectoryRecursive(const wchar_t* path);
+		// doesn't contain backslash at the end
 		static StringPtr getCurrentExeDir();
-		static StringPtr getSpecialFolderPath(SpecialFolder sf);
+		// doesn't contain backslash at the end
+		static StringPtr getSpecialFolderPath(REFKNOWNFOLDERID sf);
 	};
 
 }

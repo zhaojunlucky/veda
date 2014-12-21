@@ -78,6 +78,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Algorithm.h" />
     <ClInclude Include="Array.h" />
     <ClInclude Include="ArrayVisitor.h" />
     <ClInclude Include="BinarySearch.h" />

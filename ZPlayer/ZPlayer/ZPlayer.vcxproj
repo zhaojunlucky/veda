@@ -92,6 +92,7 @@
     <ClCompile Include="Playlist.cpp" />
     <ClCompile Include="PlaylistModel.cpp" />
     <ClCompile Include="PlayerMainUI.cpp" />
+    <ClCompile Include="PlayUtil.cpp" />
     <ClCompile Include="SkinResource.cpp" />
     <ClCompile Include="UIListCtrlCommon.cpp" />
     <ClCompile Include="ZPLException.cpp" />
@@ -108,7 +109,9 @@
     <ClInclude Include="Playlist.h" />
     <ClInclude Include="PlaylistModel.h" />
     <ClInclude Include="PlayerMainUI.h" />
+    <ClInclude Include="PlayUtil.h" />
     <ClInclude Include="SkinResource.h" />
+    <ClInclude Include="SQL.h" />
     <ClInclude Include="UIListCtrlCommon.h" />
     <ClInclude Include="ZPLException.h" />
   </ItemGroup>

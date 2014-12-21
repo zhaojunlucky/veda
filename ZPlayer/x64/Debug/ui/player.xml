@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<Window size="800,600" sizebox="4,4,4,4" caption="0,0,0,30" mininfo="800,600">
+<Window size="900,600" sizebox="4,4,4,4" caption="0,0,0,30" mininfo="800,600">
     <Font name="Segoe WP SemiLight" size="16" bold="false" italic="false" />
+    <Font name="Segoe WP SemiLight" size="14" bold="false" italic="false" />
     <VerticalLayout bkcolor="#FF917054">
         <HorizontalLayout height="32">
             <VerticalLayout>
-                <Label name="caption" text="JJ Forever" width="120" textpadding="20,5,0,0" textcolor="#00FFFFFF" font="0" />
+                <Label name="caption" text="JJ Forever" width="120" textpadding="20,5,0,0" textcolor="#00FFFFFF" font="1" />
             </VerticalLayout>
             <VerticalLayout width="77">
                 <Button name="minbtn" tooltip="Minimize" float="true" pos="0,20,0,0" width="10" height="10" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage=" file=&apos;ui\images\sys_btn\minimize_normal.png&apos; " hotimage=" file=&apos;ui\images\sys_btn\minimize_normal.png&apos; " pushedimage=" file=&apos;ui/images/sys_btn\minimize_down.png&apos; " />
@@ -14,7 +15,7 @@
             </VerticalLayout>
         </HorizontalLayout>
         <HorizontalLayout>
-            <VerticalLayout width="225">
+            <VerticalLayout width="200">
                 <List name="playlist" padding="20,-15,0,0" itemtextcolor="#FF000000" itemselectedbkcolor="#FFA88D78" itemdisabledtextcolor="#FFCCCCCC" itemhotbkcolor="" itemdisabledbkcolor="#FFFFFFFF" vscrollbar="true" hscrollbar="true">
                     <ListHeader />
                   

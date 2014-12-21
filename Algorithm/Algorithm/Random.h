@@ -1,9 +1,10 @@
 #pragma once
 #include <cstdlib>
 #include <time.h>
+#include "Algorithm.h"
 namespace veda
 {
-	class Random
+	class AL_EXPORT Random
 	{
 	public:
 		Random();

@@ -19,10 +19,37 @@ size_t Playlist::getPlaylistSize() const
 {
 	return mPlaylist.getLength();
 }
-void Playlist::addMusicInfo(shared_ptr<MusicInfo> musicInfo)
+bool Playlist::addMusicInfo(shared_ptr<MusicInfo> musicInfo)
 {
-	mPlaylist.add(musicInfo);
-	mIsModified = true;
+	if (mMap.find(musicInfo->id) == mMap.end())
+	{
+		mPlaylist.add(musicInfo);
+		mMap[musicInfo->id] = true;
+		mIsModified = true;
+		return true;
+	}
+	return false;
+}
+
+void Playlist::addMusicInfos(veda::Vector<MusicInfoPtr>& musicInfos, bool removeExisting)
+{
+	veda::Vector<size_t> removedIndexs;
+	for (size_t i = 0; i < musicInfos.getLength(); i++)
+	{
+		auto& m = musicInfos[i];
+		if (!addMusicInfo(m))
+		{
+			removedIndexs.add(i);
+		}
+	}
+	if (removeExisting)
+	{
+		for (auto& it = removedIndexs.cbegin(); it != removedIndexs.cend(); ++it)
+		{
+			musicInfos.removeAt(*it);
+		}
+	}
+	
 }
 
 const MusicInfo& Playlist::getMusicInfo(size_t index) const
@@ -35,12 +62,18 @@ MusicInfo& Playlist::getMusicInfo(size_t index)
 }
 void Playlist::remove(size_t index)
 {
+	auto it = mMap.find(mPlaylist[index]->id);
+	if (it != mMap.end())
+	{
+		mMap.erase(it);
+	}
 	mPlaylist.removeAt(index);
 	mIsModified = true;
 }
 void Playlist::clear()
 {
 	mPlaylist.clear();
+	mMap.clear();
 }
 void Playlist::setName(const wchar_t* name)
 {

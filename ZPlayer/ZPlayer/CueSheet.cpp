@@ -170,6 +170,17 @@ void CueSheet::parse(const wchar_t* file)
 		// log error
 	}
 	reader.close();
+
+	auto len = wcslen(file);
+	for (auto i = len - 1; i >= 1; i--)
+	{
+		auto c = file[i];
+		if (c == '\\' || c == '/')
+		{
+			mDirPath.append(file, i + 1);
+			break;
+		}
+	}
 	parse();
 }
 size_t CueSheet::getMusicCount() const
@@ -224,6 +235,7 @@ void CueSheet::processFileNode(const CueSheetTreeNode* fileNode)
 		else
 		{
 			// log error
+			return;
 		}
 		
 		delete decoder;

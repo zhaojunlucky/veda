@@ -10,8 +10,8 @@
             <Button name="nextBtn" tooltip="Next" float="true" pos="561,19,0,0" width="48" height="48" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage=" file=&apos;ui\images\play_control\next_normal.png&apos; " hotimage=" file=&apos;ui\images\play_control\next_normal.png&apos; " pushedimage=" file=&apos;ui\images\play_control\next_down.png&apos; " disabledimage=" file=&apos;ui\images\play_control\next_disabled.png&apos; " />
             <Slider name="volumeSlider" float="true" pos="676,35,0,0" width="113" height="16" bkimage=" file=&apos;ui\images\play_control\slider_bk.png&apos; " textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" foreimage=" file=&apos;ui\images\play_control\slider_fore.png&apos; " min="0" max="100" value="50" hor="true" thumbimage=" file=&apos;ui\images\play_control\thumb.png&apos; " thumbhotimage=" file=&apos;ui\images\play_control\thumb.png&apos; " thumbpushedimage=" file=&apos;ui\images\play_control\thumb_down.png&apos; " thumbsize="15,15" />
             <Button name="soundBtn" float="true" pos="624,19,0,0" width="48" height="48" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage=" file=&apos;ui\images\play_control\sound_mute_normal.png&apos; " hotimage=" file=&apos;ui\images\play_control\sound_mute_normal.png&apos; " pushedimage=" file=&apos;ui\images\play_control\sound_mute_down.png&apos; " />
-            <Label text="00:00" float="true" pos="138,53,0,0" width="60" height="15" textcolor="#FFFFFFFF" disabledtextcolor="#FFA7A6AA" />
-            <Label text="06:09" float="true" pos="352,53,0,0" width="60" height="15" textcolor="#FFFFFFFF" disabledtextcolor="#FFA7A6AA" align="right" />
+            <Label text="00:00" name="playDuration" float="true" pos="138,53,0,0" width="60" height="15" textcolor="#FFFFFFFF" disabledtextcolor="#FFA7A6AA" />
+            <Label text="06:09" name="totalDuration" float="true" pos="352,53,0,0" width="60" height="15" textcolor="#FFFFFFFF" disabledtextcolor="#FFA7A6AA" align="right" />
         </HorizontalLayout>
     </VerticalLayout>
 </Window>

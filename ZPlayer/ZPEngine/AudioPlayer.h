@@ -20,6 +20,7 @@ namespace audio
 			int Pause();
 			int Resume();
 			int Stop();
+			// seek and play
 			int Seek(float duration);
 			float GetPlayDuration() const;
 			int SetVolumne(int vol);
@@ -28,6 +29,7 @@ namespace audio
 
 			const WaveInfo& GetWaveInfo() const;
 			const PlayerState& GetPlayerState() const;
+			float getCurrentPlayStart() const;
 		private:
 			void InitAudio2();
 			void CleanupAudio();

@@ -66,6 +66,9 @@
     <ClCompile Include="CueSheet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PlayUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerMainUI.h">
@@ -109,6 +112,12 @@
     </ClInclude>
     <ClInclude Include="CueSheet.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SQL.h">
+      <Filter>Controller</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

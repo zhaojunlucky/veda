@@ -1,6 +1,10 @@
 #include "PlayerMainUI.h"
 #include <gdipluscolor.h>
+#include "DbHelper.h"
 #include <Sqlite3Exception.h>
+#include "MusicInfoHelper.h"
+#include "PlayUtil.h"
+
 const TCHAR* const KMUSIC_LIST_CTRL_NAME = _T("musicList");
 CPlayerMainUI::CPlayerMainUI()
 {
@@ -14,6 +18,7 @@ CPlayerMainUI::CPlayerMainUI()
 CPlayerMainUI::~CPlayerMainUI()
 {
 	mAPlayer->Stop();
+	KillTimer(this->GetHWND(), 1);
 }
 
 CControlUI* CPlayerMainUI::CreateControl(LPCTSTR pstrClass)
@@ -30,23 +35,37 @@ CControlUI* CPlayerMainUI::CreateControl(LPCTSTR pstrClass)
 	return NULL;
 }
 
-//LRESULT CPlayerMainUI::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
-//{
-//	switch (uMsg)
-//	{
-//	case WM_DROPFILES:LOG_INFO(logger) << L"on drop file" << endl; break;
-//	default:break;
-//	}
-//
-//}
+LRESULT CPlayerMainUI::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	bool handled = false;
+	switch (uMsg)
+	{
+	case WM_TIMER:
+	{
+		//LOG_INFO(logger) << L"on timer" << endl;
+		onTimer();
+		handled = true;
+	}break;
+	default:break;
+	}
+	if (!handled)
+	{
+		return WindowImplBase::HandleMessage(uMsg, wParam, lParam);
+	}
+	else
+	{
+		return S_OK;
+	}
+}
 
 void CPlayerMainUI::Notify(TNotifyUI& msg)
 {
 	//LOG_INFO(logger) << "main ui:" << msg.sType.GetData()<< " "<<msg.pSender->GetName() << endl;
-	if (msg.sType == _T("itemclick"))
+	if (msg.sType == _T("itemdbclick"))
 	{
 		CMusicListCtrl* musicList = static_cast<CMusicListCtrl*>(m_PaintManager.FindControl(KMUSIC_LIST_CTRL_NAME));
-		if ((musicList != NULL) && musicList->GetItemIndex(msg.pSender) != -1)
+		auto index = musicList->GetItemIndex(msg.pSender);
+		if ((musicList != NULL) && index != -1)
 		{
 			if (_tcsicmp(msg.pSender->GetClass(), _T("ListContainerElementUI")) == 0)
 			{
@@ -55,6 +74,24 @@ void CPlayerMainUI::Notify(TNotifyUI& msg)
 				if (musicList->CanExpand(node))
 				{
 					musicList->SetChildVisible(node, !node->getData().childVisible);
+				}
+			}
+			// play item index
+			LOG_INFO(logger) << index << endl;
+			if (mPlayIndex != index || !mAPlayer->GetPlayerState().isPlaying)
+			{
+				mPlayIndex = index;
+				playItem((size_t)index);
+			}			
+			else
+			{
+				if (mAPlayer->GetPlayerState().isPause)
+				{
+					mAPlayer->Resume();
+				}
+				else
+				{
+					mAPlayer->Pause();
 				}
 			}
 		}
@@ -100,6 +137,7 @@ void CPlayerMainUI::Notify(TNotifyUI& msg)
 
 void CPlayerMainUI::InitWindow()
 {
+	mAPlayer = new AudioPlayer;
 	CContainerUI* pPlayControl = (CContainerUI*)m_PaintManager.FindControl(L"playCtrl");
 	mPlayPauseBtn = (CButtonUI*)pPlayControl->FindSubControl(L"playPause");
 	mSoundBtn = (CButtonUI*)pPlayControl->FindSubControl(L"soundBtn");
@@ -107,22 +145,26 @@ void CPlayerMainUI::InitWindow()
 	mVolumeSlider = (CSliderUI*)pPlayControl->FindSubControl(L"volumeSlider");
 	mSeekSlider = (CSliderUI*)pPlayControl->FindSubControl(L"seekSlider");
 	mPlaylisyCtrl = (CListUI*)m_PaintManager.FindControl(L"playlist");
+	mPlayDurationCtrl = (CLabelUI*)pPlayControl->FindSubControl(L"playDuration");
+	mTotalDurationCtrl = (CLabelUI*)pPlayControl->FindSubControl(L"totalDuration");
+	mPlayNextBtn = (CButtonUI*)pPlayControl->FindSubControl(L"nextBtn");;
+	mPlayPreviousBtn = (CButtonUI*)pPlayControl->FindSubControl(L"previousBtn");;
 	updateSoundBtn();
 	updatePlayMode();
-	// test play music
-	String musicFile = L"E:\\Documents\\Musics\\Aldnoah Zero\\(04) [Sawanohiroyuki[nzk]] Keep On Keeping On.wav";
-	mDecoder = DecoderFactory::CreateDecoderByFile(musicFile.c_str());
-	mDecoder->Open(musicFile.c_str());
-	mAPlayer = new AudioPlayer;
+	mDecoder = NULL;
 	mAPlayer->SetCallback(PlayerCallback, this);
-	mAPlayer->Open(mDecoder);
-	mAPlayer->SetVolumne(5000);
+
 	mAPlayer->SetMute(false);
 	//mAPlayer->Play();
 	loadData();
 	loadPlaylist();
+	loadPlaylistInUI(mPlModel.getPlaylist((size_t)0));
 	DragDropRegister(this->GetHWND());
-
+	SetTimer(this->GetHWND(), 1, 900, NULL);
+	mSeekSlider->SetValue(0);
+	mActiveList = mPlModel.getPlaylist((size_t)0);
+	// load from config
+	mPlayIndex = 0;
 }
 
 bool CPlayerMainUI::handleClick(TNotifyUI& msg)
@@ -130,7 +172,21 @@ bool CPlayerMainUI::handleClick(TNotifyUI& msg)
 	bool handled = true;
 	if (msg.pSender->GetName() == _T("playPause"))
 	{
-		updatePlayBtn();
+		bool play = mAPlayer->GetPlayerState().isPlaying && mAPlayer->GetPlayerState().isPause;
+		updatePlayBtn(play);
+		if (play)
+		{
+			mAPlayer->Resume();
+		}
+		else if (mAPlayer->GetPlayerState().isPlaying)
+		{
+			mAPlayer->Pause();
+		}
+		else
+		{
+			playItem(mPlayIndex);
+		}
+		
 	}
 	else if (msg.pSender->GetName() == _T("soundBtn"))
 	{
@@ -141,6 +197,14 @@ bool CPlayerMainUI::handleClick(TNotifyUI& msg)
 	{
 		mPlayMode = (PlayMode)((mPlayMode + 1) % (PlayMode::Shuffle + 1));
 		updatePlayMode();
+	}
+	else if (msg.pSender->GetName() == _T("nextBtn"))
+	{
+		playNext();
+	}
+	else if (msg.pSender->GetName() == _T("previousBtn"))
+	{
+		playPrevious();
 	}
 	else
 	{
@@ -159,7 +223,10 @@ bool CPlayerMainUI::handleSliderAndProgress(TNotifyUI& msg)
 	}
 	else if (msg.pSender->GetName() == _T("seekSlider"))
 	{
-
+		if (mAPlayer->GetPlayerState().isPlaying)
+		{
+			mAPlayer->Seek(mSeekSlider->GetValue() + mAPlayer->getCurrentPlayStart());
+		}
 	}
 	else
 	{
@@ -167,11 +234,11 @@ bool CPlayerMainUI::handleSliderAndProgress(TNotifyUI& msg)
 	}
 	return handled;
 }
-void CPlayerMainUI::updatePlayBtn()
+void CPlayerMainUI::updatePlayBtn(bool isPlay)
 {
 	// use click play
 	PlayerStateMessage ps;
-	if (mShowPlay)
+	if (isPlay)
 	{
 		// play, then set pause img
 		ps = PlayerStateMessage::Play;
@@ -189,7 +256,7 @@ void CPlayerMainUI::updatePlayBtn()
 		mPlayPauseBtn->SetPushedImage(mSkinRes.PlayDown.get()->c_str());
 		mPlayPauseBtn->SetToolTip(L"Play");
 	}
-	mShowPlay = !mShowPlay;
+	//mShowPlay = !mShowPlay;
 }
 void CPlayerMainUI::updateSoundBtn()
 {
@@ -199,13 +266,16 @@ void CPlayerMainUI::updateSoundBtn()
 		mSoundBtn->SetHotImage(mSkinRes.SoundMuteNormal.get()->c_str());
 		mSoundBtn->SetPushedImage(mSkinRes.SoundMuteDown.get()->c_str());
 		mSoundBtn->SetToolTip(L"Sound");
+		mAPlayer->SetMute(true);
 	}
 	else
 	{
+		mAPlayer->SetMute(false);
 		mSoundBtn->SetToolTip(L"Mute");
 		int max = mVolumeSlider->GetMaxValue();
 		int v = mVolumeSlider->GetValue();
 		mVolumnStr = v;
+		mAPlayer->SetVolumne(v / 100.0 * MAX_VOLUME);
 		mVolumeSlider->SetToolTip(mVolumnStr.c_str());
 		if (v >= 30 && v < 60)
 		{
@@ -255,6 +325,25 @@ void CPlayerMainUI::updatePlayMode()
 void CPlayerMainUI::PlayerCallback(void* instance, PlayerStateMessage mes, void *client, WPARAM, LPARAM)
 {
 	CPlayerMainUI* p = (CPlayerMainUI*)client;
+	bool uiUpdateFlag;
+	if (mes == PlayerStateMessage::Play || mes == PlayerStateMessage::Resume)
+	{
+		uiUpdateFlag = true;
+		p->updatePlayBtn(uiUpdateFlag);
+	}
+	else if (mes == PlayerStateMessage::Pause || mes == PlayerStateMessage::UserStop)
+	{
+		uiUpdateFlag = false;
+		p->updatePlayBtn(uiUpdateFlag);
+	}
+	else if (mes == PlayerStateMessage::Stop)
+	{
+		uiUpdateFlag = false;
+		p->updatePlayBtn(uiUpdateFlag);
+		p->updatePlayPreNext();
+		// play next
+		p->playNext();
+	}
 }
 
 DROPEFFECT CPlayerMainUI::onDragEnter(HWND hwnd, IDataObject* dataObj, DWORD grfKeyState, POINT pt)
@@ -282,7 +371,8 @@ HRESULT CPlayerMainUI::onDrop(HWND hwnd, IDataObject* dataObj, DWORD grfKeyState
 { 
 	FORMATETC cFmt = { (CLIPFORMAT)CF_HDROP, NULL, DVASPECT_CONTENT, -1, TYMED_HGLOBAL };
 	STGMEDIUM stgmedium;
-
+	MusicInfoHelper musicInfoHelper;
+	veda::Vector<MusicInfoPtr> vec;
 	if (dataObj->GetData(&cFmt, &stgmedium) == S_OK)
 	{
 		HDROP hdrop = reinterpret_cast<HDROP>(stgmedium.hGlobal);
@@ -292,9 +382,25 @@ HRESULT CPlayerMainUI::onDrop(HWND hwnd, IDataObject* dataObj, DWORD grfKeyState
 			UINT cch = DragQueryFile(hdrop, i, szFile, MAX_PATH);
 			if (cch > 0 && cch < MAX_PATH) {
 				LOG_INFO(logger) << szFile << endl;
+				// use thread
+				musicInfoHelper.parseMedia(vec, szFile);
 			}
 		}
 		ReleaseStgMedium(&stgmedium);
+	}
+	DbHelper* db = DbHelper::getInstance();
+	try
+	{
+		db->addMusics(vec);
+		mPlModel.getPlaylist((size_t)0)->addMusicInfos(vec);
+		for (auto& m : vec)
+		{
+			addMusicInUI(*m.get());
+		}
+	}
+	catch (Sqlite3Exception& e)
+	{
+
 	}
 	return S_OK;
 }
@@ -318,13 +424,25 @@ void CPlayerMainUI::addPlaylistInUI(const wchar_t* name)
 	mPlaylisyCtrl->Add(lce);
 }
 
+void CPlayerMainUI::addMusicInUI(const MusicInfo& musicInfo)
+{
+	MusicListItemInfo item;
+	item.isFolder = false;
+	item.id = musicInfo.id;
+	item.title = musicInfo.title;
+	item.artist = musicInfo.artist;
+	item.album = musicInfo.album;
+	item.isEmpty = true;
+	mMusicListCtrl->AddNode(std::move(item));
+}
+
 void CPlayerMainUI::loadData()
 {
 	try
 	{
 		mPlModel.loadData();
 	}
-	catch (sqlite3::Sqlite3Exception& e)
+	catch (Sqlite3Exception& e)
 	{
 		LOG_ERROR(logger) << e.what() << endl;
 	}
@@ -337,4 +455,111 @@ void CPlayerMainUI::loadPlaylist()
 	{
 		addPlaylistInUI(mPlModel.getPlaylist(i)->getPlaylistName());
 	}
+}
+
+void CPlayerMainUI::loadPlaylistInUI(Playlist* pl)
+{
+	size_t count = pl->getPlaylistSize();
+	for (auto i = 0; i < count; i++)
+	{
+		addMusicInUI(pl->getMusicInfo(i));
+	}
+}
+
+void CPlayerMainUI::playItem(size_t index)
+{
+	if (mMusicListCtrl->GetCurSel() != index)
+	{
+		mMusicListCtrl->SelectItem(index, true);
+	}
+	mAPlayer->Stop();
+	if (mDecoder)
+	{
+		delete mDecoder;
+	}
+	auto& m = mPlModel.getPlaylist((size_t)0)->getMusicInfo(index);
+	mDecoder = DecoderFactory::CreateDecoderByFile(m.fullPath);
+	mDecoder->Open(m.fullPath);
+	mAPlayer->Open(mDecoder);
+	float totalTime = 0;
+	if (m.isCue)
+	{
+		totalTime = m.end - m.start;
+		mAPlayer->Play(m.start, m.end);
+	}
+	else
+	{
+		totalTime = mDecoder->getWaveInfo().durationTime;
+		mAPlayer->Play();
+	}
+	mSeekSlider->SetMaxValue(totalTime);
+	mPlayDurationCtrl->SetText(L"00:00");
+	mTotalDurationCtrl->SetText(PlayUtil::formatTime(totalTime)->c_str());
+}
+
+void CPlayerMainUI::onTimer()
+{
+	if (mAPlayer->GetPlayerState().isPlaying && !mAPlayer->GetPlayerState().isPause)
+	{
+		auto duration = mAPlayer->GetPlayDuration() - mAPlayer->getCurrentPlayStart();
+		mSeekSlider->SetValue(duration);
+		mPlayDurationCtrl->SetText(PlayUtil::formatTime(duration)->c_str());
+	}	
+}
+
+void CPlayerMainUI::playNext()
+{
+	if (canPlayNext())
+	{
+		if (mPlayMode == PlayMode::RepeatAll)
+		{
+			mPlayIndex = (++mPlayIndex) % mActiveList->getPlaylistSize();
+		}
+		else
+		{
+			mPlayIndex = PlayUtil::getRandomNext(mActiveList->getPlaylistSize());
+		}
+		playItem(mPlayIndex);
+	}
+}
+void CPlayerMainUI::playPrevious()
+{
+	if (canPlayPrevious())
+	{
+		if (mPlayMode == PlayMode::RepeatAll)
+		{
+			mPlayIndex = ((--mPlayIndex) + mActiveList->getPlaylistSize()) % mActiveList->getPlaylistSize();
+		}
+		else
+		{
+			mPlayIndex = PlayUtil::getRandomNext(mActiveList->getPlaylistSize());
+		}
+		playItem(mPlayIndex);
+	}
+}
+bool CPlayerMainUI::canPlayNext()
+{
+	auto next = mActiveList->getPlaylistSize() > 0;
+	
+	return next;
+}
+bool CPlayerMainUI::canPlayPrevious()
+{
+	auto previous = mActiveList->getPlaylistSize() > 0;
+
+	return previous;
+}
+
+bool CPlayerMainUI::canPlay()
+{
+	auto play = mActiveList->getPlaylistSize() > 0;
+
+	return play;
+}
+
+void CPlayerMainUI::updatePlayPreNext()
+{
+	mPlayNextBtn->SetEnabled(canPlayNext());
+	mPlayPreviousBtn->SetEnabled(canPlayPrevious());
+	mPlayPauseBtn->SetEnabled(canPlay());
 }

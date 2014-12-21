@@ -46,6 +46,6 @@ size_t PlaylistModel::findIndexByName(const wchar_t* PlaylistName) const
 
 void PlaylistModel::loadData()
 {
-	DbHelper db;// = DbHelper::getInstance();
-	db.loadAllPlayList(mPlaylists);
+	DbHelper* db = DbHelper::getInstance();
+	db->loadAllPlayList(mPlaylists);
 }

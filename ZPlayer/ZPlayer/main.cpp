@@ -1,6 +1,7 @@
-﻿#include <windows.h>
+﻿#pragma once
+#include <windows.h>
 #include <tchar.h>
-#pragma once
+
 #include <UIlib.h>
 using namespace DuiLib;
 
@@ -10,13 +11,14 @@ using namespace DuiLib;
 #pragma comment(lib, "Veda.lib")
 #pragma comment(lib,"Sqlite3.lib")
 #pragma comment(lib,"tag.lib")
-
+#pragma comment(lib,"Algorithm.lib")
 #include "PlayerMainUI.h"
 #include "Logger.h"
 Logger logger;
 #include <Datetime.h>
 #include <Directory.h>
 #include "CueSheet.h"
+#include <FileUtil.h>
 
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
