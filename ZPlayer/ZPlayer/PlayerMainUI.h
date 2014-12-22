@@ -57,6 +57,7 @@ private:
 	bool canPlayPrevious();
 	void updatePlayPreNext();
 	bool canPlay();
+	void updateSeekSlider(bool enable);
 public:
 	PlayMode mPlayMode;
 	CMusicListCtrl* mMusicListCtrl;

@@ -38,7 +38,7 @@ namespace sqlite3
 		// bind text parametrer, index start with 1
 		void bindText(int index, const char* value, int n, void(*)(void*) = SQLITE_STATIC);
 		// bind text16 parametrer, index start with 1
-		void bindText16(int index, const void* value, int n, void(*)(void*) = SQLITE_STATIC);
+		void bindText16(int index, const void* value, int n = 0, void(*)(void*) = SQLITE_STATIC);
 		// bind value parametrer, index start with 1
 		void bindValue(int index, const sqlite3_value* value);
 		// bind zeroblob parametrer, index start with 1

@@ -4,6 +4,7 @@
 #include <string>
 #include <hash_map>
 #include "SQL.h"
+#include <Datetime.h>
 DbHelper::DbHelper()
 {
 	veda::SpecialFolder sf;
@@ -210,12 +211,13 @@ void DbHelper::updateMusic(Sqlite3ConnectionPtr& conn,const MusicInfo& musicInfo
 
 long DbHelper::addPlaylist(const String& name)
 {
-	static wchar_t* INSERT_PL = L"INSERT INTO PLAYLIST(NAME,CREATE_TIME,LAST_MODIFIED_TIME)";
+	static wchar_t* INSERT_PL = L"INSERT INTO PLAYLIST([NAME],CREATE_TIME,LAST_MODIFIED_TIME) VALUES(?,?,?)";
 	auto& conn = getConnection();
+	veda::Datetime now;
 	auto& stmt = conn->prepare(INSERT_PL);
 	stmt->bindText16(1, name.c_str(), -1);
-	stmt->bindInt64(2, 0);
-	stmt->bindInt64(3, 0);
+	stmt->bindInt64(2, now.getTime());
+	stmt->bindInt64(3, now.getTime());
 	stmt->executeUpdate();
 	stmt->close();
 	long id = conn->getLastInsertRowId();
@@ -268,7 +270,7 @@ void DbHelper::checkTables()
 	auto& stmt = conn->prepare(TABLE_QUERY);
 	auto& rs = stmt->executeQuery();
 	std::hash_map<std::wstring, bool> map;
-	if (rs->hasNext())
+	while (rs->hasNext())
 	{
 		std::wstring table = (wchar_t*)rs->getText16(1);
 		map[table] = true;
@@ -285,11 +287,13 @@ void DbHelper::checkTables()
 		stmt->executeUpdate();
 		stmt->close();
 	}
+	bool addDefault = false;
 	if (map.find(L"PLAYLIST") == map.end())
 	{
 		auto& stmt = conn->prepare(PLAYLIST);
 		stmt->executeUpdate();
 		stmt->close();
+		addDefault = true;
 	}
 	if (map.find(L"PLAYLIST_MUSICS") == map.end())
 	{
@@ -304,4 +308,9 @@ void DbHelper::checkTables()
 		stmt->close();
 	}
 	returnConnection(conn);
+	if (addDefault)
+	{
+		String defaultPl = L"Default";
+		addPlaylist(defaultPl);
+	}
 }

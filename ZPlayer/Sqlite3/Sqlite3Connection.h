@@ -1,9 +1,8 @@
 #pragma once
 #include "common.h"
-#include <string>
 #include "Sqlite3Exception.h"
 #include "Sqlite3Statement.h"
-using namespace std;
+#include <ZString.h>
 namespace sqlite3
 {
 	typedef shared_ptr<Sqlite3Connection> Sqlite3ConnectionPtr;
@@ -46,7 +45,7 @@ namespace sqlite3
 		Sqlite3Connection(){}
 	private:
 		sqlite3* mDb;
-		string mDbFile;
+		veda::String mDbFile;
 	};
 }
 

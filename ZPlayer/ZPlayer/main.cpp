@@ -42,11 +42,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	//item.isEmpty = true;
 	//mainUI.mMusicListCtrl->AddNode(item);
 	//mainUI.mMusicListCtrl->AddNode(std::move(item));
-	/*CueSheet cue;
+	CueSheet cue;
 	auto str = L"C:\\Users\\i076777\\Desktop\\Musics\\[140910]TVアニメ「アルドノア・ゼロ」ED『AZaLIEz』SawanoHiroyuki[nZk](期間生産限定アニメ盤)(DVD付)\\SawanoHiroyuki[nZk] - AZaLIEz.cue";
 	AString tmp;
 	tmp.from(str);
-	cue.parse(L"C:\\Users\\Jun\\Downloads\\杨千嬅.-.[狼来了].专辑.(APE).cue");*/
+	
+	/*cue.parse(L"C:\\Users\\Jun\\Downloads\\杨千嬅.-.[狼来了].专辑.(APE).cue");*/
 	//cue.parse(L"C:\\Users\\i076777\\Desktop\\Musics\\[140910]TVアニメ「アルドノア・ゼロ」ED『AZaLIEz』SawanoHiroyuki[nZk](期間生産限定アニメ盤)(DVD付)\\SawanoHiroyuki[nZk] - AZaLIEz.cue");
 	/*MusicListItemInfo item;
 	item.isFolder = true;

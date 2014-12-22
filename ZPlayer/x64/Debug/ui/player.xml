@@ -5,7 +5,7 @@
     <VerticalLayout bkcolor="#FF917054">
         <HorizontalLayout height="32">
             <VerticalLayout>
-                <Label name="caption" text="JJ Forever" width="120" textpadding="20,5,0,0" textcolor="#00FFFFFF" font="1" />
+                <Label name="caption" text="JJ Forever" width="120" height="32" textpadding="20,5,0,0" textcolor="#00FFFFFF" font="1" />
             </VerticalLayout>
             <VerticalLayout width="77">
                 <Button name="minbtn" tooltip="Minimize" float="true" pos="0,20,0,0" width="10" height="10" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage=" file=&apos;ui\images\sys_btn\minimize_normal.png&apos; " hotimage=" file=&apos;ui\images\sys_btn\minimize_normal.png&apos; " pushedimage=" file=&apos;ui/images/sys_btn\minimize_down.png&apos; " />

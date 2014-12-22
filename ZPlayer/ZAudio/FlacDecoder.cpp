@@ -18,25 +18,26 @@ namespace audio
 	int FlacDecoder::Open(const wchar_t* file)
 	{
 		Decoder::Open(file);
-		veda::AString tmp;
-		tmp.from(file, wcslen(file));
-		
-
-		FILE *afile = fopen(tmp.c_str(), "r");
+		FILE *afile = _wfopen(file, L"rb");
 		long len = 0;
 		if (afile)
 		{
 			fseek(afile, 0, SEEK_END);
 			len = ftell(afile);
-			fclose(afile);
+			fseek(afile, 0, SEEK_SET);
 		}
-	
+		else
+		{
+			return AudioError::FailToOpenFile;//E_FAIL;
+		}
+		/*veda::AString tmp;
+		tmp.from(file);*/
 		if (NULL == (decoder = FLAC__stream_decoder_new()))
 		{
 			return AudioError::FailToInitialized;//E_FAIL;// ??
 		}
 		(void)FLAC__stream_decoder_set_md5_checking(decoder, true);
-		init_status = FLAC__stream_decoder_init_file(decoder, tmp.c_str(), write_callback, metadata_callback, error_callback, /*client_data=*/this);
+		init_status = FLAC__stream_decoder_init_FILE(decoder, afile, write_callback, metadata_callback, error_callback, /*client_data=*/this);
 		if (FLAC__STREAM_DECODER_INIT_STATUS_OK != init_status)
 		{
 			return AudioError::FailToOpenFile;//E_FAIL;
@@ -90,7 +91,7 @@ namespace audio
 					*sizeReaded += m_nWaveDataNum;
 					samplesNeed -= m_nWaveDataNum;
 					buf = &buf[m_nWaveDataNum];
-					m_pWaveDataBuffer = (BYTE*)m_pWaveDataAlloc.get();
+					m_pWaveDataBuffer = (BYTE*)m_pWaveDataAlloc.get()->getData();
 					m_nWaveDataNum = 0;
 				}
 			}
@@ -371,7 +372,7 @@ namespace audio
 
 		unsigned int i;
 		unsigned int j = 0;
-		BYTE *buf = (BYTE*)flac->m_pWaveDataAlloc.get();
+		BYTE *buf = (BYTE*)flac->m_pWaveDataAlloc.get()->getData();
 		//for(i = 0, j = 0; i < frame->header.blocksize; i++, j += 2)
 		//{
 		//	buf[j] = buffer[0][i];
@@ -385,7 +386,7 @@ namespace audio
 			buf[j++] = buffer[1][i] >> 8;
 		}
 
-		flac->m_pWaveDataBuffer = (BYTE*)flac->m_pWaveDataAlloc.get();
+		flac->m_pWaveDataBuffer = (BYTE*)flac->m_pWaveDataAlloc.get()->getData();
 		flac->m_nWaveDataNum = frameBytes;//frame->header.blocksize * 4;
 		return FLAC__STREAM_DECODER_WRITE_STATUS_CONTINUE;
 	}

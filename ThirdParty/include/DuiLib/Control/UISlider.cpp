@@ -119,6 +119,9 @@ namespace DuiLib
 			if( (m_uButtonState & UISTATE_CAPTURED) != 0 ) {
 				m_uButtonState &= ~UISTATE_CAPTURED;
 			}
+			// for disable can't click
+			if (!IsEnabled())
+				return;
 			if( m_bHorizontal ) {
 				if( event.ptMouse.x >= m_rcItem.right - m_szThumb.cx / 2 ) m_nValue = m_nMax;
 				else if( event.ptMouse.x <= m_rcItem.left + m_szThumb.cx / 2 ) m_nValue = m_nMin;

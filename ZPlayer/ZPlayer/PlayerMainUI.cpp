@@ -165,6 +165,13 @@ void CPlayerMainUI::InitWindow()
 	mActiveList = mPlModel.getPlaylist((size_t)0);
 	// load from config
 	mPlayIndex = 0;
+	if (mActiveList->getPlaylistSize() > 0)
+	{
+		mMusicListCtrl->SelectItem(mPlayIndex, true);
+	}
+	
+	updatePlayPreNext();
+	updateSeekSlider(false);
 }
 
 bool CPlayerMainUI::handleClick(TNotifyUI& msg)
@@ -330,14 +337,20 @@ void CPlayerMainUI::PlayerCallback(void* instance, PlayerStateMessage mes, void 
 	{
 		uiUpdateFlag = true;
 		p->updatePlayBtn(uiUpdateFlag);
+		p->updateSeekSlider(true);
 	}
 	else if (mes == PlayerStateMessage::Pause || mes == PlayerStateMessage::UserStop)
 	{
+		if (mes == PlayerStateMessage::UserStop)
+		{
+			p->updateSeekSlider(false);
+		}
 		uiUpdateFlag = false;
 		p->updatePlayBtn(uiUpdateFlag);
 	}
 	else if (mes == PlayerStateMessage::Stop)
 	{
+		p->updateSeekSlider(false);
 		uiUpdateFlag = false;
 		p->updatePlayBtn(uiUpdateFlag);
 		p->updatePlayPreNext();
@@ -397,6 +410,7 @@ HRESULT CPlayerMainUI::onDrop(HWND hwnd, IDataObject* dataObj, DWORD grfKeyState
 		{
 			addMusicInUI(*m.get());
 		}
+		updatePlayPreNext();
 	}
 	catch (Sqlite3Exception& e)
 	{
@@ -562,4 +576,9 @@ void CPlayerMainUI::updatePlayPreNext()
 	mPlayNextBtn->SetEnabled(canPlayNext());
 	mPlayPreviousBtn->SetEnabled(canPlayPrevious());
 	mPlayPauseBtn->SetEnabled(canPlay());
+}
+
+void CPlayerMainUI::updateSeekSlider(bool enable)
+{
+	mSeekSlider->SetEnabled(enable);
 }

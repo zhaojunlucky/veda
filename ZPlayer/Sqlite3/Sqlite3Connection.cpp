@@ -6,12 +6,7 @@ namespace sqlite3
 	Sqlite3Connection::Sqlite3Connection(const wchar_t* db)
 		:mDb(0)
 	{
-		if (NULL != db)
-		{
-			veda::AString tmp;
-			tmp.from(db);
-			mDbFile = tmp.c_str();
-		}
+		mDbFile = db;
 	}
 
 	Sqlite3Connection::Sqlite3Connection(const char* db)
@@ -19,7 +14,7 @@ namespace sqlite3
 	{
 		if (NULL != db)
 		{
-			mDbFile = db;
+			mDbFile.from(db);
 		}
 	}
 
@@ -35,7 +30,7 @@ namespace sqlite3
 	}
 	void Sqlite3Connection::open()
 	{
-		int ret = sqlite3_open(mDbFile.c_str(), &mDb);
+		int ret = sqlite3_open16(mDbFile.c_str(), &mDb);
 		if (ret != SQLITE_OK)
 		{
 			throw Sqlite3Exception(sqlite3_errstr(ret), ret);
