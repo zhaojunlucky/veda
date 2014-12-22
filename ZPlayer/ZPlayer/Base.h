@@ -3,7 +3,8 @@
 #include <Vector.h>
 using namespace veda;
 #include <memory>
-
+#include <float.h>
+#define MAX_ORDER FLT_MAX
 enum PlayMode
 {
 	RepeatAll,
@@ -24,6 +25,11 @@ struct MusicInfo
 	float end;
 	float order;
 	bool isUpdated;
+
+	MusicInfo()
+	{
+		order = MAX_ORDER;
+	}
 };
 
 typedef std::shared_ptr<MusicInfo> MusicInfoPtr;

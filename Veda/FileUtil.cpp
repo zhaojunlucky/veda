@@ -138,4 +138,19 @@ namespace veda
 			throw BaseException(L"fail to get folder!");
 		}
 	}
+
+	StringPtr FileUtil::getFileFullPath(const wchar_t* partialPath)
+	{
+		wchar_t fullPath[2048];
+		if (_tfullpath(fullPath, partialPath, 2048) != NULL)
+		{
+			return  makeStringPtr(fullPath);
+		}
+		else
+		{
+			// log error
+			throw BaseException(L"Invalid path!");
+		}
+
+	}
 }

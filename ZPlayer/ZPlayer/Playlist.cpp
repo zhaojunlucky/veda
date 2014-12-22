@@ -1,4 +1,7 @@
 #include "Playlist.h"
+#include "DbHelper.h"
+#include "ZPLException.h"
+#include <utility>
 Playlist::Playlist(const wchar_t* playlistName)
 	:mPlaylistName(playlistName), mId(-1), mIsModified(false)
 {
@@ -21,6 +24,10 @@ size_t Playlist::getPlaylistSize() const
 }
 bool Playlist::addMusicInfo(shared_ptr<MusicInfo> musicInfo)
 {
+	if (musicInfo->order == MAX_ORDER)
+	{
+		throw ZPLException(L"Invalid music order.");
+	}
 	if (mMap.find(musicInfo->id) == mMap.end())
 	{
 		mPlaylist.add(musicInfo);
@@ -33,15 +40,31 @@ bool Playlist::addMusicInfo(shared_ptr<MusicInfo> musicInfo)
 
 void Playlist::addMusicInfos(veda::Vector<MusicInfoPtr>& musicInfos, bool removeExisting)
 {
+	auto lastOrder = -1000000.0f;
+	if (mPlaylist.getLength() > 0)
+	{
+		lastOrder = mPlaylist[mPlaylist.getLength() - 1]->order;
+	}
 	veda::Vector<size_t> removedIndexs;
+	veda::Vector<std::pair<long, float>> musicOrder;
 	for (size_t i = 0; i < musicInfos.getLength(); i++)
 	{
 		auto& m = musicInfos[i];
+		if (m->order == MAX_ORDER)
+		{
+			lastOrder += 1;
+			m->order = lastOrder;
+		}
 		if (!addMusicInfo(m))
 		{
 			removedIndexs.add(i);
 		}
+		else
+		{
+			musicOrder.add(std::make_pair(m->id, lastOrder));
+		}
 	}
+	DbHelper::getInstance()->addMusicsToPl(mId, musicOrder);
 	if (removeExisting)
 	{
 		for (auto& it = removedIndexs.cbegin(); it != removedIndexs.cend(); ++it)

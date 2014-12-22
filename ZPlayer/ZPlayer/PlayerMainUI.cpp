@@ -581,4 +581,6 @@ void CPlayerMainUI::updatePlayPreNext()
 void CPlayerMainUI::updateSeekSlider(bool enable)
 {
 	mSeekSlider->SetEnabled(enable);
+	mPlayDurationCtrl->SetVisible(enable);
+	mTotalDurationCtrl->SetVisible(enable);
 }

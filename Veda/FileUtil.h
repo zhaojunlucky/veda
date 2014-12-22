@@ -21,6 +21,7 @@ namespace veda
 		static StringPtr getCurrentExeDir();
 		// doesn't contain backslash at the end
 		static StringPtr getSpecialFolderPath(REFKNOWNFOLDERID sf);
+		static StringPtr getFileFullPath(const wchar_t* partialPath);
 	};
 
 }

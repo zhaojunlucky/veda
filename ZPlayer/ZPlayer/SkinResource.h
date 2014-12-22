@@ -29,7 +29,5 @@ public:
 	StringPtr SoundMiddleDown;
 	StringPtr SoundMaxNormal;
 	StringPtr SoundMaxDown;
-
-
 };
 

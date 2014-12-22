@@ -5,6 +5,8 @@
 #include <hash_map>
 #include "SQL.h"
 #include <Datetime.h>
+
+
 DbHelper::DbHelper()
 {
 	veda::SpecialFolder sf;
@@ -300,6 +302,9 @@ void DbHelper::checkTables()
 		auto& stmt = conn->prepare(PLAYLIST_MUSICS);
 		stmt->executeUpdate();
 		stmt->close();
+		stmt = conn->prepare(MUSIC_PL_INDEX);
+		stmt->executeUpdate();
+		stmt->close();
 	}
 	if (map.find(L"PLAY_HISTORY") == map.end())
 	{
@@ -313,4 +318,30 @@ void DbHelper::checkTables()
 		String defaultPl = L"Default";
 		addPlaylist(defaultPl);
 	}
+}
+
+void DbHelper::addMusicToPl(long pl, long musicId, float order)
+{
+	auto& conn = getConnection();
+	addMusicToPl(conn, pl, musicId, order);
+	returnConnection(conn);
+}
+void DbHelper::addMusicToPl(Sqlite3ConnectionPtr& conn, long pl, long musicId, float order)
+{
+	static wchar_t* INSERT_SQL = L"INSERT OR REPLACE INTO PLAYLIST_MUSICS(PARENT_ID,MUSIC_ID,DISPLAY_ORDER) VALUES(?,?,?)";
+	auto& stmt = conn->prepare(INSERT_SQL);
+	stmt->bindInt64(1, pl);
+	stmt->bindInt64(2, musicId);
+	stmt->bindDouble(3, order);
+	stmt->executeUpdate();
+	stmt->close();
+}
+void DbHelper::addMusicsToPl(long pl, veda::Vector<std::pair<long, float>>& musicOrder)
+{
+	auto& conn = getConnection();
+	for (auto& p : musicOrder)
+	{
+		addMusicToPl(conn, pl, p.first, p.second);
+	}
+	returnConnection(conn);
 }

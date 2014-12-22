@@ -256,7 +256,6 @@ void CueSheet::processFileNode(const CueSheetTreeNode* fileNode)
 		musicInfoPtr->fullPath.append(fullPath);
 		musicInfoPtr->id = -1;
 		musicInfoPtr->end = 0;
-		musicInfoPtr->order = -1;
 		for (auto j = 0; j < trackNode->childs.getLength(); j++)
 		{
 			auto& data = trackNode->childs[j];

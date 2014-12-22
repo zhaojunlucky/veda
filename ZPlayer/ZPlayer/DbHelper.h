@@ -6,6 +6,8 @@ using namespace sqlite3;
 
 using namespace veda;
 #include "Playlist.h"
+
+#include <utility>
 class DbHelper
 {
 public:
@@ -34,6 +36,9 @@ public:
 	void removePlaylist(long id);
 	long queryMusic(const String& fullpath, int start, int end);
 	void checkTables();
+	void addMusicToPl(long pl, long musicId, float order);
+	void addMusicToPl(Sqlite3ConnectionPtr& conn, long pl, long musicId, float order);
+	void addMusicsToPl(long pl, veda::Vector<std::pair<long,float>>& musicOrder);
 private:
 	static DbHelper* instance;
 	String mDbFile;
