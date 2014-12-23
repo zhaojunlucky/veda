@@ -169,6 +169,9 @@ void CPlayerMainUI::InitWindow()
 	{
 		mMusicListCtrl->SelectItem(mPlayIndex, true);
 	}
+
+	// load from config
+	mPlaylisyCtrl->SelectItem(0, true);
 	
 	updatePlayPreNext();
 	updateSeekSlider(false);

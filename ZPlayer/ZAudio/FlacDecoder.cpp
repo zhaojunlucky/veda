@@ -57,6 +57,7 @@ namespace audio
 		{
 			mWaveInfo.bitrate = 8.0 * metaDataSize / mWaveInfo.durationTime / 1000.0;
 		}
+		m_nWaveDataNum = 0;
 		return 0;
 	}
 	int FlacDecoder::Read(BYTE* buffer, DWORD dwSizeToRead, DWORD* sizeReaded)
