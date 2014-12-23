@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <Window size="900,600" sizebox="4,4,4,4" caption="0,0,0,30" mininfo="900,600">
+    <Default name="VScrollBar" value="button1normalimage=&quot;file='ui\images\main\v_scrollbar_up.png' &quot; button1hotimage=&quot;file='ui\images\main\v_scrollbar_up.png'&quot; button1pushedimage=&quot;file='ui\images\main\v_scrollbar_up.png' &quot; button1disabledimage=&quot;file='ui\images\main\v_scrollbar_up.png'&quot; button2normalimage=&quot;file='ui\images\main\v_scrollbar_down.png' &quot; button2hotimage=&quot;file='ui\images\main\v_scrollbar_down.png' &quot; button2pushedimage=&quot;file='ui\images\main\v_scrollbar_down.png' &quot; button2disabledimage=&quot;file='ui\images\main\v_scrollbar_down.png' &quot; thumbnormalimage=&quot;file='ui\images\main\v_scrollbar_thumb.png' &quot; thumbhotimage=&quot;file='ui\images\main\v_scrollbar_thumb.png' &quot; thumbpushedimage=&quot;file='ui\images\main\v_scrollbar_thumb.png' &quot; thumbdisabledimage=&quot;file='ui\images\main\v_scrollbar_thumb.png' &quot; width=&quot;10&quot;" />
     <Font name="Segoe WP SemiLight" size="16" bold="false" italic="false" />
     <Font name="Segoe WP SemiLight" size="14" bold="false" italic="false" />
     <VerticalLayout bkcolor="#FF917054">

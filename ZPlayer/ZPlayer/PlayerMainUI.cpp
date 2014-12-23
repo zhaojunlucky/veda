@@ -18,7 +18,7 @@ CPlayerMainUI::CPlayerMainUI()
 CPlayerMainUI::~CPlayerMainUI()
 {
 	mAPlayer->Stop();
-	KillTimer(this->GetHWND(), 1);
+	KillTimer(this->GetHWND(), 3000);
 }
 
 CControlUI* CPlayerMainUI::CreateControl(LPCTSTR pstrClass)
@@ -42,9 +42,13 @@ LRESULT CPlayerMainUI::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_TIMER:
 	{
-		//LOG_INFO(logger) << L"on timer" << endl;
-		onTimer();
-		handled = true;
+		//LOG_INFO(logger) << L"on timer:" << wParam << "," << lParam<< endl;
+		if (wParam == 3001)
+		{
+			onTimer();
+			handled = true;
+		}
+		
 	}break;
 	default:break;
 	}
@@ -160,7 +164,7 @@ void CPlayerMainUI::InitWindow()
 	loadPlaylist();
 	loadPlaylistInUI(mPlModel.getPlaylist((size_t)0));
 	DragDropRegister(this->GetHWND());
-	SetTimer(this->GetHWND(), 1, 900, NULL);
+	SetTimer(this->GetHWND(), 3001, 900, NULL);
 	mSeekSlider->SetValue(0);
 	mActiveList = mPlModel.getPlaylist((size_t)0);
 	// load from config

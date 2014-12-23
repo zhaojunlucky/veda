@@ -2,6 +2,9 @@
 #include <Windows.h>
 #include <string>
 #include <time.h>
+#include <ZString.h>
+#include <File.h>
+#include <memory>
 #ifdef _UNICODE
 #define trace traceW
 #elif
@@ -51,6 +54,9 @@ public:
 private:
 	Stream();
 	~Stream();
+private:
+	veda::String mLine;
+	std::shared_ptr<veda::WFileWriter> mWriter;
 };
 
 class Logger
