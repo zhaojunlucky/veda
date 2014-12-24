@@ -18,6 +18,8 @@ namespace veda
 		static void createDirectory(const wchar_t* path);
 		static void createDirectoryRecursive(const wchar_t* path);
 		// doesn't contain backslash at the end
+		static StringPtr getParentPath(const wchar_t* path);
+		// doesn't contain backslash at the end
 		static StringPtr getCurrentExeDir();
 		// doesn't contain backslash at the end
 		static StringPtr getSpecialFolderPath(REFKNOWNFOLDERID sf);

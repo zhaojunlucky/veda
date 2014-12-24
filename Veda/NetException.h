@@ -8,15 +8,4 @@ namespace veda
 		NetException();
 		NetException(const String& mes);
 	};
-
-	NetException::NetException()
-		:BaseException()
-	{
-
-	}
-	NetException::NetException(const String& mes)
-		:BaseException(mes)
-	{
-
-	}
 }

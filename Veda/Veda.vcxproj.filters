@@ -28,6 +28,9 @@
     <Filter Include="Network">
       <UniqueIdentifier>{3c7a427e-7877-4a58-8190-07453b5f82fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Logger">
+      <UniqueIdentifier>{4da7b802-16c8-407b-86ad-81bfe72cad39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -111,6 +114,18 @@
     <ClInclude Include="SpecialFolder.h">
       <Filter>File</Filter>
     </ClInclude>
+    <ClInclude Include="LoggerBase.h">
+      <Filter>Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="LogMessage.h">
+      <Filter>Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="LoggerStream.h">
+      <Filter>Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Logger</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -151,6 +166,24 @@
     </ClCompile>
     <ClCompile Include="ErrorUtil.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="LoggerBase.cpp">
+      <Filter>Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="LogMessage.cpp">
+      <Filter>Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="LoggerStream.cpp">
+      <Filter>Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseException.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="NetException.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

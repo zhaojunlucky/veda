@@ -89,12 +89,16 @@
     <ClInclude Include="FileWriter.h" />
     <ClInclude Include="IPAddress.h" />
     <ClInclude Include="IPEndPoint.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="LoggerBase.h" />
+    <ClInclude Include="LogMessage.h" />
     <ClInclude Include="NetException.h" />
     <ClInclude Include="PathUtil.h" />
     <ClInclude Include="ReadOnlyIterator.h" />
     <ClInclude Include="Socket.h" />
     <ClInclude Include="SpecialFolder.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="LoggerStream.h" />
     <ClInclude Include="StreamFileReader.h" />
     <ClInclude Include="StringTraits.h" />
     <ClInclude Include="BasicString.h" />
@@ -104,6 +108,7 @@
     <ClInclude Include="ZString.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BaseException.cpp" />
     <ClCompile Include="DateFormat.cpp" />
     <ClCompile Include="Datetime.cpp" />
     <ClCompile Include="Directory.cpp" />
@@ -112,12 +117,17 @@
     <ClCompile Include="FileUtil.cpp" />
     <ClCompile Include="IPAddress.cpp" />
     <ClCompile Include="IPEndPoint.cpp" />
+    <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="LoggerBase.cpp" />
+    <ClCompile Include="LogMessage.cpp" />
+    <ClCompile Include="NetException.cpp" />
     <ClCompile Include="PathUtil.cpp" />
     <ClCompile Include="Socket.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="LoggerStream.cpp" />
     <ClCompile Include="StringTraits.cpp" />
     <ClCompile Include="WinSocket.cpp" />
   </ItemGroup>

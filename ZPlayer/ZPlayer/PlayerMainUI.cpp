@@ -395,10 +395,10 @@ HRESULT CPlayerMainUI::onDrop(HWND hwnd, IDataObject* dataObj, DWORD grfKeyState
 	veda::Vector<MusicInfoPtr> vec;
 	if (dataObj->GetData(&cFmt, &stgmedium) == S_OK)
 	{
+		TCHAR szFile[MAX_PATH];
 		HDROP hdrop = reinterpret_cast<HDROP>(stgmedium.hGlobal);
 		UINT cFiles = DragQueryFile(hdrop, 0xFFFFFFFF, NULL, 0);
 		for (UINT i = 0; i < cFiles; i++) {
-			TCHAR szFile[MAX_PATH];
 			UINT cch = DragQueryFile(hdrop, i, szFile, MAX_PATH);
 			if (cch > 0 && cch < MAX_PATH) {
 				LOG_INFO(logger) << szFile << endl;

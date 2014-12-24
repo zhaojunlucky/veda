@@ -113,7 +113,12 @@ namespace veda
 			createDirectory(path);
 		}
 	}
-
+	
+	StringPtr FileUtil::getParentPath(const wchar_t* path)
+	{
+		auto fullPath = getFileFullPath(path);
+		return fullPath;
+	}
 	StringPtr FileUtil::getCurrentExeDir()
 	{
 		wchar_t exeFullPath[MAX_PATH];

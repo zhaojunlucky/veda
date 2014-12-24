@@ -13,12 +13,13 @@ using namespace DuiLib;
 #pragma comment(lib,"tag.lib")
 #pragma comment(lib,"Algorithm.lib")
 #include "PlayerMainUI.h"
-#include "Logger.h"
+#include <Logger.h>
 Logger logger;
 #include <Datetime.h>
 #include <Directory.h>
 #include "CueSheet.h"
 #include <FileUtil.h>
+using namespace veda;
 
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {

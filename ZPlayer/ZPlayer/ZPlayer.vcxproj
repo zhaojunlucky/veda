@@ -85,7 +85,6 @@
     <ClCompile Include="CueSheet.cpp" />
     <ClCompile Include="DbHelper.cpp" />
     <ClCompile Include="DropTargetBase.cpp" />
-    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MusicInfoHelper.cpp" />
     <ClCompile Include="MusicListCtrl.cpp" />
@@ -102,7 +101,6 @@
     <ClInclude Include="CueSheet.h" />
     <ClInclude Include="DbHelper.h" />
     <ClInclude Include="DropTargetBase.h" />
-    <ClInclude Include="Logger.h" />
     <ClInclude Include="MusicInfoHelper.h" />
     <ClInclude Include="MusicListCtrl.h" />
     <ClInclude Include="PlayControl.h" />
