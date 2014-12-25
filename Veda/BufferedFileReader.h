@@ -6,31 +6,31 @@
 using namespace std;
 namespace veda
 {
-	class VEDA_EXPORT WBufferedFileReader : public WFileReader
+	class WBufferedFileReader : public WFileReader
 	{
 	public:
-		WBufferedFileReader(const char* file, FileEncoding enc = FileEncoding::ASCII)
+		VEDA_EXPORT WBufferedFileReader(const char* file, FileEncoding enc = FileEncoding::ASCII)
 			:WFileReader(file, enc)
 		{
 
 		}
-		WBufferedFileReader(const wchar_t* file, FileEncoding enc = FileEncoding::ASCII)
+		VEDA_EXPORT WBufferedFileReader(const wchar_t* file, FileEncoding enc = FileEncoding::ASCII)
 			:WFileReader(file, enc)
 		{
 
 		}
-		WBufferedFileReader(const char* file, bool detectEnc)
+		VEDA_EXPORT WBufferedFileReader(const char* file, bool detectEnc)
 			:WFileReader(file, detectEnc)
 		{
 
 		}
-		WBufferedFileReader(const wchar_t* file, bool detectEnc)
+		VEDA_EXPORT WBufferedFileReader(const wchar_t* file, bool detectEnc)
 			:WFileReader(file, detectEnc)
 		{
 
 		}
 
-		const wchar_t* ReadLine()
+		VEDA_EXPORT const wchar_t* ReadLine()
 		{
 			mULineBuffer.clear();
 

@@ -11,23 +11,23 @@
 namespace veda
 {
 	using namespace ::std;
-	class VEDA_EXPORT WFileWriter : public FileWriteBase<wchar_t>
+	class WFileWriter : public FileWriteBase < wchar_t >
 	{
 	public:
-		WFileWriter(const char* file, FileEncoding enc = FileEncoding::ASCII)
+		VEDA_EXPORT WFileWriter(const char* file, FileEncoding enc = FileEncoding::ASCII)
 			:FileWriteBase<wchar_t>(file, enc)
 		{
-				InitFileInternal();
-			}
-		WFileWriter(const wchar_t* file, FileEncoding enc = FileEncoding::ASCII)
+			InitFileInternal();
+		}
+		VEDA_EXPORT WFileWriter(const wchar_t* file, FileEncoding enc = FileEncoding::ASCII)
 			:FileWriteBase<wchar_t>(file, enc)
 		{
-				InitFileInternal();
-			}
+			InitFileInternal();
+		}
 
-		
 
-		size_t Write(const wchar_t* buffer, size_t size)
+
+		VEDA_EXPORT size_t Write(const wchar_t* buffer, size_t size)
 		{
 			if (mIsUFile)
 			{
@@ -41,7 +41,7 @@ namespace veda
 			}
 			return 0;
 		}
-		size_t WriteLine(const wchar_t* buffer, size_t size)
+		VEDA_EXPORT size_t WriteLine(const wchar_t* buffer, size_t size)
 		{
 			if (mIsUFile)
 			{
@@ -56,7 +56,7 @@ namespace veda
 			return 0;
 		}
 
-		void close()
+		VEDA_EXPORT void close()
 		{
 			if (mIsUFile)
 			{
@@ -104,22 +104,22 @@ namespace veda
 		bool mIsUFile;
 	};
 
-	class VEDA_EXPORT CFileWriter : public FileWriteBase<char>
+	class CFileWriter : public FileWriteBase < char >
 	{
 	public:
-		CFileWriter(const char* file, FileEncoding enc)
+		VEDA_EXPORT CFileWriter(const char* file, FileEncoding enc)
 			:FileWriteBase<char>(file, enc)
 		{
-				InitFileInternal();
-			}
-		CFileWriter(const wchar_t* file, FileEncoding enc)
+			InitFileInternal();
+		}
+		VEDA_EXPORT CFileWriter(const wchar_t* file, FileEncoding enc)
 			:FileWriteBase<char>(file, enc)
 		{
-				InitFileInternal();
-			}
+			InitFileInternal();
+		}
 
 
-		size_t Write(const char* buffer, size_t size)
+		VEDA_EXPORT size_t Write(const char* buffer, size_t size)
 		{
 			if (mIsUFile)
 			{
@@ -132,7 +132,7 @@ namespace veda
 			}
 			return 0;
 		}
-		size_t WriteLine(const char* buffer, size_t size)
+		VEDA_EXPORT size_t WriteLine(const char* buffer, size_t size)
 		{
 			if (mIsUFile)
 			{
@@ -147,7 +147,7 @@ namespace veda
 			return 0;
 		}
 
-		void close()
+		VEDA_EXPORT void close()
 		{
 			if (mIsUFile)
 			{

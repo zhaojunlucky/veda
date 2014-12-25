@@ -31,6 +31,7 @@ namespace audio
 		unsigned int m_nWaveDataNum;		// number of samples in samples buffer
 		std::shared_ptr<common::InternalBuffer<BYTE>> m_pWaveDataAlloc;
 		BYTE* m_pWaveDataBuffer;
+		FILE *mFile;
 	};
 }
 

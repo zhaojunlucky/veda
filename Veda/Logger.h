@@ -1,5 +1,6 @@
 #pragma once
 #include "LoggerStream.h"
+#include "LoggerManager.h"
 namespace veda
 {
 #ifdef _UNICODE
@@ -29,27 +30,31 @@ namespace veda
 #define LOG_WARNINGW(logger) logger.warning(_T(__FILE__), __LINE__)
 #define LOG_ERRORW(logger) logger.error(_T(__FILE__), __LINE__)
 #define LOG_FATALW(logger) logger.fatal(_T(__FILE__), __LINE__)
+
 	class VEDA_EXPORT Logger
 	{
 	public:
 		Logger();
 		Logger(const wchar_t* logFile);
+		Logger(LoggerType lt, const wchar_t* baseDir);
 		~Logger();
-		LoggerStream& log(const char* file, int line, Severity severity);
-		LoggerStream& debug(const char* file, int line);
-		LoggerStream& info(const char* file, int line);
-		LoggerStream& warning(const char* file, int line);
-		LoggerStream& error(const char* file, int line);
-		LoggerStream& fatal(const char* file, int line);
+		LoggerStream log(const char* file, int line, Severity severity);
+		LoggerStream debug(const char* file, int line);
+		LoggerStream info(const char* file, int line);
+		LoggerStream warning(const char* file, int line);
+		LoggerStream error(const char* file, int line);
+		LoggerStream fatal(const char* file, int line);
 
-		LoggerStream& log(const wchar_t* file, int line, Severity severity);
-		LoggerStream& debug(const wchar_t* file, int line);
-		LoggerStream& info(const wchar_t* file, int line);
-		LoggerStream& warning(const wchar_t* file, int line);
-		LoggerStream& error(const wchar_t* file, int line);
-		LoggerStream& fatal(const wchar_t* file, int line);
+		LoggerStream log(const wchar_t* file, int line, Severity severity);
+		LoggerStream debug(const wchar_t* file, int line);
+		LoggerStream info(const wchar_t* file, int line);
+		LoggerStream warning(const wchar_t* file, int line);
+		LoggerStream error(const wchar_t* file, int line);
+		LoggerStream fatal(const wchar_t* file, int line);
 	private:
-		LoggerStream* mStream;
+		StringPtr generateFileName(LoggerType lt, const wchar_t* baseDir);
+	private:
+		LoggerWriter* mLoggerWriter;
 	};
 }
 

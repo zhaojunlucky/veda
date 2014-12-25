@@ -511,7 +511,7 @@ namespace veda
 			if (size + mSize >= mCapacity)
 			{
 
-				mCapacity = size + DEFAULT_SIZE;
+				mCapacity = size + mCapacity + DEFAULT_SIZE;
 				value_type* data = alloc(mCapacity);
 				if (mData)
 				{

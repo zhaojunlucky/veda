@@ -26,6 +26,19 @@ namespace veda
 		Fatal
 	};
 
+	enum LoggerType
+	{
+		// create a logger with current time
+		Timely,
+		// create a logger with date
+		Daily,
+		// create a logger with week
+		Weekly,
+		// create a logger with week
+		Monthly
+	};
+
+
 	void traceA(const char *format, ...);
 	void traceW(const wchar_t *format, ...);
 

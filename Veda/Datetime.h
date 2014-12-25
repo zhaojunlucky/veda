@@ -30,6 +30,7 @@ namespace veda
 		short getYear() const;
 		short getMonth() const;
 		short getDay() const;
+		short getHour() const;
 		short getMinute() const;
 		short getSecond() const;
 		short getMillisecond() const;
@@ -38,6 +39,8 @@ namespace veda
 		StringPtr format(const wchar_t* pattern = L"yyyy-MM-dd HH:mm:ss");
 		void format(wchar_t* buf, const wchar_t* pattern = L"yyyy-MM-dd HH:mm:ss");
 		static Datetime now();
+		bool isLeapYear() const;
+		int getWeekOfYear() const;
 	private:
 		void parse(time_t t);
 		void parse(struct tm* tm);

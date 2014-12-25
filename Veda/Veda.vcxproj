@@ -91,7 +91,8 @@
     <ClInclude Include="IPEndPoint.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="LoggerBase.h" />
-    <ClInclude Include="LogMessage.h" />
+    <ClInclude Include="LoggerManager.h" />
+    <ClInclude Include="LoggerWriter.h" />
     <ClInclude Include="NetException.h" />
     <ClInclude Include="PathUtil.h" />
     <ClInclude Include="ReadOnlyIterator.h" />
@@ -119,7 +120,8 @@
     <ClCompile Include="IPEndPoint.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="LoggerBase.cpp" />
-    <ClCompile Include="LogMessage.cpp" />
+    <ClCompile Include="LoggerManager.cpp" />
+    <ClCompile Include="LoggerWriter.cpp" />
     <ClCompile Include="NetException.cpp" />
     <ClCompile Include="PathUtil.cpp" />
     <ClCompile Include="Socket.cpp" />

@@ -15,7 +15,7 @@ namespace veda
 
 	void traceW(const wchar_t *format, ...)
 	{
-		wchar_t buffer[1000];
+		wchar_t buffer[2048];
 		va_list argptr;
 		va_start(argptr, format);
 		wvsprintfW(buffer, format, argptr);

@@ -64,11 +64,15 @@ LRESULT CPlayerMainUI::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 void CPlayerMainUI::Notify(TNotifyUI& msg)
 {
-	//LOG_INFO(logger) << "main ui:" << msg.sType.GetData()<< " "<<msg.pSender->GetName() << endl;
-	if (msg.sType == _T("itemdbclick"))
+	LOG_INFO(logger) << L"main ui:" << msg.sType.GetData() << L" " << msg.pSender->GetName().GetData() << L" " << msg.pSender->GetClass() << endl;
+	if (msg.sType == _T("itemclick") && _tcsicmp(msg.pSender->GetClass(), _T("ListContainerElementUI")) == 0)
+	{
+
+	}
+	else if (msg.sType == _T("itemdbclick"))
 	{
 		CMusicListCtrl* musicList = static_cast<CMusicListCtrl*>(m_PaintManager.FindControl(KMUSIC_LIST_CTRL_NAME));
-		auto index = musicList->GetItemIndex(msg.pSender);
+		auto index = musicList->GetItemIndex(msg.pSender); 
 		if ((musicList != NULL) && index != -1)
 		{
 			if (_tcsicmp(msg.pSender->GetClass(), _T("ListContainerElementUI")) == 0)
@@ -496,6 +500,7 @@ void CPlayerMainUI::playItem(size_t index)
 	mAPlayer->Stop();
 	if (mDecoder)
 	{
+		mDecoder->Close();
 		delete mDecoder;
 	}
 	auto& m = mPlModel.getPlaylist((size_t)0)->getMusicInfo(index);

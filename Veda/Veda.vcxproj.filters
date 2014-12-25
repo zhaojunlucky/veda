@@ -117,13 +117,16 @@
     <ClInclude Include="LoggerBase.h">
       <Filter>Logger</Filter>
     </ClInclude>
-    <ClInclude Include="LogMessage.h">
-      <Filter>Logger</Filter>
-    </ClInclude>
     <ClInclude Include="LoggerStream.h">
       <Filter>Logger</Filter>
     </ClInclude>
     <ClInclude Include="Logger.h">
+      <Filter>Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="LoggerWriter.h">
+      <Filter>Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="LoggerManager.h">
       <Filter>Logger</Filter>
     </ClInclude>
   </ItemGroup>
@@ -170,9 +173,6 @@
     <ClCompile Include="LoggerBase.cpp">
       <Filter>Logger</Filter>
     </ClCompile>
-    <ClCompile Include="LogMessage.cpp">
-      <Filter>Logger</Filter>
-    </ClCompile>
     <ClCompile Include="LoggerStream.cpp">
       <Filter>Logger</Filter>
     </ClCompile>
@@ -184,6 +184,12 @@
     </ClCompile>
     <ClCompile Include="NetException.cpp">
       <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="LoggerWriter.cpp">
+      <Filter>Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="LoggerManager.cpp">
+      <Filter>Logger</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -10,8 +10,8 @@ namespace veda
 	struct FileInfo
 	{
 		bool isDirectory;
-		wstring fileName;
-		wstring fullPath;
+		String fileName;
+		String fullPath;
 		time_t lastModifiedTime;
 		time_t creationTime;
 		time_t lastAccessTime;
@@ -61,7 +61,7 @@ namespace veda
 		DirectoryIteratorPtr searchDirectories();
 		DirectoryIteratorPtr searchAll();
 	private:
-		wstring mDirPath;
+		String mDirPath;
 		bool mIsExist;
 	};
 }

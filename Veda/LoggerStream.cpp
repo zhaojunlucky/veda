@@ -3,16 +3,48 @@
 
 namespace veda
 {
-	LoggerStream::LoggerStream()
-		:mWriteToFile(false)
+
+	LoggerStream::LoggerStream(const wchar_t* file, int line, Severity severity, bool writeToFile, LoggerWriter* loggerWriter)
+		: mFile(file), mLine(line), mSeverity(severity), mWriteToFile(true), mLoggerWriter(loggerWriter)
 	{
+		SYSTEMTIME sys;
+
+		wchar_t buf[80];
+
+		GetLocalTime(&sys);
+		swprintf_s(buf, 80, L"[%d-%02d-%02d %02d:%02d:%02d.%03d] ", sys.wYear, sys.wMonth, sys.wDay, sys.wHour, sys.wMinute, sys.wSecond, sys.wMilliseconds);
+		mMessage.append(buf);
+		mMessage.append(file);
+		mMessage.append(L"(");
+		mMessage.append(line);
+		mMessage.append(L") ");
+		switch (severity)
+		{
+		case Severity::Debug: mMessage.append(L"[D] ");  break;
+		case Severity::Error:  mMessage.append(L"[E] ");  break;
+		case Severity::Fatal:  mMessage.append(L"[F] ");  break;
+		case Severity::Warning:  mMessage.append(L"[W] ");  break;
+		default:
+			mMessage.append(L"[I] "); break;
+		}
 	}
 
-	LoggerStream::LoggerStream(const wchar_t* file)
-		: mLogFile(file), mWriteToFile(true)
+	LoggerStream::LoggerStream(const LoggerStream& loggerStream)
 	{
-		 
+		*this = loggerStream;
 	}
+
+	LoggerStream& LoggerStream::operator = (const LoggerStream& loggerStream)
+	{
+		this->mFile = loggerStream.mFile;
+		this->mLine = loggerStream.mLine;
+		this->mLoggerWriter = loggerStream.mLoggerWriter;
+		this->mMessage = loggerStream.mMessage;
+		this->mSeverity = loggerStream.mSeverity;
+		this->mWriteToFile = loggerStream.mWriteToFile;
+		return *this;
+	}
+
 	LoggerStream::~LoggerStream()
 	{
 
@@ -20,78 +52,107 @@ namespace veda
 
 	LoggerStream& LoggerStream::operator << (short value)
 	{
-		traceA("%d", value);
+		mMessage.append(value);
 		return *this;
 	}
 	LoggerStream& LoggerStream::operator<<(unsigned short value)
 	{
-		traceA("%u", value);
+		mMessage.append(value);
 		return *this;
 	}
 	LoggerStream& LoggerStream::operator<<(int value)
 	{
-		traceA("%d", value);
+		mMessage.append(value);
 		return *this;
 	}
 
 	LoggerStream& LoggerStream::operator<<(unsigned int value)
 	{
-		traceA("%u", value);
+		mMessage.append(value);
 		return *this;
 	}
 	LoggerStream& LoggerStream::operator<<(long value)
 	{
-		traceA("%ld", value);
+		mMessage.append(value);
 		return *this;
 	}
 	LoggerStream& LoggerStream::operator<<(unsigned long value)
 	{
-		traceA("%ud", value);
+		mMessage.append(value);
 		return *this;
 	}
 	LoggerStream& LoggerStream::operator<<(long long value)
 	{
-		traceA("%ld", value);
+		mMessage.append(value);
 		return *this;
 	}
 	LoggerStream& LoggerStream::operator<<(unsigned long long value)
 	{
-		traceA("%uld", value);
+		mMessage.append(value);
 		return *this;
 	}
 	LoggerStream& LoggerStream::operator<<(float value)
 	{
-		traceA("%f", value);
+		mMessage.append(value);
 		return *this;
 	}
 	LoggerStream& LoggerStream::operator<<(double value)
 	{
-		traceA("%f", value);
+		mMessage.append(value);
 		return *this;
 	}
 	LoggerStream& LoggerStream::operator<<(long double value)
 	{
-		traceA("%lf", value);
+		mMessage.append(value);
 		return *this;
 	}
 	LoggerStream& LoggerStream::operator<<(const char *value)
 	{
-		traceA("%s", value);
+		WString tmp;
+		tmp.from(value);
+		mMessage.append(tmp.c_str(),tmp.getSize());
 		return *this;
 	}
 	LoggerStream& LoggerStream::operator<<(const wchar_t *value)
 	{
-		traceW(L"%s", value);
+		mMessage.append(value);
 		return *this;
 	}
 	LoggerStream& LoggerStream::operator<<(const std::string& value)
 	{
-		traceA("%s", value.c_str());
+		WString tmp;
+		tmp.from(value.c_str(), value.size());
+		mMessage.append(tmp.c_str());
 		return *this;
 	}
 	LoggerStream& LoggerStream::operator<<(const std::wstring& value)
 	{
-		traceW(L"%s", value.c_str());
+		mMessage.append(value.c_str(),value.size());
+		return *this;
+	}
+
+	LoggerStream& LoggerStream::operator<<(const AString& value)
+	{
+		WString tmp;
+		tmp.from(value.c_str(), value.getSize());
+		mMessage.append(tmp.c_str(), tmp.getSize());
+		return *this;
+	}
+	LoggerStream& LoggerStream::operator<<(const WString& value)
+	{
+		mMessage.append(value.c_str());
+		return *this;
+	}
+	LoggerStream& LoggerStream::operator<<(const AStringPtr& value)
+	{
+		WString tmp;
+		tmp.from(value->c_str(), value->getSize());
+		mMessage.append(tmp.c_str(), tmp.getSize());
+		return *this;
+	}
+	LoggerStream& LoggerStream::operator<<(const WStringPtr& value)
+	{
+		mMessage.append(value->c_str());
 		return *this;
 	}
 
@@ -103,7 +164,13 @@ namespace veda
 
 	LoggerStream& endl(LoggerStream& LoggerStream)
 	{
-		traceA("%s", "\n");
+		LoggerStream.mMessage.append(L"\n");
+		if (LoggerStream.mWriteToFile && LoggerStream.mLoggerWriter)
+		{
+			LoggerStream.mLoggerWriter->write(LoggerStream.mMessage.c_str(), LoggerStream.mMessage.getSize());
+		}
+		OutputDebugStringW(LoggerStream.mMessage.c_str());
+		LoggerStream.mMessage.clear();
 		return LoggerStream;
 	}
 }

@@ -44,6 +44,10 @@ namespace veda
 	{
 		return day;
 	}
+	short Datetime::getHour() const
+	{
+		return hour;
+	}
 	short Datetime::getMinute() const
 	{
 		return minute;
@@ -68,7 +72,7 @@ namespace veda
 
 	StringPtr Datetime::format(const wchar_t* pattern)
 	{
-		wchar_t buf[64] = {'\0'};
+		wchar_t buf[64] = { '\0' };
 		format(buf, pattern);
 		return makeStringPtr(buf);
 	}
@@ -88,7 +92,7 @@ namespace veda
 				{
 					if (t.key.getSize() == 2)
 					{
-						sh = (year-(year/100)*100);
+						sh = (year - (year / 100) * 100);
 					}
 					else
 					{
@@ -175,7 +179,7 @@ namespace veda
 				}break;
 				case L'a':
 				{
-					sh = hour >= 12 ?_T("PM"):_T("AM");
+					sh = hour >= 12 ? _T("PM") : _T("AM");
 				}break;
 				default:
 					sh = _T("");
@@ -186,7 +190,7 @@ namespace veda
 			{
 				sh = t.key.c_str();
 			}
-			
+
 			size_t len = sh.getSize();
 			*(ptr + len) = '\0';
 			for (auto i = 0; i < len; i++)
@@ -200,10 +204,35 @@ namespace veda
 	{
 		return std::move(Datetime());
 	}
+	bool Datetime::isLeapYear() const
+	{
+		return ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0));
+	}
+	int Datetime::getWeekOfYear() const
+	{
+		auto totalDays = day;
+		auto leapDay = isLeapYear() ? 1 : 0;
+		switch (month)
+		{
+		case 2: totalDays += 31; break;
+		case 3: totalDays += (59 + leapDay); break;
+		case 4: totalDays += (90 + leapDay); break;
+		case 5: totalDays += (120 + leapDay); break;
+		case 6: totalDays += (151 + leapDay); break;
+		case 7: totalDays += (181 + leapDay); break;
+		case 8: totalDays += (212 + leapDay); break;
+		case 9: totalDays += (243 + leapDay); break;
+		case 10: totalDays += (273 + leapDay); break;
+		case 11: totalDays += (304 + leapDay); break;
+		case 12: totalDays += (334 + leapDay); break;
+		default:break;
+		}
+		return totalDays;
+	}
 	void Datetime::parse(time_t t)
 	{
 		struct tm tm;
-		localtime_s(&tm,&timeVal);
+		localtime_s(&tm, &timeVal);
 		parse(&tm);
 	}
 	void Datetime::parse(struct tm* tm)
@@ -219,7 +248,7 @@ namespace veda
 	}
 	void Datetime::parse(const wchar_t* timeStr, const wchar_t* pattern)
 	{
-		
+
 	}
 }
 

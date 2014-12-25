@@ -13,18 +13,19 @@ namespace audio
 
 	FlacDecoder::~FlacDecoder()
 	{
+		
 	}
 
 	int FlacDecoder::Open(const wchar_t* file)
 	{
 		Decoder::Open(file);
-		FILE *afile = _wfopen(file, L"rb");
+		FILE *mFile = _wfopen(file, L"rb");
 		long len = 0;
-		if (afile)
+		if (mFile)
 		{
-			fseek(afile, 0, SEEK_END);
-			len = ftell(afile);
-			fseek(afile, 0, SEEK_SET);
+			fseek(mFile, 0, SEEK_END);
+			len = ftell(mFile);
+			fseek(mFile, 0, SEEK_SET);
 		}
 		else
 		{
@@ -37,7 +38,7 @@ namespace audio
 			return AudioError::FailToInitialized;//E_FAIL;// ??
 		}
 		(void)FLAC__stream_decoder_set_md5_checking(decoder, true);
-		init_status = FLAC__stream_decoder_init_FILE(decoder, afile, write_callback, metadata_callback, error_callback, /*client_data=*/this);
+		init_status = FLAC__stream_decoder_init_FILE(decoder, mFile, write_callback, metadata_callback, error_callback, /*client_data=*/this);
 		if (FLAC__STREAM_DECODER_INIT_STATUS_OK != init_status)
 		{
 			return AudioError::FailToOpenFile;//E_FAIL;
@@ -188,8 +189,15 @@ namespace audio
 		if (NULL != decoder)
 		{
 			FLAC__stream_decoder_delete(decoder);
+			decoder = NULL;
 		}
-		decoder = NULL;
+		
+		if (mFile)
+		{
+			fclose(mFile);
+			mFile = NULL;
+		}
+
 		return 0;
 	}
 

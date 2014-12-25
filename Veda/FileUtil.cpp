@@ -26,7 +26,7 @@ namespace veda
 			}
 			else
 			{
-				return (ret & FILE_ATTRIBUTE_NORMAL);
+				return ((ret & FILE_ATTRIBUTE_NORMAL) == 1);
 			}
 		}
 		else
@@ -46,7 +46,7 @@ namespace veda
 			}
 			else
 			{
-				return (ret & FILE_ATTRIBUTE_DIRECTORY);
+				return ((ret & FILE_ATTRIBUTE_DIRECTORY) == 1);
 			}
 		}
 		else

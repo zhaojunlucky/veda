@@ -1,11 +1,15 @@
 #pragma once
-#include "LogMessage.h"
+#include "LoggerBase.h"
+#include "LoggerWriter.h"
 namespace veda
 {
 	class VEDA_EXPORT LoggerStream
 	{
 		friend class Logger;
 	public:
+
+		LoggerStream(const LoggerStream& loggerStream);
+		LoggerStream& operator=(const LoggerStream& loggerStream);
 		LoggerStream& operator<<(short value);
 		LoggerStream& operator<<(unsigned short value);
 		LoggerStream& operator<<(int value);
@@ -21,23 +25,26 @@ namespace veda
 		LoggerStream& operator<<(const wchar_t *value);
 		LoggerStream& operator<<(const std::string& value);
 		LoggerStream& operator<<(const std::wstring& value);
+		LoggerStream& operator<<(const AString& value);
+		LoggerStream& operator<<(const WString& value);
+		LoggerStream& operator<<(const AStringPtr& value);
+		LoggerStream& operator<<(const WStringPtr& value);
 
 		LoggerStream& operator<<(LoggerStream& (*manip) (LoggerStream&));
 		friend LoggerStream& endl(LoggerStream& LoggerStream);
 
 		~LoggerStream();
 	private:
-		LoggerStream();
-		LoggerStream(const wchar_t* file);
-		
-	private:
+
+		LoggerStream(const wchar_t* file, int line, Severity severity, bool writeToFile, LoggerWriter* loggerWriter);
 
 	private:
-		std::multiset < long, DWORD > mLogTimeSet;
-		std::hash_map<DWORD, LogMessgaePtr> mLogMessages;
-		std::shared_ptr<veda::WFileWriter> mWriter;
-		String mLogFile;
+		String mFile;
+		int mLine;
+		Severity mSeverity;
 		bool mWriteToFile;
+		LoggerWriter* mLoggerWriter;
+		String mMessage;
 	};
 }
 
