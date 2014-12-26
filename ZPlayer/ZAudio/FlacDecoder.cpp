@@ -188,16 +188,11 @@ namespace audio
 	{
 		if (NULL != decoder)
 		{
+			FLAC__stream_decoder_flush(decoder);
 			FLAC__stream_decoder_delete(decoder);
 			decoder = NULL;
 		}
 		
-		if (mFile)
-		{
-			fclose(mFile);
-			mFile = NULL;
-		}
-
 		return 0;
 	}
 
@@ -225,64 +220,6 @@ namespace audio
 			flac->mWaveInfo.waveFormatex.wBitsPerSample = metadata->data.stream_info.bits_per_sample;
 			flac->mWaveInfo.waveFormatex.nAvgBytesPerSec = flac->mWaveInfo.waveFormatex.nBlockAlign * metadata->data.stream_info.sample_rate;
 			flac->mWaveInfo.waveFormatex.cbSize = 0;
-
-		}
-		else if (FLAC__METADATA_TYPE_VORBIS_COMMENT == metadata->type)
-		{
-			int entrynr = FLAC__metadata_object_vorbiscomment_find_entry_from(metadata, 0, "TITLE");
-			if (-1 != entrynr)
-			{
-				FLAC__StreamMetadata_VorbisComment_Entry  & e = metadata->data.vorbis_comment.comments[entrynr];
-				flac->SetAudioInfo("TITLE", (char*)e.entry, e.length);
-			
-			}
-			
-
-			entrynr = FLAC__metadata_object_vorbiscomment_find_entry_from(metadata, 0, "ARTIST");
-			if (-1 != entrynr)
-			{
-				FLAC__StreamMetadata_VorbisComment_Entry  & e = metadata->data.vorbis_comment.comments[entrynr];
-				flac->SetAudioInfo("ARTIST", (char*)e.entry, e.length);
-
-			}
-			
-
-			entrynr = FLAC__metadata_object_vorbiscomment_find_entry_from(metadata, 0, "ALBUM");
-			if (-1 != entrynr)
-			{
-				FLAC__StreamMetadata_VorbisComment_Entry  & e = metadata->data.vorbis_comment.comments[entrynr];
-				flac->SetAudioInfo("ALBUM", (char*)e.entry, e.length);
-
-			}
-			
-
-
-			entrynr = FLAC__metadata_object_vorbiscomment_find_entry_from(metadata, 0, "GENRE");
-			if (-1 != entrynr)
-			{
-				FLAC__StreamMetadata_VorbisComment_Entry  & e = metadata->data.vorbis_comment.comments[entrynr];
-				flac->SetAudioInfo("GENRE", (char*)e.entry, e.length);
-
-			}
-
-
-		}
-		else if (FLAC__METADATA_TYPE_PICTURE == metadata->type)
-		{
-			const FLAC__StreamMetadata_Picture *pic = &metadata->data.picture;
-			if (FLAC__STREAM_METADATA_PICTURE_TYPE_MEDIA == pic->type || FLAC__STREAM_METADATA_PICTURE_TYPE_LEAD_ARTIST == pic->type
-				|| FLAC__STREAM_METADATA_PICTURE_TYPE_ARTIST == pic->type)
-			{
-				if (0 == _stricmp(pic->mime_type, "image/png") || 0 == _stricmp(pic->mime_type, "image/jpeg")
-					|| 0 == _stricmp(pic->mime_type, "image/bmp") || 0 == _stricmp(pic->mime_type, "image/jpg"))
-				{
-					/*flac->m_id3.id3Bitmap->height = pic->height;
-					flac->m_id3.id3Bitmap->width = pic->width;
-					unsigned int w;
-					unsigned int h;
-					flac->m_id3.id3Bitmap->hbm = DecodePicture(pic->mime_type, (char*)pic->data, pic->data_length, &w, &h);*/
-				}
-			}
 
 		}
 	}
@@ -398,16 +335,5 @@ namespace audio
 		flac->m_pWaveDataBuffer = (BYTE*)flac->m_pWaveDataAlloc.get()->getData();
 		flac->m_nWaveDataNum = frameBytes;//frame->header.blocksize * 4;
 		return FLAC__STREAM_DECODER_WRITE_STATUS_CONTINUE;
-	}
-
-	void FlacDecoder::SetAudioInfo(const char* key, const char* value, size_t length)
-	{
-		for (size_t i = 0; i < length; i++)
-		{
-			if (value[i] == '=')
-			{
-				mAudioInfo.Put(key, &value[++i]);
-			}
-		}
 	}
 }

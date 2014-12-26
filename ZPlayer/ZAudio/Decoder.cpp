@@ -27,7 +27,6 @@ namespace audio
 
 	int Decoder::Open(const wchar_t* file)
 	{
-		mAudioInfo.Clear();
 		mFile = file;
 		mCurrentPosition = 0;
 		return 0;
@@ -38,11 +37,6 @@ namespace audio
 		veda::WString tmp;
 		tmp.from(file, strlen(file));
 		return Open(tmp.c_str());
-	}
-
-	const AudioInfo* Decoder::GetAudioInfo()
-	{
-		return &mAudioInfo;
 	}
 
 	DWORD Decoder::GetWaveSize() const

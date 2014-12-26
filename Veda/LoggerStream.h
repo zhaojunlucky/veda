@@ -8,8 +8,8 @@ namespace veda
 		friend class Logger;
 	public:
 
-		LoggerStream(const LoggerStream& loggerStream);
-		LoggerStream& operator=(const LoggerStream& loggerStream);
+		LoggerStream(LoggerStream&& loggerStream);
+		
 		LoggerStream& operator<<(short value);
 		LoggerStream& operator<<(unsigned short value);
 		LoggerStream& operator<<(int value);
@@ -37,14 +37,14 @@ namespace veda
 	private:
 
 		LoggerStream(const wchar_t* file, int line, Severity severity, bool writeToFile, LoggerWriter* loggerWriter);
-
+		LoggerStream& operator=(LoggerStream&& loggerStream);
 	private:
-		String mFile;
+		StringPtr mFile;
 		int mLine;
 		Severity mSeverity;
 		bool mWriteToFile;
 		LoggerWriter* mLoggerWriter;
-		String mMessage;
+		StringPtr mMessage;
 	};
 }
 

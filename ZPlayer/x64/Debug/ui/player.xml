@@ -29,7 +29,7 @@
             </VerticalLayout>
         </HorizontalLayout>
         <HorizontalLayout height="80">
-            <PlayControl name="playCtrl"/>
+            <PlayControl name="playCtrl" scrollselect="true" itemendellipsis="true"/>
         </HorizontalLayout>
     </VerticalLayout>
 </Window>

@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "ApeDecoder.h"
-#include <ape\APETag.h>
 
 namespace audio
 {
@@ -47,72 +46,6 @@ namespace audio
 		}
 		mWaveInfo.durationTime = (double)mWaveInfo.waveSize / (double)mWaveInfo.waveFormatex.nAvgBytesPerSec;
 
-		APE::CAPETag * pAPETag = (APE::CAPETag *)m_pAPEDecompress->GetInfo(APE::APE_INFO_TAG);
-		BOOL bHasID3Tag = pAPETag->GetHasID3Tag();
-		BOOL bHasAPETag = pAPETag->GetHasAPETag();
-
-		if (bHasID3Tag || bHasAPETag)
-		{
-			// iterate through all the tag fields
-			
-			APE::CAPETagField * pTagField = pAPETag->GetTagField(APE_TAG_FIELD_TITLE);
-			if (pTagField)
-			{
-			//	/*printf("%X\n",pTagField->GetFieldValue()[0]);
-			//	printf("%X\n",pTagField->GetFieldValue()[1]);
-			//	printf("%X\n",pTagField->GetFieldValue()[2]);*/
-			//	/*if (pTagField->GetIsUTF8Text())
-			//	{
-			//		CCharWCharHelper cwh;
-			//		cwh.ZMultiByteToWideChar(pTagField->GetFieldValue(), ZUTF8);
-			//		m_id3.title.SetData(cwh.GetWideChar(), cwh.GetWideCharLength());
-			//	}
-			//	else
-			//		m_id3.title.SetData(pTagField->GetFieldValue(), strlen(pTagField->GetFieldValue()));*/
-				SetAudioInfo("TITLE", pTagField->GetFieldValue());
-			}
-
-
-			pTagField = pAPETag->GetTagField(APE_TAG_FIELD_ARTIST);
-			if (pTagField)
-			{
-				SetAudioInfo("ARTIST", pTagField->GetFieldValue());
-
-			}
-
-
-			pTagField = pAPETag->GetTagField(APE_TAG_FIELD_ALBUM);
-			if (pTagField)
-			{
-				SetAudioInfo("ALBUM", pTagField->GetFieldValue());
-
-			}
-
-
-			pTagField = pAPETag->GetTagField(APE_TAG_FIELD_YEAR);
-			if (pTagField)
-			{
-				SetAudioInfo("YEAR", pTagField->GetFieldValue());
-			}
-
-
-			pTagField = pAPETag->GetTagField(APE_TAG_FIELD_COMMENT);
-			if (pTagField)
-			{
-				SetAudioInfo("COMMENT", pTagField->GetFieldValue());
-
-			}
-
-
-			pTagField = pAPETag->GetTagField(APE_TAG_FIELD_GENRE);
-			if (pTagField)
-			{
-				SetAudioInfo("GENRE", pTagField->GetFieldValue());
-
-			}
-
-
-		}
 		return 0;
 	}
 	int ApeDecoder::Read(BYTE* buffer, DWORD dwSizeToRead, DWORD* sizeReaded)
@@ -227,10 +160,5 @@ namespace audio
 		m_pAPEDecompress = NULL;
 		m_block_algin = 0;
 		return 0;
-	}
-
-	void ApeDecoder::SetAudioInfo(const char* key, const char* value)
-	{
-		mAudioInfo.Put(key, value);
 	}
 }

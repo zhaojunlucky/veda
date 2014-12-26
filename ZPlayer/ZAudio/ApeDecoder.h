@@ -22,8 +22,6 @@ namespace audio
 		virtual int Reset();
 		virtual int Seek(float duration);
 		virtual int Close();
-	private:
-		void SetAudioInfo(const char* key, const char* value);
 
 	private:
 		APE::IAPEDecompress * m_pAPEDecompress;

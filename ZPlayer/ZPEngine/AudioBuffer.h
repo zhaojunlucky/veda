@@ -2,7 +2,7 @@
 #include "PlayerBase.h"
 #include <Exia\common\InternalBuffer.hpp>
 #include <memory>
-#include <vector>
+#include <Vector.h>
 
 namespace audio
 {
@@ -37,7 +37,7 @@ namespace audio
 		private:
 			size_t mBufferCount;
 			size_t mBufferSize;
-			std::vector<std::shared_ptr<common::InternalBuffer<T>>> mBuffers;
+			veda::Vector<std::shared_ptr<common::InternalBuffer<T>>> mBuffers;
 		};
 
 		template<class T>
@@ -48,7 +48,7 @@ namespace audio
 			for (size_t i = 0; i < bufferCount; i++)
 			{
 				std::shared_ptr<common::InternalBuffer<T> > buffer(new common::InternalBuffer<T>(bufferSize));
-				mBuffers.push_back(buffer);
+				mBuffers.add(buffer);
 			}
 		}
 

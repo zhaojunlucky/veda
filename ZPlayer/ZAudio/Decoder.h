@@ -1,7 +1,6 @@
 #pragma once
 #include "common.h"
 #include <ZString.h>
-#include "AudioInfo.h"
 namespace audio
 {
 	class MP3Decoder;
@@ -20,7 +19,6 @@ namespace audio
 		virtual int Seek(float duration) = 0;
 		virtual int Close() = 0;
 
-		const AudioInfo* GetAudioInfo();
 		DWORD GetWaveSize() const;
 		DWORD GetCurrentPosition() const;
 		DWORD CalcaulateWaveSize(float duration) const;
@@ -28,7 +26,6 @@ namespace audio
 	protected:
 		WaveInfo mWaveInfo;
 		veda::String mFile;
-		AudioInfo mAudioInfo;
 		DWORD mCurrentPosition;
 	};
 }

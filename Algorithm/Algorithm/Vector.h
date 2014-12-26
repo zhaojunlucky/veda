@@ -1,6 +1,6 @@
 #pragma once
 #include <iterator>
-#include "common.h"
+#include "ALCommon.h"
 namespace veda
 {
 
@@ -332,7 +332,7 @@ namespace veda
 		{
 			if (this != &other)
 			{
-				deleteptray<T>(data);
+				deleteArray<T>(data);
 				capacity = other.capacity;
 				size = other.size;
 				copy(other.data);

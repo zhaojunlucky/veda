@@ -20,8 +20,6 @@ namespace audio
 		virtual int Seek(float duration);
 		virtual int Close();
 	private:
-		void SetAudioInfo(const char* key, const char* value, size_t length);
-	private:
 		FLAC__StreamDecoder *decoder;
 		FLAC__StreamDecoderInitStatus init_status;
 		static void error_callback(const FLAC__StreamDecoder *decoder, FLAC__StreamDecoderErrorStatus status, void *client_data);

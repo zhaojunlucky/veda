@@ -405,7 +405,7 @@ bool CListUI::SelectItemActivate(int iIndex)
     {
         return false;
     }
-   
+	EnsureVisible(iIndex);
     m_iCurSelActivate = iIndex;
     return true;
 }

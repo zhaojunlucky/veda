@@ -175,11 +175,11 @@ void CPlayerMainUI::InitWindow()
 	mPlayIndex = 0;
 	if (mActiveList->getPlaylistSize() > 0)
 	{
-		mMusicListCtrl->SelectItem(mPlayIndex, true);
+		mMusicListCtrl->SelectItemActivate(mPlayIndex);
 	}
 
 	// load from config
-	mPlaylisyCtrl->SelectItem(0, true);
+	mPlaylisyCtrl->SelectItemActivate(0);
 	
 	updatePlayPreNext();
 	updateSeekSlider(false);
@@ -495,7 +495,7 @@ void CPlayerMainUI::playItem(size_t index)
 {
 	if (mMusicListCtrl->GetCurSel() != index)
 	{
-		mMusicListCtrl->SelectItem(index, true);
+		mMusicListCtrl->SelectItemActivate(index);
 	}
 	mAPlayer->Stop();
 	if (mDecoder)

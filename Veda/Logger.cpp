@@ -47,29 +47,29 @@ namespace veda
 		//}
 		WString tmp;
 		tmp.from(file);
-		return LoggerStream(tmp.c_str(), line, severity, true, mLoggerWriter);
+		return std::move(LoggerStream(tmp.c_str(), line, severity, true, mLoggerWriter));
 	}
 
 
 	LoggerStream Logger::debug(const char* file, int line)
 	{
-		return log(file, line, Severity::Debug);
+		return std::move(log(file, line, Severity::Debug));
 	}
 	LoggerStream Logger::info(const char* file, int line)
 	{
-		return log(file, line, Severity::Info);
+		return std::move(log(file, line, Severity::Info));
 	}
 	LoggerStream Logger::warning(const char* file, int line)
 	{
-		return log(file, line, Severity::Warning);
+		return std::move(log(file, line, Severity::Warning));
 	}
 	LoggerStream Logger::error(const char* file, int line)
 	{
-		return log(file, line, Severity::Error);
+		return std::move(log(file, line, Severity::Error));
 	}
 	LoggerStream Logger::fatal(const char* file, int line)
 	{
-		return log(file, line, Severity::Fatal);
+		return std::move(log(file, line, Severity::Fatal));
 	}
 
 	LoggerStream Logger::log(const wchar_t* file, int line, Severity severity)
@@ -95,29 +95,29 @@ namespace veda
 		//default:
 		//	traceW(L"[%s] %s(%d) [I] ", buf, file, line); break;
 		//}
-		return LoggerStream(file, line, severity, true, mLoggerWriter);
+		return std::move(LoggerStream(file, line, severity, true, mLoggerWriter));
 	}
 
 
 	LoggerStream Logger::debug(const wchar_t* file, int line)
 	{
-		return log(file, line, Severity::Debug);
+		return std::move(log(file, line, Severity::Debug));
 	}
 	LoggerStream Logger::info(const wchar_t* file, int line)
 	{
-		return log(file, line, Severity::Info);
+		return std::move(log(file, line, Severity::Info));
 	}
 	LoggerStream Logger::warning(const wchar_t* file, int line)
 	{
-		return log(file, line, Severity::Warning);
+		return std::move(log(file, line, Severity::Warning));
 	}
 	LoggerStream Logger::error(const wchar_t* file, int line)
 	{
-		return log(file, line, Severity::Error);
+		return std::move(log(file, line, Severity::Error));
 	}
 	LoggerStream Logger::fatal(const wchar_t* file, int line)
 	{
-		return log(file, line, Severity::Fatal);
+		return std::move(log(file, line, Severity::Fatal));
 	}
 
 	StringPtr Logger::generateFileName(LoggerType lt, const wchar_t* baseDir)

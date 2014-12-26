@@ -84,7 +84,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApeDecoder.h" />
-    <ClInclude Include="AudioInfo.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="Decoder.h" />
     <ClInclude Include="DecoderFactory.hpp" />
@@ -97,7 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ApeDecoder.cpp" />
-    <ClCompile Include="AudioInfo.cpp" />
     <ClCompile Include="common.cpp" />
     <ClCompile Include="Decoder.cpp" />
     <ClCompile Include="dllmain.cpp">
