@@ -108,10 +108,17 @@
     <ClInclude Include="PlaylistModel.h" />
     <ClInclude Include="PlayerMainUI.h" />
     <ClInclude Include="PlayUtil.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SkinResource.h" />
     <ClInclude Include="SQL.h" />
     <ClInclude Include="UIListCtrlCommon.h" />
     <ClInclude Include="ZPLException.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ZPlayer.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Music.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

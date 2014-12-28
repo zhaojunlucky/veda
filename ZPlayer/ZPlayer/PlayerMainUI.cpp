@@ -4,6 +4,7 @@
 #include <Sqlite3Exception.h>
 #include "MusicInfoHelper.h"
 #include "PlayUtil.h"
+#include "resource.h"
 
 const TCHAR* const KMUSIC_LIST_CTRL_NAME = _T("musicList");
 CPlayerMainUI::CPlayerMainUI()
@@ -145,6 +146,7 @@ void CPlayerMainUI::Notify(TNotifyUI& msg)
 
 void CPlayerMainUI::InitWindow()
 {
+	SetIcon(IDI_APP);
 	mAPlayer = new AudioPlayer;
 	CContainerUI* pPlayControl = (CContainerUI*)m_PaintManager.FindControl(L"playCtrl");
 	mPlayPauseBtn = (CButtonUI*)pPlayControl->FindSubControl(L"playPause");

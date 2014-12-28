@@ -29,11 +29,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 	LOG_INFO(logger) << dt.format(L"yyyy年MM月dd日HH时mm分ss秒S毫秒")->c_str() << endl;
 
 	CPaintManagerUI::SetInstance(hInstance);
-
 	CPlayerMainUI mainUI;
 	mainUI.Create(NULL, _T("ZPlayer Main UI"), UI_WNDSTYLE_FRAME, WS_EX_WINDOWEDGE);
 	mainUI.CenterWindow();
-
 	//MusicListItemInfo item;
 	//item.isFolder = false;
 	//item.id = _T("");
