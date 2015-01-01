@@ -1,20 +1,27 @@
 #include "MusicListCtrl.h"
+#include <Logger.h>
+using namespace veda;
+extern Logger logger;
+#include "resource.h"
 
 
 CMusicListCtrl::CMusicListCtrl(CPaintManagerUI& paint_manager)
-	:mRootNode(0), mDelayDeltaY(0), mDelayNumber(0), mDelayLeft(0),
+	:mRootNode(0),//, mDelayDeltaY(0), mDelayNumber(0), mDelayLeft(0),
 	mLevelExpandImage(_T("<i ui/list_icon_b.png>")),
 	mLevelCollapseImage(_T("<i ui/list_icon_a.png>")),
 	mLevelTextStartPos(10),
 	mTextPadding(10,0,0,0),
 	mPaintManager(paint_manager)
 {
-	SetItemShowHtml(true);
+	mFromNode = NULL;
+	mLastHoverNode = NULL;
 	mRootNode = new Node;
 	mRootNode->getData().level = -1;
 	mRootNode->getData().childVisible = true;
 	mRootNode->getData().hasChild = true;
 	mRootNode->getData().listElement = 0;
+	mDragDropCur = LoadCursor(CPaintManagerUI::GetInstance(), MAKEINTRESOURCE(IDC_DRAG_DROP));
+	mDoDragDrop = false;
 }
 CMusicListCtrl::~CMusicListCtrl()
 {
@@ -96,64 +103,75 @@ void CMusicListCtrl::RemoveAll()
 
 void CMusicListCtrl::DoEvent(TEventUI& event)
 {
-	if (!IsMouseEnabled() && event.Type > UIEVENT__MOUSEBEGIN && event.Type < UIEVENT__MOUSEEND)
+	static Color defaultItemBKColor(0, 0, 0, 0);
+	static Color hoverItemBKColor(255, 168, 141, 120);
+	if (event.Type == UIEVENT_BUTTONDOWN && IsEnabled())
 	{
-		if (m_pParent != NULL)
-			m_pParent->DoEvent(event);
-		else
-			CVerticalLayoutUI::DoEvent(event);
-		return;
+		mFromNode = getFirstListNodeUIFromPoint(event.ptMouse);
+		LOG_INFO(logger) << L"drag drop start" << endl;
+		//mPaintManager.AddPostPaint(this);
+		/*mCursor = ::GetCursor();
+		::SetCursor(mDragDropCur);*/
 	}
-
-	if (event.Type == UIEVENT_TIMER && event.wParam == SCROLL_TIMERID)
+	else if (event.Type == UIEVENT_BUTTONUP && IsEnabled())
 	{
-		if (mDelayLeft > 0)
+		if (mDoDragDrop)
 		{
-			--mDelayLeft;
-			SIZE sz = GetScrollPos();
-			LONG lDeltaY = (LONG)(calculateDelay((double)mDelayLeft / mDelayNumber) * mDelayDeltaY);
-			if ((lDeltaY > 0 && sz.cy != 0) || (lDeltaY < 0 && sz.cy != GetScrollRange().cy))
+			auto pNode = getFirstListNodeUIFromPoint(event.ptMouse);
+			LOG_INFO(logger) << L"drag drop end" << endl;
+			if (pNode != mFromNode)
 			{
-				sz.cy -= lDeltaY;
-				SetScrollPos(sz);
-				return;
+				LOG_INFO(logger) << L"not equal" << endl;
+
+			}
+			mPaintManager.RemovePostPaint(this);
+			
+			if (mLastHoverNode != NULL)
+			{
+				mLastHoverNode->SetBkColor(defaultItemBKColor.GetValue());
+			}
+			
+			SetCursor(mCursor);
+			mDoDragDrop = false;
+		}
+		mFromNode = NULL;
+		mLastHoverNode = NULL;
+	}
+	else if (UIEVENT_MOUSEMOVE == event.Type && IsEnabled())
+	{
+		// draw shadow
+		if (mFromNode != NULL)
+		{
+			if (!mDoDragDrop)
+			{
+				mCursor = ::GetCursor();
+				::SetCursor(mDragDropCur);
+				mDoDragDrop = true;
+				mPaintManager.AddPostPaint(this);
+			}
+			auto hoverNode = getFirstListNodeUIFromPoint(event.ptMouse);
+			if (hoverNode != NULL && hoverNode != mFromNode)
+			{
+				if (hoverNode != mLastHoverNode)
+				{
+					if (mLastHoverNode != NULL)
+					{
+						mLastHoverNode->SetBkColor(defaultItemBKColor.GetValue());
+					}
+					
+					mLastHoverNode = hoverNode;
+					hoverNode->SetBkColor(hoverItemBKColor.GetValue());
+				}
+			}
+			else
+			{
+				if (mLastHoverNode != NULL)
+				{
+					mLastHoverNode->SetBkColor(defaultItemBKColor.GetValue());
+				}
+				mLastHoverNode = NULL;
 			}
 		}
-		mDelayDeltaY = 0;
-		mDelayNumber = 0;
-		mDelayLeft = 0;
-		m_pManager->KillTimer(this, SCROLL_TIMERID);
-		return;
-	}
-	if (event.Type == UIEVENT_SCROLLWHEEL)
-	{
-		LONG lDeltaY = 0;
-		if (mDelayNumber > 0)
-			lDeltaY = (LONG)(calculateDelay((double)mDelayLeft / mDelayNumber) * mDelayDeltaY);
-		switch (LOWORD(event.wParam))
-		{
-		case SB_LINEUP:
-			if (mDelayDeltaY >= 0)
-				mDelayDeltaY = lDeltaY + 8;
-			else
-				mDelayDeltaY = lDeltaY + 12;
-			break;
-		case SB_LINEDOWN:
-			if (mDelayDeltaY <= 0)
-				mDelayDeltaY = lDeltaY - 8;
-			else
-				mDelayDeltaY = lDeltaY - 12;
-			break;
-		}
-		if
-			(mDelayDeltaY > 100) mDelayDeltaY = 100;
-		else if
-			(mDelayDeltaY < -100) mDelayDeltaY = -100;
-
-		mDelayNumber = (DWORD)sqrt((double)abs(mDelayDeltaY)) * 5;
-		mDelayLeft = mDelayNumber;
-		m_pManager->SetTimer(this, SCROLL_TIMERID, 50U);
-		return;
 	}
 
 	CListUI::DoEvent(event);
@@ -455,9 +473,50 @@ bool CMusicListCtrl::SelectItem(int iIndex, bool bTakeFocus)
 			CContainerUI* pDetailsPanel = static_cast<CContainerUI*>(mPaintManager.FindSubControlByName(pMusicListItem, DETAILS_CTRL));
 			if (pDetailsPanel != NULL)
 			{
+				
+				auto rc = this->GetItemAt(m_iCurSel)->GetPos();
 				pDetailsPanel->SetVisible(true);
+				if (rc.top == 37)
+				{
+					Scroll(0, -18);
+				}
+				
 			}
 		}
 	}
 	return true;
+}
+
+
+CListContainerElementUI* CMusicListCtrl::getFirstListNodeUIFromPoint(const POINT& pt)
+{
+	LPVOID lpControl = NULL;
+	CControlUI* pControl = m_pManager->FindSubControlByPoint(this, pt);
+	while (pControl)
+	{
+		lpControl = pControl->GetInterface(DUI_CTR_LISTCONTAINERELEMENT);
+		if (lpControl != NULL)
+		{
+			break;
+		}
+		pControl = pControl->GetParent();
+	}
+	if (lpControl)
+	{
+		return static_cast<CListContainerElementUI*>(lpControl);
+	}
+	else
+		return NULL;
+}
+
+void CMusicListCtrl::DoPostPaint(HDC hDC, const RECT& rcPaint)
+{
+	LOG_INFO(logger) << L"paint" << endl;
+	if (mDoDragDrop)
+	{
+		/*CDuiRect rcParent = m_pParent->GetPos();
+		RECT rcUpdate = rcPaint;
+		static Color hoverItemBKColor(0, 0, 0, 0);
+		CRenderEngine::DrawTextW(hDC, &mPaintManager, rcUpdate, mFromNode->fin, hoverItemBKColor.GetValue(), 0, 0);*/
+	}
 }

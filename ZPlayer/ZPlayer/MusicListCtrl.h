@@ -16,7 +16,6 @@ struct MusicListItemInfo
 class CMusicListCtrl : public CListUI 
 {
 public:
-	enum { SCROLL_TIMERID = 10};
 	CMusicListCtrl(CPaintManagerUI& paint_manager);
 	~CMusicListCtrl();
 
@@ -45,16 +44,21 @@ public:
 	bool SelectItem(int iIndex, bool bTakeFocus = false);
 
 private:
+	
+	CListContainerElementUI* getFirstListNodeUIFromPoint(const POINT& pt);
+	virtual void DoPostPaint(HDC hDC, const RECT& rcPaint);
+private:
 	Node*	mRootNode;
-	LONG	mDelayDeltaY;
-	DWORD	mDelayNumber;
-	DWORD	mDelayLeft;
+	bool mDoDragDrop;
+	CListContainerElementUI* mFromNode;
+	CListContainerElementUI* mLastHoverNode;
 	CDuiRect	mTextPadding;
 	int mLevelTextStartPos;
 	CDuiString mLevelExpandImage;
 	CDuiString mLevelCollapseImage;
 	CPaintManagerUI& mPaintManager;
-
+	HCURSOR mCursor;
+	HCURSOR mDragDropCur;
 	CDialogBuilder mDlgBuilder;
 };
 

@@ -2299,15 +2299,18 @@ void CListContainerElementUI::DoEvent(TEventUI& event)
             Select();
             Invalidate();
         }
-        return;
+		// for testing drag drop
+        //return;
     }
     if( event.Type == UIEVENT_BUTTONUP ) 
     {
-        return;
+		// for testing drag drop
+		//return;
     }
     if( event.Type == UIEVENT_MOUSEMOVE )
     {
-        return;
+		// for testing drag drop
+		//return;
     }
     if( event.Type == UIEVENT_MOUSEENTER )
     {

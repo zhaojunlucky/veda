@@ -68,7 +68,7 @@ void CPlayerMainUI::Notify(TNotifyUI& msg)
 	LOG_INFO(logger) << L"main ui:" << msg.sType.GetData() << L" " << msg.pSender->GetName().GetData() << L" " << msg.pSender->GetClass() << endl;
 	if (msg.sType == _T("itemclick") && _tcsicmp(msg.pSender->GetClass(), _T("ListContainerElementUI")) == 0)
 	{
-
+		__super::Notify(msg);
 	}
 	else if (msg.sType == _T("itemdbclick"))
 	{
