@@ -129,6 +129,9 @@
     <ClInclude Include="LoggerManager.h">
       <Filter>Logger</Filter>
     </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
