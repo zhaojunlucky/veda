@@ -185,6 +185,8 @@ void CPlayerMainUI::InitWindow()
 	
 	updatePlayPreNext();
 	updateSeekSlider(false);
+	auto a = std::bind(&CPlayerMainUI::musicListDragDrop,this, std::placeholders::_1, std::placeholders::_2);
+	//((CMusicListCtrl*)mPlaylisyCtrl)->setDragDropCallback(a);
 }
 
 bool CPlayerMainUI::handleClick(TNotifyUI& msg)
@@ -597,4 +599,9 @@ void CPlayerMainUI::updateSeekSlider(bool enable)
 	mSeekSlider->SetEnabled(enable);
 	mPlayDurationCtrl->SetVisible(enable);
 	mTotalDurationCtrl->SetVisible(enable);
+}
+
+void CPlayerMainUI::musicListDragDrop(size_t fromIndex, size_t toIndex)
+{
+	LOG_INFO(logger) << L"from Index:" << fromIndex << L", to index:" << toIndex << endl;
 }

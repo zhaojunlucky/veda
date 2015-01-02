@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 #include <UIlib.h>
 using namespace DuiLib;
 #include "UIListCtrlCommon.h"
@@ -43,6 +44,7 @@ public:
 
 	bool SelectItem(int iIndex, bool bTakeFocus = false);
 
+	void setDragDropCallback(std::function<void(size_t, size_t)>& dragDropCallback);
 private:
 	
 	CListContainerElementUI* getFirstListNodeUIFromPoint(const POINT& pt);
@@ -60,5 +62,6 @@ private:
 	HCURSOR mCursor;
 	HCURSOR mDragDropCur;
 	CDialogBuilder mDlgBuilder;
+	std::function<void(size_t,size_t)> mDragDropCallback;
 };
 

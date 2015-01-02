@@ -58,6 +58,7 @@ private:
 	void updatePlayPreNext();
 	bool canPlay();
 	void updateSeekSlider(bool enable);
+	void musicListDragDrop(size_t fromIndex, size_t toIndex);
 public:
 	PlayMode mPlayMode;
 	CMusicListCtrl* mMusicListCtrl;

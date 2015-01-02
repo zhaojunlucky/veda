@@ -108,7 +108,7 @@ void CMusicListCtrl::DoEvent(TEventUI& event)
 	if (event.Type == UIEVENT_BUTTONDOWN && IsEnabled())
 	{
 		mFromNode = getFirstListNodeUIFromPoint(event.ptMouse);
-		LOG_INFO(logger) << L"drag drop start" << endl;
+		//LOG_INFO(logger) << L"drag drop start" << endl;
 		//mPaintManager.AddPostPaint(this);
 		/*mCursor = ::GetCursor();
 		::SetCursor(mDragDropCur);*/
@@ -118,11 +118,16 @@ void CMusicListCtrl::DoEvent(TEventUI& event)
 		if (mDoDragDrop)
 		{
 			auto pNode = getFirstListNodeUIFromPoint(event.ptMouse);
-			LOG_INFO(logger) << L"drag drop end" << endl;
+			//LOG_INFO(logger) << L"drag drop end" << endl;
 			if (pNode != mFromNode)
 			{
-				LOG_INFO(logger) << L"not equal" << endl;
-
+				//LOG_INFO(logger) << L"not equal" << endl;
+				//LOG_INFO(logger) << L"from Index:" << mFromNode->GetIndex() << L", to index:" << pNode->GetIndex() << endl;
+				// call back
+				if (mDragDropCallback)
+				{
+					mDragDropCallback(mFromNode->GetIndex(), pNode->GetIndex());
+				}
 			}
 			mPaintManager.RemovePostPaint(this);
 			
@@ -511,8 +516,8 @@ CListContainerElementUI* CMusicListCtrl::getFirstListNodeUIFromPoint(const POINT
 
 void CMusicListCtrl::DoPostPaint(HDC hDC, const RECT& rcPaint)
 {
-	LOG_INFO(logger) << L"paint" << endl;
-	if (mDoDragDrop)
+	//LOG_INFO(logger) << L"paint" << endl;
+	//if (mDoDragDrop)
 	{
 		/*CDuiRect rcParent = m_pParent->GetPos();
 		RECT rcUpdate = rcPaint;
