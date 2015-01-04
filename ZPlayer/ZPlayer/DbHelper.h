@@ -26,6 +26,7 @@ public:
 	void loadPlaylistMusics(Sqlite3ConnectionPtr& conn, shared_ptr<Playlist>& pl);
 	void updatePlaylists(Vector<shared_ptr<Playlist>> &arr);
 	void updatePlaylist(Sqlite3ConnectionPtr& conn, shared_ptr<Playlist>& pl);
+	void updatePlayMusicOrder(long pl, veda::Vector<MusicInfoPtr>& musics);
 	long addMusic(MusicInfo& musicInfo);
 	long addMusic(Sqlite3ConnectionPtr& conn, MusicInfo& musicInfo);
 	void addMusics(veda::Vector<MusicInfoPtr>& vec);

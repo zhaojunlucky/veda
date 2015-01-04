@@ -1,8 +1,8 @@
 #pragma once
-#include <functional>
 #include <UIlib.h>
 using namespace DuiLib;
 #include "UIListCtrlCommon.h"
+
 struct MusicListItemInfo
 {
 	bool isFolder;
@@ -32,36 +32,36 @@ public:
 
 	void DoEvent(TEventUI& event);
 
-	Node* GetRoot();
+	//Node* GetRoot();
 
-	Node* AddNode(const MusicListItemInfo& item, Node* parent = NULL);
+	void AddItem(const MusicListItemInfo& item, int index = -1);
 
-	bool RemoveNode(Node* node);
+	//bool RemoveNode(Node* node);
 
-	void SetChildVisible(Node* node, bool visible);
+	//void SetChildVisible(Node* node, bool visible);
 
-	bool CanExpand(Node* node) const;
+	//bool CanExpand(Node* node) const;
 
 	bool SelectItem(int iIndex, bool bTakeFocus = false);
 
-	void setDragDropCallback(std::function<void(size_t, size_t)>& dragDropCallback);
+	void sendDeleteMessage(CListContainerElementUI* pListElement);
 private:
 	
 	CListContainerElementUI* getFirstListNodeUIFromPoint(const POINT& pt);
 	virtual void DoPostPaint(HDC hDC, const RECT& rcPaint);
+	void showDelBtn(CListContainerElementUI* pList, bool visible);
 private:
-	Node*	mRootNode;
+	//Node*	mRootNode;
 	bool mDoDragDrop;
 	CListContainerElementUI* mFromNode;
 	CListContainerElementUI* mLastHoverNode;
 	CDuiRect	mTextPadding;
 	int mLevelTextStartPos;
-	CDuiString mLevelExpandImage;
-	CDuiString mLevelCollapseImage;
+	//CDuiString mLevelExpandImage;
+	//CDuiString mLevelCollapseImage;
 	CPaintManagerUI& mPaintManager;
 	HCURSOR mCursor;
 	HCURSOR mDragDropCur;
 	CDialogBuilder mDlgBuilder;
-	std::function<void(size_t,size_t)> mDragDropCallback;
 };
 

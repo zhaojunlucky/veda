@@ -21,6 +21,7 @@ public:
 	void setName(const wchar_t* name);
 	bool isModified() const;
 	long getPlaylistId() const;
+	void exchange(size_t from, size_t to);
 private:
 	String mPlaylistName;
 	Vector<shared_ptr<MusicInfo>> mPlaylist;

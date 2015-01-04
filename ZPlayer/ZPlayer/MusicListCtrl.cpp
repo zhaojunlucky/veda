@@ -6,30 +6,30 @@ extern Logger logger;
 
 
 CMusicListCtrl::CMusicListCtrl(CPaintManagerUI& paint_manager)
-	:mRootNode(0),//, mDelayDeltaY(0), mDelayNumber(0), mDelayLeft(0),
-	mLevelExpandImage(_T("<i ui/list_icon_b.png>")),
-	mLevelCollapseImage(_T("<i ui/list_icon_a.png>")),
-	mLevelTextStartPos(10),
+	://mRootNode(0),//, mDelayDeltaY(0), mDelayNumber(0), mDelayLeft(0),
+	//mLevelExpandImage(_T("<i ui/list_icon_b.png>")),
+	//mLevelCollapseImage(_T("<i ui/list_icon_a.png>")),
+	//mLevelTextStartPos(10),
 	mTextPadding(10,0,0,0),
 	mPaintManager(paint_manager)
 {
 	mFromNode = NULL;
 	mLastHoverNode = NULL;
-	mRootNode = new Node;
+	/*mRootNode = new Node;
 	mRootNode->getData().level = -1;
 	mRootNode->getData().childVisible = true;
 	mRootNode->getData().hasChild = true;
-	mRootNode->getData().listElement = 0;
+	mRootNode->getData().listElement = 0;*/
 	mDragDropCur = LoadCursor(CPaintManagerUI::GetInstance(), MAKEINTRESOURCE(IDC_DRAG_DROP));
 	mDoDragDrop = false;
 }
 CMusicListCtrl::~CMusicListCtrl()
 {
-	if (mRootNode)
+	/*if (mRootNode)
 	{
 		delete mRootNode;
 		mRootNode = 0;
-	}
+	}*/
 }
 
 bool CMusicListCtrl::Add(CControlUI* pControl)
@@ -63,10 +63,10 @@ bool CMusicListCtrl::Remove(CControlUI* pControl)
 	if (_tcsicmp(pControl->GetClass(), _T("ListContainerElementUI")) != 0)
 		return false;
 
-	if (reinterpret_cast<Node*>(static_cast<CListContainerElementUI*>(pControl->GetInterface(_T("ListContainerElement")))->GetTag()) == NULL)
+	//if (reinterpret_cast<Node*>(static_cast<CListContainerElementUI*>(pControl->GetInterface(_T("ListContainerElement")))->GetTag()) == NULL)
 		return CListUI::Remove(pControl);
-	else
-		return RemoveNode(reinterpret_cast<Node*>(static_cast<CListContainerElementUI*>(pControl->GetInterface(_T("ListContainerElement")))->GetTag()));
+	//else
+		//return RemoveNode(reinterpret_cast<Node*>(static_cast<CListContainerElementUI*>(pControl->GetInterface(_T("ListContainerElement")))->GetTag()));
 }
 
 bool CMusicListCtrl::RemoveAt(int iIndex)
@@ -78,16 +78,16 @@ bool CMusicListCtrl::RemoveAt(int iIndex)
 	if (_tcsicmp(pControl->GetClass(), _T("ListContainerElementUI")) != 0)
 		return false;
 
-	if (reinterpret_cast<Node*>(static_cast<CListContainerElementUI*>(pControl->GetInterface(_T("ListContainerElement")))->GetTag()) == NULL)
-		return CListUI::RemoveAt(iIndex);
-	else
-		return RemoveNode(reinterpret_cast<Node*>(static_cast<CListContainerElementUI*>(pControl->GetInterface(_T("ListContainerElement")))->GetTag()));
+	//if (reinterpret_cast<Node*>(static_cast<CListContainerElementUI*>(pControl->GetInterface(_T("ListContainerElement")))->GetTag()) == NULL)
+	return CListUI::RemoveAt(iIndex);
+	//else
+		//return RemoveNode(reinterpret_cast<Node*>(static_cast<CListContainerElementUI*>(pControl->GetInterface(_T("ListContainerElement")))->GetTag()));
 }
 
 void CMusicListCtrl::RemoveAll()
 {
 	CListUI::RemoveAll();
-	for (int i = 0; i < mRootNode->getChildCount(); ++i)
+	/*for (int i = 0; i < mRootNode->getChildCount(); ++i)
 	{
 		Node* child = mRootNode->getChild(i);
 		RemoveNode(child);
@@ -98,7 +98,7 @@ void CMusicListCtrl::RemoveAll()
 	mRootNode->getData().level = -1;
 	mRootNode->getData().childVisible = true;
 	mRootNode->getData().hasChild = true;
-	mRootNode->getData().listElement = 0;
+	mRootNode->getData().listElement = 0;*/
 }
 
 void CMusicListCtrl::DoEvent(TEventUI& event)
@@ -124,9 +124,10 @@ void CMusicListCtrl::DoEvent(TEventUI& event)
 				//LOG_INFO(logger) << L"not equal" << endl;
 				//LOG_INFO(logger) << L"from Index:" << mFromNode->GetIndex() << L", to index:" << pNode->GetIndex() << endl;
 				// call back
-				if (mDragDropCallback)
+				//(*mDragDropCallback)(mFromNode->GetIndex(), pNode->GetIndex());
+				if (m_pManager != NULL)
 				{
-					mDragDropCallback(mFromNode->GetIndex(), pNode->GetIndex());
+					m_pManager->SendNotify(this, L"dragdrop", mFromNode->GetIndex(), pNode->GetIndex());
 				}
 			}
 			mPaintManager.RemovePostPaint(this);
@@ -142,9 +143,18 @@ void CMusicListCtrl::DoEvent(TEventUI& event)
 		mFromNode = NULL;
 		mLastHoverNode = NULL;
 	}
+	else if (UIEVENT_MOUSELEAVE == event.Type && IsEnabled())
+	{
+		if (mLastHoverNode != NULL)
+		{
+			showDelBtn(mLastHoverNode, false);
+		}
+		mLastHoverNode = NULL;
+	}
 	else if (UIEVENT_MOUSEMOVE == event.Type && IsEnabled())
 	{
 		// draw shadow
+		auto hoverNode = getFirstListNodeUIFromPoint(event.ptMouse);
 		if (mFromNode != NULL)
 		{
 			if (!mDoDragDrop)
@@ -154,62 +164,84 @@ void CMusicListCtrl::DoEvent(TEventUI& event)
 				mDoDragDrop = true;
 				mPaintManager.AddPostPaint(this);
 			}
-			auto hoverNode = getFirstListNodeUIFromPoint(event.ptMouse);
-			if (hoverNode != NULL && hoverNode != mFromNode)
-			{
-				if (hoverNode != mLastHoverNode)
-				{
-					if (mLastHoverNode != NULL)
-					{
-						mLastHoverNode->SetBkColor(defaultItemBKColor.GetValue());
-					}
-					
-					mLastHoverNode = hoverNode;
-					hoverNode->SetBkColor(hoverItemBKColor.GetValue());
-				}
-			}
-			else
+		}
+
+		if (mLastHoverNode != NULL && mLastHoverNode != hoverNode)
+		{
+			showDelBtn(mLastHoverNode, false);
+		}
+		if (hoverNode)
+		{
+			showDelBtn(hoverNode, true);
+		}
+		if (hoverNode != NULL && hoverNode != mFromNode)
+		{
+			if (hoverNode != mLastHoverNode)
 			{
 				if (mLastHoverNode != NULL)
 				{
+					if (mDoDragDrop)
+					{
+						mLastHoverNode->SetBkColor(defaultItemBKColor.GetValue());
+					}
+				}
+
+				mLastHoverNode = hoverNode;
+				if (mDoDragDrop)
+				{
+					hoverNode->SetBkColor(hoverItemBKColor.GetValue());
+				}
+			}
+		}
+		else
+		{
+			if (mLastHoverNode != NULL)
+			{
+				if (mDoDragDrop)
+				{
 					mLastHoverNode->SetBkColor(defaultItemBKColor.GetValue());
 				}
-				mLastHoverNode = NULL;
 			}
+			mLastHoverNode = NULL;
 		}
 	}
 
 	CListUI::DoEvent(event);
 }
 
-Node* CMusicListCtrl::GetRoot()
-{
-	return mRootNode;
-}
+//Node* CMusicListCtrl::GetRoot()
+//{
+//	return mRootNode;
+//}
 
 const TCHAR* const TITLE_CTRL = _T("title");
 const TCHAR* const ARTIST_CTRL = _T("artist");
 const TCHAR* const ALBUM_CTRL = _T("album");
 const TCHAR* const DURATION_CTRL = _T("duration");
 const TCHAR* const DETAILS_CTRL = _T("details");
+const TCHAR* const DEL_CTRL = _T("del");
 const int ITEM_NORMAL_HEIGHT = 32;
 const int ITEM_SELCTED_HEIGHT = 50;
 
-static bool OnLogoButtonEvent(void* event) {
-	if (((TEventUI*)event)->Type == UIEVENT_BUTTONDOWN) {
+static bool OnDelButtonEvent(void* event) {
+	auto e = (TEventUI*)event;
+	if (e->Type == UIEVENT_BUTTONDOWN) {
 		CControlUI* pButton = ((TEventUI*)event)->pSender;
 		if (pButton != NULL) {
 			CListContainerElementUI* pListElement = (CListContainerElementUI*)(pButton->GetTag());
-			if (pListElement != NULL) pListElement->DoEvent(*(TEventUI*)event);
+			
+			CMusicListCtrl* mlc = (CMusicListCtrl*)pListElement->GetTag();
+			mlc->sendDeleteMessage(pListElement);
 		}
 	}
 	return true;
 }
 
-Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
+
+void CMusicListCtrl::AddItem(const MusicListItemInfo& item, int index)
 {
-	if (!parent)
-		parent = mRootNode;
+	/*if (!parent)
+		parent = mRootNode;*/
 
 	TCHAR szBuf[MAX_PATH] = { 0 };
 
@@ -221,61 +253,67 @@ Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
 		pListElement = static_cast<CListContainerElementUI*>(mDlgBuilder.Create((UINT)0, &mPaintManager));
 	}
 	if (pListElement == NULL)
-		return NULL;
+		return ;
+	
+	//Node* node = new Node;
 
-	Node* node = new Node;
+	//node->getData().level = parent->getData().level + 1;
+	//if (item.isFolder)
+	//	node->getData().hasChild = !item.isEmpty;
+	//else
+	//	node->getData().hasChild = false;
 
-	node->getData().level = parent->getData().level + 1;
-	if (item.isFolder)
-		node->getData().hasChild = !item.isEmpty;
-	else
-		node->getData().hasChild = false;
+	//node->getData().folder = item.isFolder;
 
-	node->getData().folder = item.isFolder;
+	//node->getData().childVisible = (node->getData().level == 0);
+	//node->getData().childVisible = false;
 
-	node->getData().childVisible = (node->getData().level == 0);
-	node->getData().childVisible = false;
+	//node->getData().text = item.title;
+	//node->getData().value = item.id;
+	//node->getData().listElement = pListElement;
 
-	node->getData().text = item.title;
-	node->getData().value = item.id;
-	node->getData().listElement = pListElement;
+	//if (!parent->getData().childVisible)
+	//	pListElement->SetVisible(false);
 
-	if (!parent->getData().childVisible)
-		pListElement->SetVisible(false);
+	//if (parent != mRootNode && !parent->getData().listElement->IsVisible())
+	//	pListElement->SetVisible(false);
 
-	if (parent != mRootNode && !parent->getData().listElement->IsVisible())
-		pListElement->SetVisible(false);
+	//CDuiRect rcPadding = mTextPadding;
+	//for (int i = 0; i < node->getData().level; ++i)
+	//{
+	//	rcPadding.left += mLevelTextStartPos;
+	//}
+	pListElement->SetPadding(mTextPadding);
 
-	CDuiRect rcPadding = mTextPadding;
-	for (int i = 0; i < node->getData().level; ++i)
+	//CDuiString html_text;
+	//if (node->getData().hasChild)
+	//{
+	//	//if (node->getData().childVisible)
+	//	//	html_text += mLevelExpandImage;
+	//	//else
+	//	//	html_text += mLevelCollapseImage;
+
+	//	//_stprintf_s(szBuf, MAX_PATH - 1, _T("<x %d>"), mLevelTextStartPos);
+
+	//	//html_text += szBuf;
+	//}
+
+	//if (item.isFolder)
+	//{
+	//	html_text += node->getData().text;
+	//}
+	//else
+	//{
+	//	_stprintf_s(szBuf, MAX_PATH - 1, _T("%s"), item.title.GetData());
+	//	html_text += szBuf;
+	//}
+	pListElement->SetTag((UINT_PTR)this);
+	CButtonUI* del = static_cast<CButtonUI*>(mPaintManager.FindSubControlByName(pListElement, DEL_CTRL));
+	if (del != NULL)
 	{
-		rcPadding.left += mLevelTextStartPos;
+		del->OnEvent += MakeDelegate(&OnDelButtonEvent);
+		del->SetTag((UINT_PTR)pListElement);
 	}
-	pListElement->SetPadding(rcPadding);
-
-	CDuiString html_text;
-	if (node->getData().hasChild)
-	{
-		//if (node->getData().childVisible)
-		//	html_text += mLevelExpandImage;
-		//else
-		//	html_text += mLevelCollapseImage;
-
-		//_stprintf_s(szBuf, MAX_PATH - 1, _T("<x %d>"), mLevelTextStartPos);
-
-		//html_text += szBuf;
-	}
-
-	if (item.isFolder)
-	{
-		html_text += node->getData().text;
-	}
-	else
-	{
-		_stprintf_s(szBuf, MAX_PATH - 1, _T("%s"), item.title.GetData());
-		html_text += szBuf;
-	}
-
 	CLabelUI* title = static_cast<CLabelUI*>(mPaintManager.FindSubControlByName(pListElement, TITLE_CTRL));
 	if (title != NULL)
 	{
@@ -283,7 +321,7 @@ Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
 			title->SetFixedWidth(0);
 
 		//title->SetShowHtml(true);
-		title->SetText(html_text);
+		title->SetText(item.title.GetData());
 	}
 
 	if (!item.isFolder && !item.artist.IsEmpty())
@@ -320,117 +358,126 @@ Node* CMusicListCtrl::AddNode(const MusicListItemInfo& item, Node* parent)
 	}
 
 	pListElement->SetFixedHeight(ITEM_NORMAL_HEIGHT);
-	pListElement->SetTag((UINT_PTR)node);
-	int index = 0;
-	if (parent->hasChild())
+	//pListElement->SetTag((UINT_PTR)node);
+	//int index = 0;
+	//if (parent->hasChild())
+	//{
+	//	Node* prev = parent->getLastChild();
+	//	index = prev->getData().listElement->GetIndex() + 1;
+	//}
+	//else
+	//{
+	//	if (parent == mRootNode)
+	//		index = 0;
+	//	else
+	//		index = parent->getData().listElement->GetIndex() + 1;
+	//}
+	bool add = false;
+	if (index == -1)
 	{
-		Node* prev = parent->getLastChild();
-		index = prev->getData().listElement->GetIndex() + 1;
+		add = CListUI::Add(pListElement);
 	}
 	else
 	{
-		if (parent == mRootNode)
-			index = 0;
-		else
-			index = parent->getData().listElement->GetIndex() + 1;
+		add = CListUI::AddAt(pListElement,index);
 	}
-	if (!CListUI::AddAt(pListElement, index))
+	if (!add)
 	{
 		delete pListElement;
-		delete node;
-		node = NULL;
+		//delete node;
+		//node = NULL;
 	}
 
-	parent->addChild(node);
-	return node;
+	//parent->addChild(node);
+	//return node;
 }
 
-bool CMusicListCtrl::RemoveNode(Node* node)
-{
-	if (!node || node == mRootNode) return false;
+//bool CMusicListCtrl::RemoveNode(Node* node)
+//{
+//	if (!node || node == mRootNode) return false;
+//
+//	for (int i = 0; i < node->getChildCount(); ++i)
+//	{
+//		Node* child = node->getChild(i);
+//		RemoveNode(child);
+//	}
+//
+//	CListUI::Remove(node->getData().listElement);
+//	node->getParent()->removeChild(node);
+//	delete node;
+//
+//	return true;
+//}
+//
+//void CMusicListCtrl::SetChildVisible(Node* node, bool visible)
+//{
+//	if (!node || node == mRootNode)
+//		return;
+//
+//	if (node->getData().childVisible == visible)
+//		return;
+//
+//	node->getData().childVisible = visible;
+//
+//	TCHAR szBuf[MAX_PATH] = { 0 };
+//	CDuiString html_text;
+//	if (node->getData().hasChild)
+//	{
+//		/*if (node->getData().childVisible)
+//			html_text += mLevelExpandImage;
+//		else
+//			html_text += mLevelCollapseImage;
+//
+//		_stprintf_s(szBuf, MAX_PATH - 1, _T("<x %d>"), mLevelTextStartPos);
+//
+//		html_text += szBuf;*/
+//
+//		html_text += node->getData().text;
+//
+//		CLabelUI* title = static_cast<CLabelUI*>(mPaintManager.FindSubControlByName(node->getData().listElement, TITLE_CTRL));
+//		if (title != NULL)
+//		{
+//			//title->SetShowHtml(true);
+//			title->SetText(html_text);
+//		}
+//	}
+//
+//	if (!node->getData().listElement->IsVisible())
+//		return;
+//
+//	if (!node->hasChild())
+//		return;
+//
+//	Node* begin = node->getChild(0);
+//	Node* end = node->getLastChild();
+//	for (int i = begin->getData().listElement->GetIndex(); i <= end->getData().listElement->GetIndex(); ++i)
+//	{
+//		CControlUI* control = GetItemAt(i);
+//		if (_tcsicmp(control->GetClass(), _T("ListContainerElementUI")) == 0)
+//		{
+//			if (visible)
+//			{
+//				Node* local_parent = ((Node*)control->GetTag())->getParent();
+//				if (local_parent->getData().childVisible && local_parent->getData().listElement->IsVisible())
+//				{
+//					control->SetVisible(true);
+//				}
+//			}
+//			else
+//			{
+//				control->SetVisible(false);
+//			}
+//		}
+//	}
+//}
 
-	for (int i = 0; i < node->getChildCount(); ++i)
-	{
-		Node* child = node->getChild(i);
-		RemoveNode(child);
-	}
-
-	CListUI::Remove(node->getData().listElement);
-	node->getParent()->removeChild(node);
-	delete node;
-
-	return true;
-}
-
-void CMusicListCtrl::SetChildVisible(Node* node, bool visible)
-{
-	if (!node || node == mRootNode)
-		return;
-
-	if (node->getData().childVisible == visible)
-		return;
-
-	node->getData().childVisible = visible;
-
-	TCHAR szBuf[MAX_PATH] = { 0 };
-	CDuiString html_text;
-	if (node->getData().hasChild)
-	{
-		/*if (node->getData().childVisible)
-			html_text += mLevelExpandImage;
-		else
-			html_text += mLevelCollapseImage;
-
-		_stprintf_s(szBuf, MAX_PATH - 1, _T("<x %d>"), mLevelTextStartPos);
-
-		html_text += szBuf;*/
-
-		html_text += node->getData().text;
-
-		CLabelUI* title = static_cast<CLabelUI*>(mPaintManager.FindSubControlByName(node->getData().listElement, TITLE_CTRL));
-		if (title != NULL)
-		{
-			//title->SetShowHtml(true);
-			title->SetText(html_text);
-		}
-	}
-
-	if (!node->getData().listElement->IsVisible())
-		return;
-
-	if (!node->hasChild())
-		return;
-
-	Node* begin = node->getChild(0);
-	Node* end = node->getLastChild();
-	for (int i = begin->getData().listElement->GetIndex(); i <= end->getData().listElement->GetIndex(); ++i)
-	{
-		CControlUI* control = GetItemAt(i);
-		if (_tcsicmp(control->GetClass(), _T("ListContainerElementUI")) == 0)
-		{
-			if (visible)
-			{
-				Node* local_parent = ((Node*)control->GetTag())->getParent();
-				if (local_parent->getData().childVisible && local_parent->getData().listElement->IsVisible())
-				{
-					control->SetVisible(true);
-				}
-			}
-			else
-			{
-				control->SetVisible(false);
-			}
-		}
-	}
-}
-
-bool CMusicListCtrl::CanExpand(Node* node) const
-{
-	if (!node || node == mRootNode)
-		return false;
-
-	return node->getData().hasChild;
-}
+//bool CMusicListCtrl::CanExpand(Node* node) const
+//{
+//	if (!node || node == mRootNode)
+//		return false;
+//
+//	return node->getData().hasChild;
+//}
 
 bool CMusicListCtrl::SelectItem(int iIndex, bool bTakeFocus)
 {
@@ -444,8 +491,8 @@ bool CMusicListCtrl::SelectItem(int iIndex, bool bTakeFocus)
 			if (pListItem != NULL)
 			{
 				CListContainerElementUI* pMusicListItem = static_cast<CListContainerElementUI*>(pControl);
-				Node* node = (Node*)pControl->GetTag();
-				if ((pMusicListItem != NULL) && (node != NULL) && !node->isFolder())
+				//Node* node = (Node*)pControl->GetTag();
+				if (pMusicListItem != NULL)
 				{
 					pMusicListItem->SetFixedHeight(ITEM_NORMAL_HEIGHT);
 					CContainerUI* pDetailsPanel = static_cast<CContainerUI*>(mPaintManager.FindSubControlByName(pMusicListItem, DETAILS_CTRL));
@@ -471,8 +518,8 @@ bool CMusicListCtrl::SelectItem(int iIndex, bool bTakeFocus)
 	CControlUI* pControl = GetItemAt(m_iCurSel);
 	if (pControl != NULL) {
 		CListContainerElementUI* pMusicListItem = static_cast<CListContainerElementUI*>(pControl);
-		Node* node = (Node*)pControl->GetTag();
-		if ((pMusicListItem != NULL) && (node != NULL) && !node->isFolder())
+		//Node* node = (Node*)pControl->GetTag();
+		if (pMusicListItem != NULL)
 		{
 			pMusicListItem->SetFixedHeight(ITEM_SELCTED_HEIGHT);
 			CContainerUI* pDetailsPanel = static_cast<CContainerUI*>(mPaintManager.FindSubControlByName(pMusicListItem, DETAILS_CTRL));
@@ -492,6 +539,17 @@ bool CMusicListCtrl::SelectItem(int iIndex, bool bTakeFocus)
 	return true;
 }
 
+void CMusicListCtrl::sendDeleteMessage(CListContainerElementUI* pListElement)
+{
+	if (pListElement != NULL && m_pManager != NULL)
+	{
+		if (mLastHoverNode == pListElement)
+		{
+			mLastHoverNode = NULL;
+		}
+		m_pManager->SendNotify(this, L"dellistitem", pListElement->GetIndex());
+	}
+}
 
 CListContainerElementUI* CMusicListCtrl::getFirstListNodeUIFromPoint(const POINT& pt)
 {
@@ -523,5 +581,14 @@ void CMusicListCtrl::DoPostPaint(HDC hDC, const RECT& rcPaint)
 		RECT rcUpdate = rcPaint;
 		static Color hoverItemBKColor(0, 0, 0, 0);
 		CRenderEngine::DrawTextW(hDC, &mPaintManager, rcUpdate, mFromNode->fin, hoverItemBKColor.GetValue(), 0, 0);*/
+	}
+}
+
+void CMusicListCtrl::showDelBtn(CListContainerElementUI* pList, bool visible)
+{
+	auto pDelBtn = pList->FindSubControl(DEL_CTRL);
+	if (pDelBtn)
+	{
+		pDelBtn->SetVisible(visible);
 	}
 }

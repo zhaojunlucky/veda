@@ -24,7 +24,7 @@
             </VerticalLayout>
             <VerticalLayout>
                 <HorizontalLayout padding="0,5,20,0">
-                    <MusicListCtrl header="hidden" itemshowhtml="true" name="musicList" vscrollbar="true" itemhotbkcolor="" itemselectedbkcolor="#FFA88D78"/>
+                    <MusicListCtrl header="hidden" itemshowhtml="false" name="musicList" vscrollbar="true" itemhotbkcolor="" itemselectedbkcolor="#FFA88D78"/>
                 </HorizontalLayout>
             </VerticalLayout>
         </HorizontalLayout>

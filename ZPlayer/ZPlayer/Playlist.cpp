@@ -85,13 +85,15 @@ MusicInfo& Playlist::getMusicInfo(size_t index)
 }
 void Playlist::remove(size_t index)
 {
+	DbHelper::getInstance()->removeMusicFromPl(mId, mPlaylist[index]->id);
 	auto it = mMap.find(mPlaylist[index]->id);
 	if (it != mMap.end())
 	{
 		mMap.erase(it);
 	}
 	mPlaylist.removeAt(index);
-	mIsModified = true;
+	//mIsModified = false;
+	
 }
 void Playlist::clear()
 {
@@ -114,4 +116,18 @@ bool Playlist::isModified() const
 long Playlist::getPlaylistId() const
 {
 	return mId;
+}
+
+void Playlist::exchange(size_t from, size_t to)
+{
+	auto order = mPlaylist[from]->order;
+	mPlaylist[from]->order = mPlaylist[to]->order;
+	mPlaylist[to]->order = order;
+	veda::Vector<MusicInfoPtr> ve;
+	ve.add(mPlaylist[from]);
+	ve.add(mPlaylist[to]);
+	DbHelper::getInstance()->updatePlayMusicOrder(mId, ve);
+	auto p = mPlaylist[from];
+	mPlaylist.removeAt(from);
+	mPlaylist.add(p, to);
 }

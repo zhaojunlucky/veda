@@ -45,7 +45,7 @@ protected:
 	virtual HRESULT onDrop(HWND hwnd, IDataObject* dataObj, DWORD grfKeyState, POINT pt);
 private:
 	void addPlaylistInUI(const wchar_t* name);
-	void addMusicInUI(const MusicInfo& musicInfo);
+	void addMusicInUI(const MusicInfo& musicInfo, int index = -1);
 	void loadData();
 	void loadPlaylist();
 	void loadPlaylistInUI(Playlist* pl);
@@ -74,7 +74,7 @@ public:
 	CSliderUI* mSeekSlider;
 	CLabelUI* mPlayDurationCtrl;
 	CLabelUI* mTotalDurationCtrl;
-	CListUI* mPlaylisyCtrl;
+	CListUI* mPlaylistCtrl;
 	String mVolumnStr;
 	AudioPlayer *mAPlayer;
 	Decoder* mDecoder;

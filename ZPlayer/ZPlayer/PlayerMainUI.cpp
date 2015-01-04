@@ -66,7 +66,74 @@ LRESULT CPlayerMainUI::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 void CPlayerMainUI::Notify(TNotifyUI& msg)
 {
 	LOG_INFO(logger) << L"main ui:" << msg.sType.GetData() << L" " << msg.pSender->GetName().GetData() << L" " << msg.pSender->GetClass() << endl;
-	if (msg.sType == _T("itemclick") && _tcsicmp(msg.pSender->GetClass(), _T("ListContainerElementUI")) == 0)
+	if (msg.sType == _T("dellistitem"))
+	{
+		//auto sender = (CMusicListCtrl*)msg.pSender;
+		//if (sender == mMusicListCtrl)
+		{
+			int index = msg.wParam;
+			if (mPlayIndex == index)
+			{
+				mAPlayer->Stop();
+				if (mDecoder)
+				{
+					mDecoder->Close();
+				}
+				
+			}
+			auto sel = mMusicListCtrl->GetCurSel();
+			mMusicListCtrl->RemoveAt(index);
+			mActiveList->remove(index);
+			
+			if (mPlayIndex >= index)
+			{
+				--mPlayIndex;
+			}
+			if (mPlayIndex < 0)
+			{
+				mPlayIndex = 0;
+			}
+			if (sel >= mMusicListCtrl->GetCount())
+			{
+				sel = mMusicListCtrl->GetCount() - 1;
+			}
+			mMusicListCtrl->SelectItem(sel);
+		}
+	}
+	else if (msg.sType == _T("dragdrop"))
+	{
+		if (msg.pSender == mMusicListCtrl)
+		{
+			LOG_INFO(logger) << L"music list drag drop, from = " << msg.wParam << L",to=" << msg.lParam << endl;
+			size_t fromIndex = msg.wParam;
+			size_t toIndex = msg.lParam;
+			//
+			auto sel = mMusicListCtrl->GetCurSel();
+			auto m = mActiveList->getMusicInfo(fromIndex);
+			mActiveList->exchange(fromIndex, toIndex);
+			// change in ui
+			mMusicListCtrl->RemoveAt(fromIndex);
+			
+			addMusicInUI(m, toIndex);
+			mMusicListCtrl->SelectItem(sel);
+			if (!(mPlayIndex > max(fromIndex, toIndex) || mPlayIndex < min(fromIndex, toIndex)))
+			{
+				if (mPlayIndex == fromIndex)
+				{
+					mPlayIndex = toIndex;
+				}
+				else
+				{
+					mPlayIndex += (fromIndex > toIndex ? 1 : -1);
+				}
+				if (mPlayIndex < 0)
+				{
+					mPlayIndex = 0;
+				}
+			}
+		}
+	}
+	else if (msg.sType == _T("itemclick") && _tcsicmp(msg.pSender->GetClass(), _T("ListContainerElementUI")) == 0)
 	{
 		__super::Notify(msg);
 	}
@@ -78,12 +145,12 @@ void CPlayerMainUI::Notify(TNotifyUI& msg)
 		{
 			if (_tcsicmp(msg.pSender->GetClass(), _T("ListContainerElementUI")) == 0)
 			{
-				Node* node = (Node*)msg.pSender->GetTag();
+				/*Node* node = (Node*)msg.pSender->GetTag();
 
 				if (musicList->CanExpand(node))
 				{
 					musicList->SetChildVisible(node, !node->getData().childVisible);
-				}
+				}*/
 			}
 			// play item index
 			LOG_INFO(logger) << index << endl;
@@ -154,7 +221,7 @@ void CPlayerMainUI::InitWindow()
 	mPlayModeBtn = (CButtonUI*)pPlayControl->FindSubControl(L"playModeBtn");
 	mVolumeSlider = (CSliderUI*)pPlayControl->FindSubControl(L"volumeSlider");
 	mSeekSlider = (CSliderUI*)pPlayControl->FindSubControl(L"seekSlider");
-	mPlaylisyCtrl = (CListUI*)m_PaintManager.FindControl(L"playlist");
+	mPlaylistCtrl = (CListUI*)m_PaintManager.FindControl(L"playlist");
 	mPlayDurationCtrl = (CLabelUI*)pPlayControl->FindSubControl(L"playDuration");
 	mTotalDurationCtrl = (CLabelUI*)pPlayControl->FindSubControl(L"totalDuration");
 	mPlayNextBtn = (CButtonUI*)pPlayControl->FindSubControl(L"nextBtn");;
@@ -181,12 +248,11 @@ void CPlayerMainUI::InitWindow()
 	}
 
 	// load from config
-	mPlaylisyCtrl->SelectItemActivate(0);
+	mPlaylistCtrl->SelectItemActivate(0);
 	
 	updatePlayPreNext();
 	updateSeekSlider(false);
-	auto a = std::bind(&CPlayerMainUI::musicListDragDrop,this, std::placeholders::_1, std::placeholders::_2);
-	//((CMusicListCtrl*)mPlaylisyCtrl)->setDragDropCallback(a);
+
 }
 
 bool CPlayerMainUI::handleClick(TNotifyUI& msg)
@@ -450,10 +516,10 @@ void CPlayerMainUI::addPlaylistInUI(const wchar_t* name)
 	static Color disabledTextColor(255,128,128,128);
 	label->SetDisabledTextColor(disabledTextColor.GetValue());
 	lce->Add(label);
-	mPlaylisyCtrl->Add(lce);
+	mPlaylistCtrl->Add(lce);
 }
 
-void CPlayerMainUI::addMusicInUI(const MusicInfo& musicInfo)
+void CPlayerMainUI::addMusicInUI(const MusicInfo& musicInfo, int index)
 {
 	MusicListItemInfo item;
 	item.isFolder = false;
@@ -462,7 +528,7 @@ void CPlayerMainUI::addMusicInUI(const MusicInfo& musicInfo)
 	item.artist = musicInfo.artist;
 	item.album = musicInfo.album;
 	item.isEmpty = true;
-	mMusicListCtrl->AddNode(std::move(item));
+	mMusicListCtrl->AddItem(std::move(item), index);
 }
 
 void CPlayerMainUI::loadData()

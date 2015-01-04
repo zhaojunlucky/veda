@@ -375,10 +375,41 @@ namespace veda
 			data[size++] = v;
 		}
 
+		void add(value_type& v, size_type index)
+		{
+			checkCapacity();
+			if (index > size)
+			{
+				throw "index out of range";
+			}
+			
+			for (size_type i = size - 1; i >= index && i != npos; i--)
+			{
+				data[i + 1] = data[i];
+			}
+			data[index] = v;
+			++size;
+		}
+
 		void add(value_type&& v)
 		{
 			checkCapacity();
 			data[size++] = v;
+		}
+
+		void add(value_type&& v, size_type index)
+		{
+			checkCapacity();
+			if (index > size)
+			{
+				throw "index out of range";
+			}
+			for (size_type i = size - 1; i >= index && i != npos; i--)
+			{
+				data[i + 1] = data[i];
+			}
+			data[index] = v;
+			++size;
 		}
 
 		void clear()
@@ -509,5 +540,6 @@ namespace veda
 		size_type size;
 		value_type* data;
 		const size_type DEFAULT_CAPACITY = 64;
+		const size_type npos = (size_t)(-1);
 	};
 }

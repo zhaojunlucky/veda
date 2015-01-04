@@ -82,7 +82,6 @@
     <ClInclude Include="Datetime.h" />
     <ClInclude Include="Directory.h" />
     <ClInclude Include="ErrorUtil.h" />
-    <ClInclude Include="Event.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="FileBase.h" />
     <ClInclude Include="FileReader.h" />

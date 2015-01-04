@@ -118,6 +118,24 @@ void DbHelper::updatePlaylist(Sqlite3ConnectionPtr& conn, shared_ptr<Playlist>& 
 		}
 	}
 }
+
+void DbHelper::updatePlayMusicOrder(long pl, veda::Vector<MusicInfoPtr>& musics)
+{
+	static wchar_t* SQL = L"UPDATE PLAYLIST_MUSICS SET DISPLAY_ORDER=? WHERE PARENT_ID=? AND MUSIC_ID = ?";
+	auto& conn = getConnection();
+	conn->beginTransaction();
+	for (auto& m : musics)
+	{
+		auto stmt = conn->prepare(SQL);
+		stmt->bindDouble(1, m->order);
+		stmt->bindInt64(2, pl);
+		stmt->bindInt64(3, m->id);
+		stmt->executeUpdate();
+		stmt->close();
+	}
+	conn->commitTransaction();
+	returnConnection(conn);
+}
 long DbHelper::addMusic(MusicInfo& musicInfo)
 {
 	auto& conn = getConnection();

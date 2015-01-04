@@ -7,7 +7,7 @@
                 <HorizontalLayout>
                     <VerticalLayout>
                         <HorizontalLayout>
-                            <Label name="title" showhtml="false" bordersize="0" textcolor="#00000000" disabledtextcolor="#FF808080" font="0" enabledeffect="true"/><Label name="musicDuration" text="" width="50"/>
+                            <Label name="title" showhtml="false" bordersize="0" textcolor="#00000000" disabledtextcolor="#FF808080" font="0" enabledeffect="true"/><Label name="musicDuration" text="" width="50"/><Button name="del" width="30" height="30" visible="false" align="center" normalimage=" file=&apos;ui\images\main\del.png&apos; " hotimage=" file=&apos;ui\images\main\del.png&apos; " pushedimage=" file=&apos;ui\images\main\del.png&apos; " tooltip="Delete"/>
                         </HorizontalLayout>
                     </VerticalLayout>
                 </HorizontalLayout>
