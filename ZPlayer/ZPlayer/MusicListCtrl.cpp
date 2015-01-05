@@ -103,8 +103,8 @@ void CMusicListCtrl::RemoveAll()
 
 void CMusicListCtrl::DoEvent(TEventUI& event)
 {
-	static Color defaultItemBKColor(0, 0, 0, 0);
-	static Color hoverItemBKColor(255, 168, 141, 120);
+	//static Color defaultItemBKColor(0, 0, 0, 0);
+	//static Color hoverItemBKColor(255, 168, 141, 120);
 	if (event.Type == UIEVENT_BUTTONDOWN && IsEnabled())
 	{
 		mFromNode = getFirstListNodeUIFromPoint(event.ptMouse);
@@ -132,10 +132,10 @@ void CMusicListCtrl::DoEvent(TEventUI& event)
 			}
 			mPaintManager.RemovePostPaint(this);
 			
-			if (mLastHoverNode != NULL)
-			{
-				mLastHoverNode->SetBkColor(defaultItemBKColor.GetValue());
-			}
+			//if (mLastHoverNode != NULL)
+			//{
+			//	mLastHoverNode->SetBkColor(defaultItemBKColor.GetValue());
+			//}
 			
 			SetCursor(mCursor);
 			mDoDragDrop = false;
@@ -178,30 +178,30 @@ void CMusicListCtrl::DoEvent(TEventUI& event)
 		{
 			if (hoverNode != mLastHoverNode)
 			{
-				if (mLastHoverNode != NULL)
+				/*if (mLastHoverNode != NULL)
 				{
 					if (mDoDragDrop)
 					{
 						mLastHoverNode->SetBkColor(defaultItemBKColor.GetValue());
 					}
-				}
+				}*/
 
 				mLastHoverNode = hoverNode;
-				if (mDoDragDrop)
+				/*if (mDoDragDrop)
 				{
 					hoverNode->SetBkColor(hoverItemBKColor.GetValue());
-				}
+				}*/
 			}
 		}
 		else
 		{
-			if (mLastHoverNode != NULL)
+			/*if (mLastHoverNode != NULL)
 			{
 				if (mDoDragDrop)
 				{
 					mLastHoverNode->SetBkColor(defaultItemBKColor.GetValue());
 				}
-			}
+			}*/
 			mLastHoverNode = NULL;
 		}
 	}

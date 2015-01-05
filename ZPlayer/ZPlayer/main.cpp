@@ -25,9 +25,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 {
 	CoInitialize(NULL);
 	OleInitialize(NULL);
-	Datetime dt;
-	LOG_INFO(logger) << dt.format(L"yyyy年MM月dd日HH时mm分ss秒S毫秒")->c_str() << endl;
-
+	//Datetime dt;
+	//LOG_INFO(logger) << dt.format(L"yyyy年MM月dd日HH时mm分ss秒S毫秒")->c_str() << endl;
 	CPaintManagerUI::SetInstance(hInstance);
 	CPlayerMainUI mainUI;
 	mainUI.Create(NULL, _T("JJ Forever"), UI_WNDSTYLE_FRAME, WS_EX_WINDOWEDGE);
