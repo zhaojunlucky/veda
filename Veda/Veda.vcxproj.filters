@@ -31,6 +31,9 @@
     <Filter Include="Logger">
       <UniqueIdentifier>{4da7b802-16c8-407b-86ad-81bfe72cad39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Event">
+      <UniqueIdentifier>{dd6fc665-1c5f-484c-af41-73ccf644abd8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -129,6 +132,15 @@
     <ClInclude Include="LoggerManager.h">
       <Filter>Logger</Filter>
     </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Event</Filter>
+    </ClInclude>
+    <ClInclude Include="EventArgs.h">
+      <Filter>Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -190,6 +202,9 @@
     </ClCompile>
     <ClCompile Include="LoggerManager.cpp">
       <Filter>Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="EventArgs.cpp">
+      <Filter>Event</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -94,6 +94,7 @@
     <ClCompile Include="PlayUtil.cpp" />
     <ClCompile Include="SkinResource.cpp" />
     <ClCompile Include="UIListCtrlCommon.cpp" />
+    <ClCompile Include="UIMenu.cpp" />
     <ClCompile Include="ZPLException.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +104,7 @@
     <ClInclude Include="DropTargetBase.h" />
     <ClInclude Include="MusicInfoHelper.h" />
     <ClInclude Include="MusicListCtrl.h" />
+    <ClInclude Include="observer_impl_base.hpp" />
     <ClInclude Include="PlayControl.h" />
     <ClInclude Include="Playlist.h" />
     <ClInclude Include="PlaylistModel.h" />
@@ -112,6 +114,7 @@
     <ClInclude Include="SkinResource.h" />
     <ClInclude Include="SQL.h" />
     <ClInclude Include="UIListCtrlCommon.h" />
+    <ClInclude Include="UIMenu.h" />
     <ClInclude Include="ZPLException.h" />
   </ItemGroup>
   <ItemGroup>

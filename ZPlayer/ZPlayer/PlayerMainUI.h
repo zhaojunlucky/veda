@@ -14,7 +14,7 @@ using namespace audio::player;
 using namespace audio;
 #include "DropTargetBase.h"
 #include "PlaylistModel.h"
-
+#include <EventArgs.h>
 extern Logger logger;
 
 class CPlayerMainUI :

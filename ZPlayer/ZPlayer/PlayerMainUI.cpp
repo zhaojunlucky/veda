@@ -252,7 +252,10 @@ void CPlayerMainUI::InitWindow()
 	
 	updatePlayPreNext();
 	updateSeekSlider(false);
-
+	//auto p = std::bind(&CPlayerMainUI::eventTest, this, std::placeholders::_1);
+	////mMusicListCtrl->mEvent.attach(std::move(p));
+	//mMusicListCtrl->mEvent += std::move(p);
+	//auto q = std::bind(&CPlayerMainUI::eventTest, this);
 }
 
 bool CPlayerMainUI::handleClick(TNotifyUI& msg)
