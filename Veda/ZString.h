@@ -34,3 +34,14 @@ namespace veda
 	}
 }
 
+namespace stdext
+{
+
+	template<class _traits, class _ochar> inline
+		size_t hash_value(const veda::BasicString<_traits, _ochar>& _Str)
+	{	// hash string to size_t value
+		return (_STD _Hash_seq((const unsigned char *)_Str.c_str(),
+			_Str.getSize() * sizeof(_traits::value_type)));
+	}
+}
+

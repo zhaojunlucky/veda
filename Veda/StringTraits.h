@@ -4,7 +4,7 @@
 #include <string.h>
 #include <memory>
 #include <stdarg.h>
-
+#include <xstddef>
 namespace veda
 {
 #pragma warning(push)
@@ -158,7 +158,6 @@ namespace veda
 			return towupper(v);
 		}
 	};
-
 
 #pragma warning(pop)
 }

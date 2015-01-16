@@ -20,9 +20,17 @@ Logger logger;
 #include "CueSheet.h"
 #include <FileUtil.h>
 using namespace veda;
+#include <string>
+#include <hash_map>
 
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
+	veda::String str = L"test hash code";
+	std::wstring str2 = L"test hash code";
+	std::hash_map<veda::String, bool> d;
+	d[str] = true;
+	std::hash<wstring> h;
+	LOG_INFO(logger) << L"veda::String=" << str.hashcode() << L", wstring=" << h(str2) << endl;
 	CoInitialize(NULL);
 	OleInitialize(NULL);
 	//Datetime dt;

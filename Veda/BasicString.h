@@ -4,10 +4,13 @@
 #include <Array.h>
 #include <iostream>
 #include <memory>
+#include <xstddef>
 #include "StringTraits.h"
 #include <tchar.h>
 #include <StringFind.h>
 #include "veda.h"
+
+
 
 namespace veda
 {
@@ -967,6 +970,11 @@ namespace veda
 		{
 			size_type len = _traits::_len(suffix);
 			return (0 == _traits::_ncmpstr(&mData[getSize() - len], suffix, len));
+		}
+
+		size_t hashcode()
+		{
+			return std::_Hash_seq((const unsigned char*)mData, mSize * sizeof(value_type));
 		}
 private:
 		void assign(const value_type* buf, size_type size)
