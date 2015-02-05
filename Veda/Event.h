@@ -10,6 +10,10 @@ namespace veda
 	class VEDA_EXPORT Event
 	{
 	public:
+		Event()
+		{
+			mFunc = std::bind(&Event::onEvent, this, std::placeholders::_1, std::placeholders::_2);
+		}
 		void attach (std::function<E>&& func)
 		{
 			mFunc = std::move(func);
@@ -30,10 +34,18 @@ namespace veda
 			mFunc.swap();
 			return *this;
 		}
-
+		bool fireable()
+		{
+			return mFunc ? true : false;
+		}
 		std::function < E >& operator()()
 		{
 			return mFunc;
+		}
+
+		void onEvent(Object* pSender, EventArgs* pEvent)
+		{
+
 		}
 	private:
 		std::function < E > mFunc;

@@ -139,7 +139,9 @@ m_hParent(hParent),
 m_pOwner(NULL),
 m_pLayout(),
 m_xml(_T(""))
-{}
+{
+
+}
 
 BOOL CMenuWnd::Receive(ContextMenuParam param)
 {
@@ -165,7 +167,10 @@ BOOL CMenuWnd::Receive(ContextMenuParam param)
 	default:
 		break;
 	}
-
+	if (param.isMenuClick && MenuClick.fireable())
+	{
+		MenuClick()(param.sender, &param.menuEventArgs);
+	}
 	return TRUE;
 }
 
@@ -298,7 +303,7 @@ LRESULT CMenuWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 			LONG chBottomAlgin = 0;
 
 			RECT rcPreWindow = {0};
-			ContextMenuObserver::Iterator<BOOL, ContextMenuParam> iterator(s_context_menu_observer);
+			ContextMenuObserver::_Iterator<BOOL, ContextMenuParam> iterator(s_context_menu_observer);
 			ReceiverImplBase<BOOL, ContextMenuParam>* pReceiver = iterator.next();
 			while( pReceiver != NULL ) {
 				CMenuWnd* pContextMenu = dynamic_cast<CMenuWnd*>(pReceiver);
@@ -429,7 +434,7 @@ LRESULT CMenuWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 		ContextMenuParam param;
 		param.hWnd = GetHWND();
 
-		ContextMenuObserver::Iterator<BOOL, ContextMenuParam> iterator(s_context_menu_observer);
+		ContextMenuObserver::_Iterator<BOOL, ContextMenuParam> iterator(s_context_menu_observer);
 		ReceiverImplBase<BOOL, ContextMenuParam>* pReceiver = iterator.next();
 		while( pReceiver != NULL ) {
 			CMenuWnd* pContextMenu = dynamic_cast<CMenuWnd*>(pReceiver);
@@ -635,6 +640,9 @@ void CMenuElementUI::DoEvent(TEventUI& event)
 				ContextMenuParam param;
 				param.hWnd = m_pManager->GetPaintWindow();
 				param.wParam = 1;
+				param.sender = this;
+				param.isMenuClick = true;
+				param.menuEventArgs.menuItemName = this->GetName().GetData();
 				s_context_menu_observer.RBroadcast(param);
 			}
         }

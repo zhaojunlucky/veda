@@ -3,6 +3,7 @@
 using namespace veda;
 extern Logger logger;
 #include "resource.h"
+#include "UIMenu.h"
 
 
 CMusicListCtrl::CMusicListCtrl(CPaintManagerUI& paint_manager)
@@ -105,6 +106,19 @@ void CMusicListCtrl::DoEvent(TEventUI& event)
 {
 	//static Color defaultItemBKColor(0, 0, 0, 0);
 	//static Color hoverItemBKColor(255, 168, 141, 120);
+	if (event.Type == UIEVENT_RBUTTONDOWN && IsEnabled())
+	{
+		auto node = getFirstListNodeUIFromPoint(event.ptMouse);
+		if (node != NULL)
+		{
+			CMenuWnd* pMenu = new CMenuWnd(mPaintManager.GetPaintWindow());
+			pMenu->MenuClick += VEBind(&CMusicListCtrl::onContextMenu, this);
+			CPoint point = event.ptMouse; 
+			ClientToScreen(mPaintManager.GetPaintWindow(), &point);
+			pMenu->Init(NULL, L"ui\\menu\\menutest.xml", _T("xml"), point);
+
+		}
+	}
 	if (event.Type == UIEVENT_BUTTONDOWN && IsEnabled())
 	{
 		mFromNode = getFirstListNodeUIFromPoint(event.ptMouse);
@@ -591,4 +605,10 @@ void CMusicListCtrl::showDelBtn(CListContainerElementUI* pList, bool visible)
 	{
 		pDelBtn->SetVisible(visible);
 	}
+}
+
+void CMusicListCtrl::onContextMenu(Object* pSender, EventArgs* pEvent)
+{
+	auto pMenuArg = (MenuEventArgs*)pEvent;
+	LOG_INFO(logger) << "context menu:" << pMenuArg->menuItemName << endl;
 }

@@ -23,8 +23,13 @@ using namespace veda;
 #include <string>
 #include <hash_map>
 
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>　　　　　　//msdn里面的例子加了该头文件
+#include <crtdbg.h>
+
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	veda::String str = L"test hash code";
 	std::wstring str2 = L"test hash code";
 	std::hash_map<veda::String, bool> d;

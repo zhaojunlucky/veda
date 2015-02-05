@@ -2,6 +2,8 @@
 #include <UIlib.h>
 using namespace DuiLib;
 #include "UIListCtrlCommon.h"
+#include <Event.h>
+#include <EventArgs.h>
 
 struct MusicListItemInfo
 {
@@ -50,6 +52,7 @@ private:
 	CListContainerElementUI* getFirstListNodeUIFromPoint(const POINT& pt);
 	virtual void DoPostPaint(HDC hDC, const RECT& rcPaint);
 	void showDelBtn(CListContainerElementUI* pList, bool visible);
+	void onContextMenu(Object* pSender, EventArgs* pEvent);
 private:
 	//Node*	mRootNode;
 	bool mDoDragDrop;

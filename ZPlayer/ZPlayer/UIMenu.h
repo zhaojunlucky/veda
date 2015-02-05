@@ -5,6 +5,7 @@
 #pragma once
 #endif
 #include <Event.h>
+#include <ZString.h>
 
 #include "observer_impl_base.hpp"
 
@@ -12,12 +13,32 @@ namespace DuiLib {
 
 /////////////////////////////////////////////////////////////////////////////////////
 //
+
+	class MenuEventArgs : public veda::EventArgs
+	{
+	public:
+		MenuEventArgs()
+			:EventArgs(L"MenuEventArgs")
+		{
+
+		}
+
+		veda::String menuItemName;
+	};
 struct ContextMenuParam
 {
+	ContextMenuParam()
+	{
+		isMenuClick = false;
+		sender = NULL;
+	}
 	// 1: remove all
 	// 2: remove the sub menu
 	WPARAM wParam;
 	HWND hWnd;
+	bool isMenuClick;
+	MenuEventArgs menuEventArgs;
+	veda::Object* sender;
 };
 
 enum MenuAlignment
@@ -28,8 +49,8 @@ enum MenuAlignment
 	eMenuAlignment_Bottom = 1 << 4,
 };
 
-typedef class ObserverImpl<BOOL, ContextMenuParam> ContextMenuObserver;
-typedef class ReceiverImpl<BOOL, ContextMenuParam> ContextMenuReceiver;
+typedef class DuiLib::ObserverImpl<BOOL, ContextMenuParam> ContextMenuObserver;
+typedef class DuiLib::ReceiverImpl<BOOL, ContextMenuParam> ContextMenuReceiver;
 
 extern ContextMenuObserver s_context_menu_observer;
 
@@ -68,15 +89,7 @@ public:
 extern const TCHAR* const kMenuElementUIClassName;// = _T("MenuElementUI");
 extern const TCHAR* const kMenuElementUIInterfaceName;// = _T("MenuElement);
 
-class MenuEventArgs : public veda::EventArgs
-{
-public:
-	MenuEventArgs()
-		:EventArgs(L"MenuEventArgs")
-	{
 
-	}
-};
 class CMenuElementUI;
 class CMenuWnd : public CWindowWnd, public ContextMenuReceiver
 {
@@ -104,7 +117,7 @@ public:
 };
 
 class CListContainerElementUI;
-class CMenuElementUI : public CListContainerElementUI
+class CMenuElementUI : public CListContainerElementUI, public veda::Object
 {
 	friend CMenuWnd;
 public:

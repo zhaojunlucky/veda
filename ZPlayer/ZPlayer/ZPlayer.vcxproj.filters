@@ -119,10 +119,10 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="observer_impl_base.hpp">
+    <ClInclude Include="UIMenu.h">
       <Filter>Control</Filter>
     </ClInclude>
-    <ClInclude Include="UIMenu.h">
+    <ClInclude Include="observer_impl_base.hpp">
       <Filter>Control</Filter>
     </ClInclude>
   </ItemGroup>
