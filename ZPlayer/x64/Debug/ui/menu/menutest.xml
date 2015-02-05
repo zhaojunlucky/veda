@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window>
+  <Font name="微软雅黑" size="12" bold="false" default="true" />
+  <Font name="微软雅黑" size="12" bold="true"/>
+  <Menu>
+    <MenuElement text="Properties" name="Properties">
+    </MenuElement>
+  </Menu>
+</Window>
