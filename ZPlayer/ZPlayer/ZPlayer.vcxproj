@@ -52,7 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\ThirdParty\include\DuiLib;..\..\Algorithm\Algorithm;..\..\Veda;..\..\ThirdParty\include\taglib-1.9.1;..\..\ThirdParty\include\taglib-1.9.1\taglib\toolkit;..\ZPEngine;..\Sqlite3;..\..\Exia;..\ZAudio;..\..\;$(DXSDK_DIR)Include;..\..\ThirdParty\include;..\..\ThirdParty\include\flac_h</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\ThirdParty\include\DuiLib;..\..\Algorithm\Algorithm;..\..\Veda;..\..\ThirdParty\include\taglib-1.9.1;..\..\ThirdParty\include\taglib-1.9.1\taglib\toolkit;..\ZPEngine;..\Sqlite3;..\..\Exia;..\ZAudio;..\..\;$(DXSDK_DIR)Include;..\..\ThirdParty\include;..\..\ThirdParty\include\flac_h;C:\Program Files %28x86%29\Visual Leak Detector\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -70,7 +70,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\ThirdParty\include\DuiLib;..\..\Algorithm\Algorithm;..\..\Veda;..\..\ThirdParty\include\taglib-1.9.1;..\..\ThirdParty\include\taglib-1.9.1\taglib\toolkit;..\ZPEngine;..\Sqlite3;..\..\Exia;..\ZAudio;..\..\;$(DXSDK_DIR)Include;..\..\ThirdParty\include;..\..\ThirdParty\include\flac_h</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\ThirdParty\include\DuiLib;..\..\Algorithm\Algorithm;..\..\Veda;..\..\ThirdParty\include\taglib-1.9.1;..\..\ThirdParty\include\taglib-1.9.1\taglib\toolkit;..\ZPEngine;..\Sqlite3;..\..\Exia;..\ZAudio;..\..\;$(DXSDK_DIR)Include;..\..\ThirdParty\include;..\..\ThirdParty\include\flac_h;C:\Program Files %28x86%29\Visual Leak Detector\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

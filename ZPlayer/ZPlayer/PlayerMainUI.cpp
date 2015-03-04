@@ -38,6 +38,8 @@ CControlUI* CPlayerMainUI::CreateControl(LPCTSTR pstrClass)
 
 LRESULT CPlayerMainUI::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	LRESULT lRes = S_OK;
+
 	bool handled = false;
 	switch (uMsg)
 	{
@@ -53,14 +55,11 @@ LRESULT CPlayerMainUI::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}break;
 	default:break;
 	}
-	if (!handled)
+	if (!handled && !m_PaintManager.MessageHandler(uMsg, wParam, lParam, lRes))
 	{
 		return WindowImplBase::HandleMessage(uMsg, wParam, lParam);
 	}
-	else
-	{
-		return S_OK;
-	}
+	return lRes;
 }
 
 void CPlayerMainUI::Notify(TNotifyUI& msg)

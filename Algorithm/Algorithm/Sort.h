@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "Random.h"
 #include "MergeSort.h"
+#include "HeapSort.h"
 
 namespace veda
 {
@@ -113,6 +114,19 @@ namespace veda
 			std::swap(arr[i], arr[r]);
 		}
 	}
+
+	template <class T, class _Pred>
+	void heapSort(T& arr, size_t s, size_t length, _Pred _pred)
+	{
+
+	}
+
+	template <class T>
+	void heapSort(T& arr, size_t s, size_t length)
+	{
+		heapSort(arr, s, length, std::less<>());
+	}
+
 
 
 	template <class T, class _Pred>

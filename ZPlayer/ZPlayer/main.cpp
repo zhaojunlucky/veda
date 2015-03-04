@@ -23,9 +23,8 @@ using namespace veda;
 #include <string>
 #include <hash_map>
 
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>　　　　　　//msdn里面的例子加了该头文件
-#include <crtdbg.h>
+#include <vld.h>
+#pragma comment(lib,"vld.lib")
 
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {

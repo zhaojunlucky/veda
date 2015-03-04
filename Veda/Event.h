@@ -7,7 +7,7 @@
 namespace veda
 {
 	template <typename E>
-	class VEDA_EXPORT Event
+	class VEDA_EXPORT Event : public Object
 	{
 	public:
 		Event()
@@ -47,6 +47,11 @@ namespace veda
 		{
 
 		}
+		std::function < E >* get()
+		{
+			return &mFunc;
+		}
+
 	private:
 		std::function < E > mFunc;
 	};

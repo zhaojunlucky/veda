@@ -87,6 +87,7 @@
     <ClInclude Include="CompressQF.h" />
     <ClInclude Include="ConvexHull.h" />
     <ClInclude Include="DataTypes.h" />
+    <ClInclude Include="HeapSort.h" />
     <ClInclude Include="MathBasic.h" />
     <ClInclude Include="MergeSort.h" />
     <ClInclude Include="Queue.h" />

@@ -111,6 +111,7 @@ void CMusicListCtrl::DoEvent(TEventUI& event)
 		auto node = getFirstListNodeUIFromPoint(event.ptMouse);
 		if (node != NULL)
 		{
+			veda::VEvent e;
 			CMenuWnd* pMenu = new CMenuWnd(mPaintManager.GetPaintWindow());
 			pMenu->MenuClick += VEBind(&CMusicListCtrl::onContextMenu, this);
 			CPoint point = event.ptMouse; 
