@@ -12,7 +12,7 @@ using namespace std;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	veda::Vector<int> test;
+	/*veda::Vector<int> test;
 	test.add(1);
 	test.add(2);
 
@@ -34,7 +34,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	testStringFindAll();
 	cout << "Reverse find testing" << endl;
 	testStringRFind();
-	testStringRFindAll();
+	testStringRFindAll();*/
+
+	testHeapSort();
 
 	system("PAUSE");
 	return 0;

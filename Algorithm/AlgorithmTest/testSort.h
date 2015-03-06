@@ -80,3 +80,14 @@ void testMergeSort()
 	cout << "check sort:" << (check(arr, 0, arr.length()) ? "true" : "false") << endl;
 	output(arr);
 }
+
+void testHeapSort()
+{
+	Array<int> arr(10);
+	randomData(arr);
+	cout << "heap:" << endl;
+	output(arr);
+	heapSort(arr, 0, arr.length());
+	cout << "heap sort:" << (check(arr, 0, arr.length()) ? "true" : "false") << endl;
+	output(arr);
+}

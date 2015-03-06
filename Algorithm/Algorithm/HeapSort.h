@@ -9,17 +9,45 @@ namespace veda
 
 	size_t left(size_t s, size_t i)
 	{
-		return (i - s) * 2 + s + 1;
+		return (i != s ? (i - s) : 0) * 2 + s + 1;
 	}
 
 	size_t right(size_t s, size_t i)
 	{
-		return (i - s) * 2 + s + 2;
+		return (i != s ? (i - s) : 0) * 2 + s + 2;
 	}
 
 	template <class T, class _Pred>
-	void buildHead(T& arr, size_t s )
+	void heapAdjust(T& arr, size_t s, size_t length, size_t i, _Pred _pred)
 	{
+		auto l = left(s, i);
+		auto r = right(s, i);
+		auto max = i;
 
+		if (l < length && !_pred(arr[i], arr[l]))
+		{
+			max = l;
+		}
+
+		if (r < length && !_pred(arr[max], arr[r]))
+		{
+			max = r;
+		}
+		if (max != i)
+		{
+			std::swap(arr[i], arr[max]);
+			heapAdjust(arr, s, length, max, _pred);
+		}
+
+	}
+
+	template <class T, class _Pred>
+	void buildHeap(T& arr, size_t s, size_t length, _Pred _pred)
+	{
+		auto i = length / 2 - 1;
+		do
+		{
+			heapAdjust(arr, s, length, i, _pred);
+		} while (i-- != 0);
 	}
 }
