@@ -78,12 +78,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ALCommon.h" />
     <ClInclude Include="Algorithm.h" />
     <ClInclude Include="Array.h" />
     <ClInclude Include="ArrayVisitor.h" />
     <ClInclude Include="BinarySearch.h" />
     <ClInclude Include="BoyerMoore.h" />
-    <ClInclude Include="common.h" />
     <ClInclude Include="CompressQF.h" />
     <ClInclude Include="ConvexHull.h" />
     <ClInclude Include="DataTypes.h" />

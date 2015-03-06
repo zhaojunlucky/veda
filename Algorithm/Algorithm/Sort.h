@@ -127,7 +127,34 @@ namespace veda
 		heapSort(arr, s, length, std::less<>());
 	}
 
+	
+	template <class T, class _Pred>
+	/*
+	  sort 5 numbers within 7 times comparation
+	  arr the array to be sorted
+	  s the start index
+	 */
+	void sort5(T& arr, size_t s, _Pred _pred)
+	{
+		size_t a = s;
+		size_t b = s + 1;
+		size_t c = s + 2;
+		size_t d = s + 3;
+		size_t e = s + 4;
 
+		
+		
+	}
+
+	template <class T>
+	/*
+	 sort 5 numbers within 7 times comparation
+	 s start index
+	*/
+	void sort5(T& arr, size_t s)
+	{
+		sort5(arr, s, std::less<>());
+	}
 
 	template <class T, class _Pred>
 	bool check(const T&arr, size_t s, size_t length, _Pred _pred)
