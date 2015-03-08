@@ -24,21 +24,21 @@ namespace veda
 		auto r = right(s, i);
 		auto max = i;
 
-		if (l < length && !_pred(arr[i], arr[l]))
+		if (l < length && _pred(arr[i] , arr[l]))
 		{
 			max = l;
 		}
 
-		if (r < length && !_pred(arr[max], arr[r]))
+		if (r < length && _pred(arr[max], arr[r]))
 		{
 			max = r;
 		}
+
 		if (max != i)
 		{
 			std::swap(arr[i], arr[max]);
 			heapAdjust(arr, s, length, max, _pred);
 		}
-
 	}
 
 	template <class T, class _Pred>

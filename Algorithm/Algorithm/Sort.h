@@ -119,11 +119,12 @@ namespace veda
 	void heapSort(T& arr, size_t s, size_t length, _Pred _pred)
 	{
 		buildHeap(arr, s, length, _pred);
-		for (auto i = length - 1; i >= 1; i--)
+		auto i = length - 1;
+		do
 		{
 			std::swap(arr[i], arr[s]);
-			heapAdjust(arr, s, length, i, _pred);
-		}
+			heapAdjust(arr, s, i, 0, _pred);
+		} while (i-- != 0);
 	}
 
 	template <class T>
