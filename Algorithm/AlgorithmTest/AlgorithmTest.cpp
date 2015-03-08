@@ -9,9 +9,20 @@ using namespace std;
 #include "testSort.h"
 #include "testStringFind.h"
 #include <Vector.h>
+#include <Asserts.h>
+#include <iostream>
+
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	try
+	{
+		veda::Assert<wchar_t>::isTrue(false, L"error message≤‚ ‘");
+	}
+	catch ( veda::AssertException<wchar_t>& err)
+	{
+		std::wcout << L"error occured:" << err.getMessage() << endl;
+	}
 	/*veda::Vector<int> test;
 	test.add(1);
 	test.add(2);

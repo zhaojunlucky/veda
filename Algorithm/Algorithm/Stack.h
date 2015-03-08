@@ -113,7 +113,7 @@ namespace veda
 		{
 			if (isEmpty())
 			{
-				throw "stack is empty.";
+				throw L"stack is empty.";
 			}
 			value_type v = data[data.getLength()-1];
 			data.removeAt(data.getLength() - 1);

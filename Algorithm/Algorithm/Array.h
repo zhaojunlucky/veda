@@ -1,6 +1,6 @@
 #pragma once
-#include <assert.h>
 #include <iterator>
+#include <assert.h>
 #include "ALCommon.h"
 
 namespace veda

@@ -82,6 +82,8 @@
     <ClInclude Include="Algorithm.h" />
     <ClInclude Include="Array.h" />
     <ClInclude Include="ArrayVisitor.h" />
+    <ClInclude Include="AssertException.h" />
+    <ClInclude Include="Asserts.h" />
     <ClInclude Include="BinarySearch.h" />
     <ClInclude Include="BoyerMoore.h" />
     <ClInclude Include="CompressQF.h" />

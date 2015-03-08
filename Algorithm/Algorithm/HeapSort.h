@@ -4,7 +4,7 @@ namespace veda
 {
 	size_t parent(size_t s, size_t i)
 	{
-		return floor((i - s - 1) / 2);
+		return (size_t)floor((i - s - 1) / 2);
 	}
 
 	size_t left(size_t s, size_t i)
