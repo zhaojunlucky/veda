@@ -11,7 +11,7 @@ namespace veda
 	class Assert
 	{
 	public:
-		static void isTrue(bool expression, const T* errMessage) //throw AssertException<T>
+		void isTrue(bool expression, const T* errMessage) //throw AssertException<T>
 		{
 			if (!expression && errMessage)
 			{

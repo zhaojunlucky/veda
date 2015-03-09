@@ -12,16 +12,16 @@ using namespace std;
 #include <Asserts.h>
 #include <iostream>
 
-
 int _tmain(int argc, _TCHAR* argv[])
 {
 	try
 	{
-		veda::Assert<wchar_t>::isTrue(false, L"error message≤‚ ‘");
+		veda::Assert<wchar_t> assert;
+		assert.isTrue(false, L"error message≤‚ ‘");
 	}
-	catch ( veda::AssertException<wchar_t>& err)
+	catch (...)
 	{
-		std::wcout << L"error occured:" << err.getMessage() << endl;
+		
 	}
 	/*veda::Vector<int> test;
 	test.add(1);

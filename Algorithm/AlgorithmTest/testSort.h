@@ -83,18 +83,8 @@ void testMergeSort()
 
 void testHeapSort()
 {
-	Array<int> arr(10);
-	//randomData(arr);
-	arr[0] = 28390;
-	arr[1] = 30090;
-	arr[2] = 7075;
-	arr[3] = 5564;
-	arr[4] = 21235;
-	arr[5] = 1717;
-	arr[6] = 8040;
-	arr[7] = 5847;
-	arr[8] = 5032;
-	arr[9] = 15564;
+	Array<int> arr(3);
+	randomData(arr);
 	cout << "heap:" << endl;
 	output(arr);
 	heapSort(arr, 0, arr.length());

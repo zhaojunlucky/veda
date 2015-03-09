@@ -18,6 +18,10 @@ namespace veda
 	}
 
 	template <class T, class _Pred>
+	/*
+	  for ascending order, _pred should be std::less, and the heap should be big root heap, this is the default setting
+	  for descending order, it should be small root heap
+	 */
 	void heapAdjust(T& arr, size_t s, size_t length, size_t i, _Pred _pred)
 	{
 		auto l = left(s, i);
@@ -44,10 +48,13 @@ namespace veda
 	template <class T, class _Pred>
 	void buildHeap(T& arr, size_t s, size_t length, _Pred _pred)
 	{
-		auto i = length / 2 - 1;
-		do
+		if (length >= 2)
 		{
-			heapAdjust(arr, s, length, i, _pred);
-		} while (i-- != 0);
+			auto i = length / 2 - 1;
+			do
+			{
+				heapAdjust(arr, s, length, i, _pred);
+			} while (i-- != 0);
+		}
 	}
 }

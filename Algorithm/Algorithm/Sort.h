@@ -118,13 +118,16 @@ namespace veda
 	template <class T, class _Pred>
 	void heapSort(T& arr, size_t s, size_t length, _Pred _pred)
 	{
-		buildHeap(arr, s, length, _pred);
-		auto i = length - 1;
-		do
+		if (length > 1)
 		{
-			std::swap(arr[i], arr[s]);
-			heapAdjust(arr, s, i, 0, _pred);
-		} while (i-- != 0);
+			buildHeap(arr, s, length, _pred);
+			auto i = length - 1;
+			do
+			{
+				std::swap(arr[i], arr[s]);
+				heapAdjust(arr, s, i, 0, _pred);
+			} while (i-- != 0);
+		}
 	}
 
 	template <class T>
