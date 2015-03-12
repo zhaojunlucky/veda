@@ -4,18 +4,21 @@
 namespace veda
 {
 	
-	template <class T = wchar_t>
+	template <class T>
 	/*
 	T must be char type or wchar_t type
 	*/
 	class Assert
 	{
+		
 	public:
-		void isTrue(bool expression, const T* errMessage) //throw AssertException<T>
+		typedef AssertException<T> _AssertException;
+		//throw AssertException<T>
+		void isTrue(bool expression, const T* errMessage) 
 		{
 			if (!expression && errMessage)
 			{
-				throw AssertException<T>(errMessage);
+				throw _AssertException(errMessage);
 			}
 		}
 	};

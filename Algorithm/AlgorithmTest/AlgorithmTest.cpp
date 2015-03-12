@@ -17,11 +17,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	try
 	{
 		veda::Assert<wchar_t> assert;
-		assert.isTrue(false, L"error message≤‚ ‘");
+		assert.isTrue(false, L"error≤‚ ‘ message");
 	}
-	catch (...)
+	catch (veda::Assert<wchar_t>::_AssertException & e)
 	{
-		
+		std::wcout << e.getMessage() << std::endl;
+		std::wcout << std::endl;
 	}
 	/*veda::Vector<int> test;
 	test.add(1);

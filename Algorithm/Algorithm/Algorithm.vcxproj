@@ -99,6 +99,7 @@
     <ClInclude Include="Sort.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="StringFind.h" />
+    <ClInclude Include="TreeNode.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="WeightQF.h" />
     <ClInclude Include="UF.h" />
