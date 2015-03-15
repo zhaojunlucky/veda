@@ -11,9 +11,18 @@ using namespace std;
 #include <Vector.h>
 #include <Asserts.h>
 #include <iostream>
+#include <VarTemplate.h>
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	std::wcout.imbue(locale(locale(), "", LC_CTYPE));
+	varSize(L"hello", L"world", L"!");
+	std::cout << "print1:" << endl;
+	print(L"hello", L"world", L"!");
+	std::cout << endl;
+	
+	std::cout << "print2:"<<endl;
+	print2(L"hello", L"world", L"!");
 	try
 	{
 		veda::Assert<wchar_t> assert;
@@ -21,7 +30,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 	catch (veda::Assert<wchar_t>::_AssertException & e)
 	{
-		std::wcout << e.getMessage() << std::endl;
+		std::wcout << L"´íÎó²âÊÔ£º" << e.getMessage() << std::endl;
 		std::wcout << std::endl;
 	}
 	/*veda::Vector<int> test;
