@@ -23,9 +23,6 @@ using namespace veda;
 #include <string>
 #include <hash_map>
 
-#include <vld.h>
-#pragma comment(lib,"vld.lib")
-
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
