@@ -167,9 +167,10 @@ BOOL CMenuWnd::Receive(ContextMenuParam param)
 	default:
 		break;
 	}
-	if (param.isMenuClick && MenuClick.fireable())
+	if (param.isMenuClick)
 	{
-		MenuClick()(param.sender, &param.menuEventArgs);
+		//MenuClick()(param.sender, &param.menuEventArgs);
+		ev.fire(param.sender, &param.menuEventArgs);
 	}
 	return TRUE;
 }

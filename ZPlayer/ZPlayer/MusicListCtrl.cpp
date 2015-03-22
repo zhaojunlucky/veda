@@ -115,8 +115,10 @@ void CMusicListCtrl::DoEvent(TEventUI& event)
 			auto p = VEBind(&CMusicListCtrl::onContextMenu, this);
 			CMenuWnd* pMenu = new CMenuWnd(mPaintManager.GetPaintWindow());
 			
-			pMenu->MenuClick += std::move(p);//VEBind(&CMusicListCtrl::onContextMenu, this);
+			//pMenu->MenuClick += std::move(p);//VEBind(&CMusicListCtrl::onContextMenu, this);
 			//pMenu->MenuClick.attach( VEBind(&CMusicListCtrl::onContextMenu, this));
+			//hook(&pMenu->ev, &CMusicListCtrl::onContextMenu);
+			__hook(&__Event::trigger, &pMenu->ev, &CMusicListCtrl::onContextMenu);
 			CPoint point = event.ptMouse; 
 			ClientToScreen(mPaintManager.GetPaintWindow(), &point);
 			pMenu->Init(NULL, L"ui\\menu\\menutest.xml", _T("xml"), point);

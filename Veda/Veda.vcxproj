@@ -95,6 +95,7 @@
     <ClInclude Include="LoggerBase.h" />
     <ClInclude Include="LoggerManager.h" />
     <ClInclude Include="LoggerWriter.h" />
+    <ClInclude Include="NativeEvent.h" />
     <ClInclude Include="NetException.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PathUtil.h" />

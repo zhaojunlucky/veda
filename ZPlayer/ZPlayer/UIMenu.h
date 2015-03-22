@@ -5,6 +5,7 @@
 #pragma once
 #endif
 #include <Event.h>
+#include <NativeEvent.h>
 #include <ZString.h>
 
 #include "observer_impl_base.hpp"
@@ -113,7 +114,7 @@ public:
     CMenuUI* m_pLayout;
 
 	veda::VEvent MenuClick;
-	
+	veda::__Event ev;
 };
 
 class CListContainerElementUI;
