@@ -112,8 +112,11 @@ void CMusicListCtrl::DoEvent(TEventUI& event)
 		if (node != NULL)
 		{
 			veda::VEvent e;
+			auto p = VEBind(&CMusicListCtrl::onContextMenu, this);
 			CMenuWnd* pMenu = new CMenuWnd(mPaintManager.GetPaintWindow());
-			pMenu->MenuClick += VEBind(&CMusicListCtrl::onContextMenu, this);
+			
+			pMenu->MenuClick += std::move(p);//VEBind(&CMusicListCtrl::onContextMenu, this);
+			//pMenu->MenuClick.attach( VEBind(&CMusicListCtrl::onContextMenu, this));
 			CPoint point = event.ptMouse; 
 			ClientToScreen(mPaintManager.GetPaintWindow(), &point);
 			pMenu->Init(NULL, L"ui\\menu\\menutest.xml", _T("xml"), point);

@@ -12,12 +12,13 @@ namespace veda
 	public:
 		Event()
 		{
-			mFunc = std::bind(&Event::onEvent, this, std::placeholders::_1, std::placeholders::_2);
+			//mFunc = std::bind(&Event::onEvent, this, std::placeholders::_1, std::placeholders::_2);
 		}
 		void attach (std::function<E>&& func)
 		{
 			mFunc = std::move(func);
 		}
+		
 		void detach()
 		{
 			mFunc.swap();
