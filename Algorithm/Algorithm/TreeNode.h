@@ -6,6 +6,12 @@ namespace veda
 	{
 		T data;
 
+		BaseTreeNode(){}
+		BaseTreeNode(T data)
+		{
+			this->data = data;
+		}
+
 		bool operator==(const BaseTreeNode& other)
 		{
 			return (this == &other || this->data == other.data);
@@ -19,6 +25,12 @@ namespace veda
 		BinaryTreeNode* right;
 
 		BinaryTreeNode()
+		{
+			left = right = 0;
+		}
+
+		BinaryTreeNode(T data)
+			:BaseTreeNode(data)
 		{
 			left = right = 0;
 		}

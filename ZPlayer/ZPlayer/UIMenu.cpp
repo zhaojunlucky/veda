@@ -187,7 +187,7 @@ void CMenuWnd::Init(CMenuElementUI* pOwner, STRINGorID xml, LPCTSTR pSkinType, P
 	m_xml = xml;
 
 	s_context_menu_observer.AddReceiver(this);
-
+	
 	Create((m_pOwner == NULL) ? m_hParent : m_pOwner->GetManager()->GetPaintWindow(), NULL, WS_POPUP, WS_EX_TOOLWINDOW | WS_EX_TOPMOST, CDuiRect());
     // HACK: Don't deselect the parent's caption
     HWND hWndParent = m_hWnd;
@@ -447,7 +447,7 @@ LRESULT CMenuWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 
 		if( !bInMenuWindowList ) {
-			param.wParam = 1;
+			//param.wParam = 1;
 			s_context_menu_observer.RBroadcast(param);
 
 			return 0;

@@ -111,8 +111,8 @@ void CMusicListCtrl::DoEvent(TEventUI& event)
 		auto node = getFirstListNodeUIFromPoint(event.ptMouse);
 		if (node != NULL)
 		{
-			veda::VEvent e;
-			auto p = VEBind(&CMusicListCtrl::onContextMenu, this);
+			//veda::VEvent e;
+			//auto p = VEBind(&CMusicListCtrl::onContextMenu, this);
 			CMenuWnd* pMenu = new CMenuWnd(mPaintManager.GetPaintWindow());
 			
 			//pMenu->MenuClick += std::move(p);//VEBind(&CMusicListCtrl::onContextMenu, this);
@@ -122,7 +122,7 @@ void CMusicListCtrl::DoEvent(TEventUI& event)
 			CPoint point = event.ptMouse; 
 			ClientToScreen(mPaintManager.GetPaintWindow(), &point);
 			pMenu->Init(NULL, L"ui\\menu\\menutest.xml", _T("xml"), point);
-
+			
 		}
 	}
 	if (event.Type == UIEVENT_BUTTONDOWN && IsEnabled())

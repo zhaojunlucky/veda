@@ -5,5 +5,15 @@
   <Menu>
     <MenuElement text="Properties" name="Properties">
     </MenuElement>
+     <MenuElement text="Properties" name="Properties1">
+    </MenuElement>
+     <MenuElement text="Properties" name="Properties2">
+    </MenuElement>
+     <MenuElement text="Properties" name="Properties3">
+    </MenuElement>
+     <MenuElement text="Properties" name="Properties4">
+    </MenuElement>
+     <MenuElement text="Properties" name="Properties5">
+    </MenuElement>
   </Menu>
 </Window>
