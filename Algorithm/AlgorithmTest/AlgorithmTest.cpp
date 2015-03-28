@@ -12,7 +12,8 @@ using namespace std;
 #include <Asserts.h>
 #include <iostream>
 #include <VarTemplate.h>
-
+#include <Fibonacci.h>
+using namespace al;
 int _tmain(int argc, _TCHAR* argv[])
 {
 	std::wcout.imbue(locale(locale(), "", LC_CTYPE));
@@ -33,6 +34,12 @@ int _tmain(int argc, _TCHAR* argv[])
 		std::wcout << L"´íÎó²âÊÔ£º" << e.getMessage() << std::endl;
 		std::wcout << std::endl;
 	}
+
+	Fibonacci fi;
+	std::wcout << L"f(0)=" << fi.fibonacci(0)<<endl;
+	std::wcout << L"f(1)=" << fi.fibonacci(1) << endl;
+	std::wcout << L"f(2)=" << fi.fibonacci(2) << endl;
+	std::wcout << L"f(30)=" << fi.fibonacci(30) << endl;
 	/*veda::Vector<int> test;
 	test.add(1);
 	test.add(2);

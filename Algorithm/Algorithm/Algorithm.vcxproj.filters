@@ -16,6 +16,12 @@
     <Filter Include="template">
       <UniqueIdentifier>{00b90c92-0c52-4659-b1c0-073600bf8986}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tree">
+      <UniqueIdentifier>{1a609d73-ccea-4574-bb8c-f98f892eba07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DP">
+      <UniqueIdentifier>{d0da8faa-9861-4a96-97f0-685d93eeac22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -99,6 +105,9 @@
     <ClInclude Include="VarTemplate.h">
       <Filter>template</Filter>
     </ClInclude>
+    <ClInclude Include="Fibonacci.h">
+      <Filter>DP</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UF.cpp">
@@ -118,6 +127,9 @@
     </ClCompile>
     <ClCompile Include="Random.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Fibonacci.cpp">
+      <Filter>DP</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

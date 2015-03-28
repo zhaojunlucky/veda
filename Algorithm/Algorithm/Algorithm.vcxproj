@@ -89,6 +89,7 @@
     <ClInclude Include="CompressQF.h" />
     <ClInclude Include="ConvexHull.h" />
     <ClInclude Include="DataTypes.h" />
+    <ClInclude Include="Fibonacci.h" />
     <ClInclude Include="HeapSort.h" />
     <ClInclude Include="MathBasic.h" />
     <ClInclude Include="MergeSort.h" />
@@ -107,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CompressQF.cpp" />
+    <ClCompile Include="Fibonacci.cpp" />
     <ClCompile Include="Prime.cpp" />
     <ClCompile Include="QF.cpp" />
     <ClCompile Include="Random.cpp" />
