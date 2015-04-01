@@ -85,6 +85,7 @@
     <ClInclude Include="AssertException.h" />
     <ClInclude Include="Asserts.h" />
     <ClInclude Include="BinarySearch.h" />
+    <ClInclude Include="BinaryTree.h" />
     <ClInclude Include="BoyerMoore.h" />
     <ClInclude Include="CompressQF.h" />
     <ClInclude Include="ConvexHull.h" />

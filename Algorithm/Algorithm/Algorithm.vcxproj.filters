@@ -108,6 +108,9 @@
     <ClInclude Include="Fibonacci.h">
       <Filter>DP</Filter>
     </ClInclude>
+    <ClInclude Include="BinaryTree.h">
+      <Filter>Tree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UF.cpp">
