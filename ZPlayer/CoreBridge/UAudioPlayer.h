@@ -3,11 +3,13 @@
 using namespace audio;
 using namespace audio::player;
 
-public ref class UAudioPlayer
+namespace CoreBridge 
 {
-public:
-	UAudioPlayer();
-private:
-	AudioPlayer* mPlayer;
-};
-
+	public ref class UAudioPlayer
+	{
+	public:
+		UAudioPlayer();
+	private:
+		AudioPlayer* mPlayer;
+	};
+}

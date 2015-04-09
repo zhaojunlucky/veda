@@ -1,8 +1,10 @@
 #include "stdafx.h"
 #include "UAudioPlayer.h"
 
-
-UAudioPlayer::UAudioPlayer()
+namespace CoreBridge
 {
-	mPlayer = new AudioPlayer;
+	UAudioPlayer::UAudioPlayer()
+	{
+		mPlayer = new AudioPlayer;
+	}
 }
