@@ -4,4 +4,5 @@
 
 UAudioPlayer::UAudioPlayer()
 {
+	mPlayer = new AudioPlayer;
 }

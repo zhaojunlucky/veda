@@ -1,9 +1,13 @@
 #pragma once
+#include <AudioPlayer.h>
+using namespace audio;
+using namespace audio::player;
 
-class AudioPlayer;
 public ref class UAudioPlayer
 {
 public:
 	UAudioPlayer();
+private:
+	AudioPlayer* mPlayer;
 };
 
