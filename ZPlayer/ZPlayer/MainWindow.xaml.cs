@@ -27,6 +27,12 @@ namespace ZPlayer
         {
             InitializeComponent();
             player = new UAudioPlayer();
+
+        }
+
+        public  void test()
+        {
+        
         }
     }
 }

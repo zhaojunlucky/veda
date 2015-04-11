@@ -78,10 +78,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core.h" />
     <ClInclude Include="CoreBridge.h" />
+    <ClInclude Include="PlayerEvent.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Stdafx.h" />
     <ClInclude Include="UAudioPlayer.h" />
+    <ClInclude Include="ZPlayerState.h" />
+    <ClInclude Include="ZWaveInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
@@ -91,6 +95,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="UAudioPlayer.cpp" />
+    <ClCompile Include="ZPlayerState.cpp" />
+    <ClCompile Include="ZWaveInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
