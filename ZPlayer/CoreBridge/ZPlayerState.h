@@ -1,9 +1,15 @@
 #pragma once
 namespace CoreBridge
 {
-	ref class ZPlayerState
+	public ref class ZPlayerState
 	{
 	public:
 		ZPlayerState();
+
+		bool isPlaying;
+		bool isPause;
+		bool isStop;
+		bool isMute;
+		int volume;
 	};
 }

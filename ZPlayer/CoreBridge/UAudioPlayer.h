@@ -3,6 +3,7 @@
 #include "PlayerEvent.h"
 #include "ZWaveInfo.h"
 #include "ZPlayerState.h"
+#include "Decoder.h"
 
 using namespace audio;
 using namespace audio::player;
@@ -29,27 +30,30 @@ namespace CoreBridge
 		int seek(float duration);
 		float getPlayDuration();
 		float getCurrentPlayStart();
+		// the volumn range is [0,10000]
 		int setVolumn(int vol);
 		int setMute(bool mute);
-		ZWaveInfo^ GetWaveInfo();
-		ZPlayerState^ GetPlayerState();
+		ZWaveInfo^ getWaveInfo();
+		ZPlayerState^ getPlayerState();
 
 	private:
 		static void playerCallback(void* instance, PlayerStateMessage mes, void *client, WPARAM w, LPARAM l);
 	private:
 		AudioPlayer* mPlayer;
+		Decoder* mDecoder;
 		InvokePlayerCallback^ fp;
 		GCHandle gch;
 		gcroot<UAudioPlayer^>* pointer;
+
 	public:
-		event onPlay^ OnPlay;
-		event onPause^ OnPause;
-		event onStop^ OnStop;
-		event onUserStop^ OnUserStop;
-		event onResume^ OnResume;
-		event onFileOpen^ OnFileOpen;
-		event onMute^ OnMute;
-		event onVolume^ OnVolume;
-		event onSeek^ OnSeek;
+		onPlay^ OnPlay;
+		onPause^ OnPause;
+		onStop^ OnStop;
+		onUserStop^ OnUserStop;
+		onResume^ OnResume;
+		onFileOpen^ OnFileOpen;
+		onMute^ OnMute;
+		onVolume^ OnVolume;
+		onSeek^ OnSeek;
 	};
 }
