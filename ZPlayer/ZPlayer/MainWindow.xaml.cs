@@ -31,7 +31,7 @@ namespace ZPlayer
             player.open(@"F:\Documents\Musics\Normal\megan nicole - escape.mp3");
             player.setVolumn(5000);
             player.setMute(false);
-            player.play();
+            //player.play();
         }
 
         void player_OnMute(bool mute)
