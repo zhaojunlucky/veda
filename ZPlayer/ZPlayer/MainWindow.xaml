@@ -1,7 +1,25 @@
-﻿<Controls:MetroWindow x:Class="ZPlayer.MainWindow"
+﻿<Controls:MetroWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid/>
+        xmlns:UI="clr-namespace:ZPlayer.UI" x:Class="ZPlayer.MainWindow"
+        Title="ZPlayer" Height="450" Width="800" Background="#FFD84F4F">
+    <Grid>
+        <StackPanel Height="450" Margin="0" Width="800">
+            <TabControl Height="800">
+                <TabItem Header="Now Playing">
+                    <Grid Background="#FFE5E5E5"/>
+                </TabItem>
+                <TabItem Header="Library">
+                    <Grid Background="#FFE5E5E5"/>
+                </TabItem>
+                <TabItem Header="Setting">
+                    <Grid Background="#FFE5E5E5"/>
+                </TabItem>
+                <TabItem Header="About">
+                    <Grid Background="#FFE5E5E5"/>
+                </TabItem>
+            </TabControl>
+        </StackPanel>
+    </Grid>
 </Controls:MetroWindow>
