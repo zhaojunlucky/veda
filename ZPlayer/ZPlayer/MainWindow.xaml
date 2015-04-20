@@ -3,12 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:UI="clr-namespace:ZPlayer.UI" x:Class="ZPlayer.MainWindow"
-        Title="ZPlayer" Height="450" Width="800" Background="#FFD84F4F">
+        Title="ZPlayer" Height="450" Width="800" Background="#FFD84F4F" WindowStyle="None" AllowsTransparency="True">
     <Grid>
         <StackPanel Height="450" Margin="0" Width="800">
             <TabControl Height="800">
                 <TabItem Header="Now Playing">
-                    <Grid Background="#FFE5E5E5"/>
+                    <Grid Background="#FFE5E5E5">
+                        <UI:PlayControlPanel HorizontalAlignment="Left" Height="100" Margin="24,274,0,0" VerticalAlignment="Top" Width="760"/>
+                    </Grid>
                 </TabItem>
                 <TabItem Header="Library">
                     <Grid Background="#FFE5E5E5"/>
