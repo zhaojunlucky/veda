@@ -134,6 +134,10 @@
       <Project>{39d7e1aa-8e3d-4f58-8691-675c57e10772}</Project>
       <Name>CoreBridge</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{106bfc68-b2d7-4b99-b9d6-57df9a16a752}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

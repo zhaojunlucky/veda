@@ -6,14 +6,18 @@ using System.Threading.Tasks;
 
 namespace Utility.Cue
 {
-    public class CueItem
+    public class CueTrack
     {
         private String track = "";
         private String title = "";
         private String performer = "";
-        private String index00 = "";
-        private String index01 = "";
-
+        private CueIndex index00 = null;
+        private CueIndex index01 = null;
+       
+        public CueTrack()
+        {
+        }
+        
         public String Track
         {
             set
@@ -48,7 +52,7 @@ namespace Utility.Cue
                 return performer;
             }
         }
-        public String Index00
+        public CueIndex Index00
         {
             set
             {
@@ -59,7 +63,7 @@ namespace Utility.Cue
                 return index00;
             }
         }
-        public String Index01
+        public CueIndex Index01
         {
             set
             {
