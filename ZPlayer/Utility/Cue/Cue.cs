@@ -10,8 +10,6 @@ namespace Utility.Cue
 {
     public class Cue
     {
-        private String performer = "";
-        private String title = "";
 
         private List<CueFile> cueFiles = new List<CueFile>();
         private ILog logger = LogManager.GetLogger(typeof(Cue));
@@ -30,8 +28,8 @@ namespace Utility.Cue
         private void clear()
         {
             cueFiles.Clear();
-            performer = "";
-            title = "";
+            Performer = "";
+            Title = "";
         }
         public void parse(string cueFile, bool validateFileExists)
         {

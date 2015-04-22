@@ -4,17 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Utility.Cue
+namespace ZPlayer.UI.Controls
 {
-    public class CueFile
+    public class Navigation
     {
-        private String File
+        public string Name
         {
             get;
             set;
         }
 
-        public List<CueTrack> Tracks
+        public string Action
+        {
+            get;
+            set;
+        }
+
+        public Object Tag
         {
             get;
             set;

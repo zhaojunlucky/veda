@@ -26,11 +26,11 @@ namespace ZPlayer
         public MainWindow()
         {
             InitializeComponent();
-            player = new UAudioPlayer();
-            player.OnMute += player_OnMute;
-            player.open(@"F:\Documents\Musics\Normal\megan nicole - escape.mp3");
-            player.setVolumn(5000);
-            player.setMute(false);
+           // player = new UAudioPlayer();
+           // player.OnMute += player_OnMute;
+           //// player.open(@"F:\Documents\Musics\Normal\megan nicole - escape.mp3");
+           // player.setVolumn(5000);
+           // player.setMute(false);
             //player.play();
         }
 

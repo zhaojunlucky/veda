@@ -8,11 +8,6 @@ namespace Utility.Cue
 {
     public class CueIndex
     {
-        private String indexId;
-        private int hour;
-        private int minute;
-        private int second;
-
         public String Id
         {
             get;

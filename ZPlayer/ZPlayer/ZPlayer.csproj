@@ -62,11 +62,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="UI\ButtonImageType.cs" />
-    <Compile Include="UI\ImageButton.xaml.cs">
+    <Compile Include="UI\Controls\ButtonImageType.cs" />
+    <Compile Include="UI\Controls\ImageButton.xaml.cs">
       <DependentUpon>ImageButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\PlayControlPanel.xaml.cs">
+    <Compile Include="UI\Controls\Navigation.cs" />
+    <Compile Include="UI\Controls\NavigationBar.xaml.cs">
+      <DependentUpon>NavigationBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\PlayControlPanel.xaml.cs">
       <DependentUpon>PlayControlPanel.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -85,11 +89,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\ImageButton.xaml">
+    <Page Include="UIStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\PlayControlPanel.xaml">
+    <Page Include="UI\Controls\ImageButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\NavigationBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\PlayControlPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

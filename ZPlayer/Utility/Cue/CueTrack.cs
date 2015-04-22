@@ -7,72 +7,36 @@ using System.Threading.Tasks;
 namespace Utility.Cue
 {
     public class CueTrack
-    {
-        private String track = "";
-        private String title = "";
-        private String performer = "";
-        private CueIndex index00 = null;
-        private CueIndex index01 = null;
-       
+    {  
         public CueTrack()
         {
         }
         
         public String Track
         {
-            set
-            {
-                track = value;
-            }
-            get
-            {
-                return track;
-            }
+            get;
+            set;
         }
 
         public String Title
         {
-            set
-            {
-                title = value;
-            }
-            get
-            {
-                return title;
-            }
+            get;
+            set;
         }
         public String Performer
         {
-            set
-            {
-                performer = value;
-            }
-            get
-            {
-                return performer;
-            }
+            get;
+            set;
         }
         public CueIndex Index00
         {
-            set
-            {
-                index00 = value;
-            }
-            get
-            {
-                return index00;
-            }
+            get;
+            set;
         }
         public CueIndex Index01
         {
-            set
-            {
-                index01 = value;
-            }
-            get
-            {
-                return index01;
-            }
+            get;
+            set;
         }
     }
 }
