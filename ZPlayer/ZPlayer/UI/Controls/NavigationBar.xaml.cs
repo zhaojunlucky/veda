@@ -27,6 +27,7 @@ namespace ZPlayer.UI.Controls
             InitializeComponent();
             addNavigationUI(root,false);
             addNavigationUI(new Navigation { Name = "周杰伦", Action = "周杰伦" }, true);
+            addNavigationUI(new Navigation { Name = "七里香", Action = "七里香" }, true);
         }
 
         public Navigation Root
@@ -58,9 +59,14 @@ namespace ZPlayer.UI.Controls
             tb.Tag = navigation;
             tb.Cursor = Cursors.Hand;
             tb.Foreground = Brushes.Green;
-
+            tb.MouseDown += tb_MouseDown;
             panel.Children.Add(tb);
             this.container.Children.Add(panel);
+        }
+
+        void tb_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("ok!");
         }
 
         private void addSeparatorArrow()
