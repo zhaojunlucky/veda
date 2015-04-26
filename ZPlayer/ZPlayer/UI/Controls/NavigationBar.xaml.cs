@@ -21,13 +21,16 @@ namespace ZPlayer.UI.Controls
     public partial class NavigationBar : UserControl
     {
         private Navigation root = new Navigation { Name = "Home", Action = "home" };
-        LinkedList<Navigation> childs = new LinkedList<Navigation>();
+        private LinkedList<Navigation> childs = new LinkedList<Navigation>();
+        public delegate void NavigateHandler(Navigation nv);
+        public event NavigateHandler NavigateEvent = null;
         public NavigationBar()
         {
             InitializeComponent();
             addNavigationUI(root,false);
-            addNavigationUI(new Navigation { Name = "周杰伦", Action = "周杰伦" }, true);
-            addNavigationUI(new Navigation { Name = "七里香", Action = "七里香" }, true);
+            childs.AddLast(root);
+            //addNavigation(new Navigation { Name = "周杰伦", Action = "周杰伦" });
+            //addNavigation(new Navigation { Name = "七里香", Action = "七里香" });
         }
 
         public Navigation Root
@@ -40,9 +43,8 @@ namespace ZPlayer.UI.Controls
 
         public void addNavigation(Navigation navigation)
         {
-            childs.AddLast(navigation);
             addNavigationUI(navigation, true);
-            
+            childs.AddLast(navigation);
         }
 
         private void addNavigationUI(Navigation navigation, bool addSeparatorBefore)
@@ -55,18 +57,54 @@ namespace ZPlayer.UI.Controls
             panel.Orientation = Orientation.Horizontal;
             TextBlock tb = new TextBlock();
             tb.Text = navigation.Name;
-            tb.FontSize = 14;
+            tb.FontSize = 18;
             tb.Tag = navigation;
-            tb.Cursor = Cursors.Hand;
-            tb.Foreground = Brushes.Green;
-            tb.MouseDown += tb_MouseDown;
+            
+            navigation.Tag = tb;
             panel.Children.Add(tb);
             this.container.Children.Add(panel);
+            if(childs.Last != null)
+            {
+                var tbl = (TextBlock)(childs.Last.Value.Tag);
+                tbl.Cursor = Cursors.Hand;
+                tbl.Foreground = Brushes.Green;
+                tbl.MouseDown += tb_MouseDown;
+            }
         }
 
         void tb_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("ok!");
+            if(sender is TextBlock)
+            {
+                var tb = sender as TextBlock;
+                if(tb != null)
+                {
+                    tb.Cursor = Cursors.Arrow;
+                    tb.MouseDown -= tb_MouseDown;
+                    
+
+                    var nv = tb.Tag as Navigation;
+                    var node = childs.Find(nv);
+                    // click home
+                    var removeNode = node.Next;
+                    tb.Foreground = ((removeNode.Value as Navigation).Tag as TextBlock).Foreground ;
+                    int count = 0;
+                    while (removeNode != null)
+                    {
+                        ++count;
+                        var n = removeNode.Next;
+                        childs.Remove(removeNode);
+                        removeNode = n;
+                    }
+                    count *= 2;
+                    this.container.Children.RemoveRange(this.container.Children.Count - count, count);
+                    if(NavigateEvent != null)
+                    {
+                        nv.Tag = null;
+                        NavigateEvent(nv);
+                    }
+                }
+            }
         }
 
         private void addSeparatorArrow()

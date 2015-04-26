@@ -66,6 +66,7 @@
     <Compile Include="UI\Controls\ImageButton.xaml.cs">
       <DependentUpon>ImageButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controls\LibraryView.cs" />
     <Compile Include="UI\Controls\Navigation.cs" />
     <Compile Include="UI\Controls\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>

@@ -2,15 +2,30 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:UI="clr-namespace:ZPlayer.UI" xmlns:Controls1="clr-namespace:ZPlayer.UI.Controls" x:Class="ZPlayer.MainWindow"
-        Title="ZPlayer" Height="450" Width="800" Background="#FFD84F4F" WindowStyle="None" AllowsTransparency="True">
+        xmlns:UI="clr-namespace:ZPlayer.UI" xmlns:z="clr-namespace:ZPlayer.UI.Controls" x:Class="ZPlayer.MainWindow"
+        Title="ZPlayer" Height="680" Width="1100" Background="#FFD84F4F" WindowStyle="None" AllowsTransparency="True" IsMaxRestoreButtonEnabled="False" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
-        <StackPanel Height="450" Margin="0" Width="800">
-            <TabControl Height="800">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="799*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Height="680" Margin="0" Width="1100" Grid.ColumnSpan="2">
+            <TabControl Height="680">
                 <TabItem Header="Now Playing"/>
                 <TabItem Header="Library">
                     <Grid Background="#FFE5E5E5">
-                        <Controls1:NavigationBar HorizontalAlignment="Left" Height="53" VerticalAlignment="Top" Width="780"/>
+                        <StackPanel Orientation="Vertical">
+
+                        </StackPanel>
+                        <z:NavigationBar HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="1110"/>
+                        <ListView Name="libraryView" Height="588" Margin="0,47,0,0" Width="1110">
+                            <ListView.View>
+                                <z:LibraryView/>
+                            </ListView.View>
+                            <ListView.ItemsSource>
+                                <z:FileCollection />
+                            </ListView.ItemsSource>
+                        </ListView>
                     </Grid>
                 </TabItem>
                 <TabItem Header="Playlist">
